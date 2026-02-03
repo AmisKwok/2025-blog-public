@@ -67,7 +67,7 @@ a 全选骨骼，i 记录当前所有骨骼状态。
 
 在资产浏览器中，可以创建姿势，创建姿势前记得选中所有骨骼，这样就会保留当前骨骼状态到一个姿势。
 
-姿势和动画都会被导入到 threejs，记录成同样的 **AnimiationClip**，只不过姿势是 1 帧的动画。
+动画导入为 threejs 的 **AnimiationClip**。姿势不会被导入，但是容易误操作成单独的动作。
 
 ### 多个动画
 
@@ -80,6 +80,8 @@ a 全选骨骼，i 记录当前所有骨骼状态。
 ### 导入 Web
 
 这里用 **drei** 自带的 **useAnimations**，场景使用 **primitive** 标签，不建议单独使用 skinnedMesh 去单独绘制人物，会丢失动画。
+
+blender 中设置的结束帧范围，对导出的不同动画时常没有关系。
 
 ```tsx
 export function CubeMan() {
