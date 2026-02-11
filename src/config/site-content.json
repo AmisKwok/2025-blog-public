@@ -5,7 +5,7 @@
 		"username": "Amis"
 	},
 	"theme": {
-		"colorBrand": "#2a48f3",
+		"colorBrand": "#7EC9EA",
 		"colorPrimary": "#e6e8e8",
 		"colorSecondary": "#acadae",
 		"colorBrandSecondary": "#51d0b9",
@@ -15,7 +15,11 @@
 		"colorArticle": "#6f6f6f33"
 	},
 	"backgroundColors": [
-		"#16007b"
+		"#9EDA2D",
+		"#E73F6E",
+		"#FBA042",
+		"#2AF5BD",
+		"#DD422E"
 	],
 	"artImages": [
 		{
