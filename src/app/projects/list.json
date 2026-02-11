@@ -2,7 +2,7 @@
 	{
 		"name": "Vibe Music",
 		"year": 1,
-		"image": "blob:https://amisblog.cn/15342049-f5a0-4ee6-855b-065e648b1557",
+		"image": "/images/project/ac9881f8db9513c5.png",
 		"url": "https://github.com/Nikoyaya/vibe-music-app",
 		"description": "基于Flutter开发的跨端音乐引用",
 		"tags": [
