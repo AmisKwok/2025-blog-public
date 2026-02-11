@@ -5,23 +5,24 @@
 		"username": "Amis"
 	},
 	"theme": {
-		"colorBrand": "#4EFCB9",
-		"colorPrimary": "#334f52",
-		"colorSecondary": "#7b888e",
-		"colorBrandSecondary": "#1fc9e7",
-		"colorBg": "#eeeeee",
-		"colorBorder": "#ffffff",
-		"colorCard": "#ffffff66",
-		"colorArticle": "#ffffffcc"
+		"colorBrand": "#AC3EED",
+		"colorPrimary": "#e6e8e8",
+		"colorSecondary": "#acadae",
+		"colorBrandSecondary": "#51d0b9",
+		"colorBg": "#0a051f",
+		"colorBorder": "#8a8a8a5e",
+		"colorCard": "#ffffff0e",
+		"colorArticle": "#6f6f6f33"
 	},
 	"backgroundColors": [
-		"#A55912",
-		"#3ED1DD",
-		"#D38214",
-		"#07EF91",
-		"#231D8E",
-		"#072441",
-		"#8376E4"
+		"#E1D226",
+		"#1042C8",
+		"#D98D7B",
+		"#6E4859",
+		"#175534",
+		"#6965FA",
+		"#F49B64",
+		"#C20CA7"
 	],
 	"artImages": [
 		{
