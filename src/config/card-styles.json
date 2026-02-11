@@ -3,16 +3,16 @@
 		"width": 360,
 		"height": 200,
 		"order": 3,
-		"offsetX": -184,
-		"offsetY": -326,
+		"offsetX": -153,
+		"offsetY": -323,
 		"enabled": true
 	},
 	"hiCard": {
 		"width": 360,
 		"height": 288,
 		"order": 1,
-		"offsetX": -181,
-		"offsetY": -118,
+		"offsetX": -188,
+		"offsetY": -108,
 		"enabled": true
 	},
 	"clockCard": {
@@ -20,8 +20,8 @@
 		"height": 132,
 		"offset": 92,
 		"order": 4,
-		"offsetX": null,
-		"offsetY": null,
+		"offsetX": 260,
+		"offsetY": -219,
 		"enabled": true
 	},
 	"calendarCard": {
@@ -45,8 +45,8 @@
 		"width": 315,
 		"height": 48,
 		"order": 6,
-		"offsetX": -214,
-		"offsetY": 184,
+		"offsetX": -209,
+		"offsetY": 195,
 		"enabled": true
 	},
 	"shareCard": {
@@ -69,8 +69,8 @@
 		"height": 42,
 		"width": 180,
 		"order": 8,
-		"offsetX": 289,
-		"offsetY": -285,
+		"offsetX": 370,
+		"offsetY": -289,
 		"enabled": true
 	},
 	"navCard": {
