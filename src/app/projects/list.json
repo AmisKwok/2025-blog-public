@@ -13,7 +13,7 @@
 	{
 		"name": "Vibe Music Server",
 		"year": 2,
-		"image": "blob:https://amisblog.cn/3ab37f64-6b63-44f1-b6cb-663bfab9e16d",
+		"image": "/images/project/9f40327af19232a6.jpg",
 		"url": "https://github.com/AmisKwok/vibe-music-server",
 		"description": "Java开发的Vibe Music应用的后端",
 		"tags": [
