@@ -1,13 +1,14 @@
 [
   {
-    "slug": "01-01",
-    "title": "Vibe Music App",
+    "slug": "01-02",
+    "title": "Vibe Music Server",
     "tags": [
-      "Flutter"
+      "Java",
+      "SpringBoot3"
     ],
-    "date": "2026-02-12T07:19",
-    "summary": "Vibe Music客户端",
-    "cover": "/blogs/01-01/9f40327af19232a6.jpg",
+    "date": "2026-02-13T17:21",
+    "summary": "Vibe Music Server是为了Vibe Music App提供后端服务而开发的后端系统",
+    "cover": "/blogs/01-02/ac9881f8db9513c5.png",
     "hidden": false,
     "category": "开源"
   }
