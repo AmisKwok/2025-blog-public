@@ -1,9 +1,11 @@
 {
   "title": "Vibe Music App",
-  "tags": [],
+  "tags": [
+    "Flutter"
+  ],
   "date": "2026-02-12T07:19",
   "summary": "Vibe Music客户端",
   "cover": "/blogs/01-01/9f40327af19232a6.jpg",
   "hidden": false,
-  "category": "总结"
+  "category": "开源"
 }
