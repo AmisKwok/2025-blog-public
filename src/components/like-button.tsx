@@ -20,7 +20,7 @@ const API_ENDPOINTS = {
   TOTAL: `${API_HOST}/api/admin/like/total`
 }
 
-export default function LikeButton({ slug = 'yysuni', className }: LikeButtonProps) {
+export default function LikeButton({ slug = 'amis', className }: LikeButtonProps) {
 	slug = BLOG_SLUG_KEY + slug
 	const [liked, setLiked] = useState(false)
 	const [justLiked, setJustLiked] = useState(false)
@@ -129,48 +129,76 @@ export default function LikeButton({ slug = 'yysuni', className }: LikeButtonPro
 	}, [slug, loading])
 
 	return (
-		<motion.button
-			initial={{ opacity: 0, scale: 0.6 }}
-			animate={{ opacity: 1, scale: 1 }}
-			whileHover={{ scale: 1.05 }}
-			whileTap={{ scale: 0.95 }}
-			aria-label='Like this post'
-			onClick={handleLike}
-			className={clsx('card heartbeat-container relative overflow-visible rounded-full p-3', className)}>
-			<AnimatePresence>
-				{particles.map(particle => (
-					<motion.div
-						key={particle.id}
-						className='pointer-events-none absolute inset-0 flex items-center justify-center'
-						initial={{ opacity: 1, scale: 0, x: 0, y: 0 }}
-						animate={{
-							opacity: [1, 1, 0],
-							scale: [0, 1.2, 0.8],
-							x: particle.x,
-							y: particle.y
-						}}
-						exit={{ opacity: 0 }}
-						transition={{ duration: 0.8, ease: 'easeOut' }}>
-						<Heart className='fill-rose-400 text-rose-400' size={12} />
-					</motion.div>
-				))}
-			</AnimatePresence>
-
-			{typeof count === 'number' && (
-				<motion.span
-					initial={{ scale: 0.4 }}
-					animate={{ scale: 1 }}
-					className={cn(
-						'absolute -top-2 left-9 min-w-6 rounded-full px-1.5 py-1 text-center text-xs text-white tabular-nums',
-						liked ? 'bg-rose-400' : 'bg-gray-300'
-					)}
-				>
-					{count}
-				</motion.span>
-			)}
-			<motion.div animate={justLiked ? { scale: [1, 1.4, 1], rotate: [0, -10, 10, 0] } : {}} transition={{ duration: 0.6, ease: 'easeOut' }}>
-				<Heart className={clsx('heartbeat', liked ? 'fill-rose-400 text-rose-400' : 'fill-rose-200 text-rose-200')} size={28} />
+		<div className='relative inline-block'>
+			{/* 聊天气泡提示 */}
+			<motion.div
+				className='absolute top-[-48px] left-1/2 transform -translate-x-[60%] z-10 max-w-sm w-40 rounded-[40px] bg-card border px-4 py-2'
+				style={{ boxShadow: '0 40px 50px -32px rgba(0, 0, 0, 0.05)', backdropFilter: 'blur(4px)' }}
+				initial={{ opacity: 0, y: 10, scale: 0.8 }}
+				animate={{ opacity: 1, y: 0, scale: 1 }}
+				transition={{ delay: 1, duration: 0.5 }}
+			>
+				<div className='text-sm font-medium text-gray-800 text-center'>
+					麻烦点个赞吧～ 😊
+				</div>
+				{/* 气泡尾巴 - 改进版 */}
+				<div className='absolute -bottom-2 left-[40%] transform -translate-x-1/2'>
+					<div className='h-4 w-4 bg-transparent'>
+						<div className='relative h-full w-full'>
+							<div className='absolute bottom-0 left-1/2 transform -translate-x-1/2 rotate-45 h-3 w-3 bg-card border-t border-l rounded-sm'></div>
+						</div>
+					</div>
+				</div>
 			</motion.div>
-		</motion.button>
+			
+			<motion.button
+				initial={{ opacity: 0, scale: 0.6 }}
+				animate={{ opacity: 1, scale: 1 }}
+				whileHover={{ scale: 1.05 }}
+				whileTap={{ scale: 0.95 }}
+				aria-label='Like this post'
+				onClick={handleLike}
+				className={clsx('card heartbeat-container relative overflow-visible rounded-full p-3', className)}
+			>
+				<AnimatePresence>
+					{particles.map(particle => (
+						<motion.div
+							key={particle.id}
+							className='pointer-events-none absolute inset-0 flex items-center justify-center'
+							initial={{ opacity: 1, scale: 0, x: 0, y: 0 }}
+							animate={{
+								opacity: [1, 1, 0],
+								scale: [0, 1.2, 0.8],
+								x: particle.x,
+								y: particle.y
+							}}
+							exit={{ opacity: 0 }}
+							transition={{ duration: 0.8, ease: 'easeOut' }}
+						>
+							<Heart className='fill-rose-400 text-rose-400' size={12} />
+						</motion.div>
+					))}
+				</AnimatePresence>
+
+				{typeof count === 'number' && (
+					<motion.span
+						initial={{ scale: 0.4 }}
+						animate={{ scale: 1 }}
+						className={cn(
+							'absolute -top-2 left-9 min-w-6 rounded-full px-1.5 py-1 text-center text-xs text-white tabular-nums',
+							liked ? 'bg-rose-400' : 'bg-gray-300'
+						)}
+					>
+						{count}
+					</motion.span>
+				)}
+				<motion.div 
+					animate={justLiked ? { scale: [1, 1.4, 1], rotate: [0, -10, 10, 0] } : {}} 
+					transition={{ duration: 0.6, ease: 'easeOut' }}
+				>
+					<Heart className={clsx('heartbeat', liked ? 'fill-rose-400 text-rose-400' : 'fill-rose-200 text-rose-200')} size={28} />
+				</motion.div>
+			</motion.button>
+		</div>
 	)
 }
