@@ -20,8 +20,8 @@
 		"height": 132,
 		"offset": 92,
 		"order": 4,
-		"offsetX": 260,
-		"offsetY": -219,
+		"offsetX": 287,
+		"offsetY": -209,
 		"enabled": true
 	},
 	"calendarCard": {
@@ -85,8 +85,8 @@
 		"width": 54,
 		"height": 54,
 		"order": 8,
-		"offsetX": 478,
-		"offsetY": 287,
+		"offsetX": 283,
+		"offsetY": -271,
 		"enabled": true
 	},
 	"hatCard": {
