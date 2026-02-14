@@ -5,7 +5,6 @@ import clsx from 'clsx'
 import { cn } from '@/lib/utils'
 import { toast } from 'sonner'
 import { BLOG_SLUG_KEY } from '@/consts'
-import axios from 'axios'
 
 type LikeButtonProps = {
 	slug?: string
@@ -40,9 +39,11 @@ export default function LikeButton({ slug = 'yysuni', className }: LikeButtonPro
 	useEffect(() => {
 		const fetchTotalLikes = async () => {
 			try {
-				const response = await axios.get(API_ENDPOINTS.TOTAL)
-				if (typeof response.data.data === 'number') {
-					setCount(response.data.data)
+				const response = await fetch(API_ENDPOINTS.TOTAL)
+				if (!response.ok) throw new Error('Network response was not ok')
+				const data = await response.json()
+				if (typeof data.data === 'number') {
+					setCount(data.data)
 				}
 			} catch (error) {
 				console.error('获取总点赞数失败:', error)
@@ -54,8 +55,10 @@ export default function LikeButton({ slug = 'yysuni', className }: LikeButtonPro
 	// 获取客户端IP
 	const getClientIp = async () => {
 		try {
-			const response = await axios.get(API_ENDPOINTS.IP)
-			return response.data.data
+			const response = await fetch(API_ENDPOINTS.IP)
+			if (!response.ok) throw new Error('Network response was not ok')
+			const data = await response.json()
+			return data.data
 		} catch (error) {
 			console.error('获取IP失败:', error)
 			return null
@@ -90,18 +93,25 @@ export default function LikeButton({ slug = 'yysuni', className }: LikeButtonPro
 			}
 
 			// 发送点赞请求
-			const response = await axios.post(API_ENDPOINTS.LIKE, {
-				ipAddress: ip
+			const response = await fetch(API_ENDPOINTS.LIKE, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ ipAddress: ip })
 			})
+			
+			if (!response.ok) throw new Error('Network response was not ok')
+			const data = await response.json()
 
-			if (response.data.data === -1) {
+			if (data.data === -1) {
 				toast('谢谢啦😘，今天已经不能再点赞啦💕')
 			} else {
 				// 显示感谢点赞的提示
 				toast('💕感谢点赞！！💕😘')
 				// 更新点赞数
-				if (typeof response.data.data === 'number') {
-					setCount(response.data.data)
+				if (typeof data.data === 'number') {
+					setCount(data.data)
 				} else {
 					// 如果没有返回新的计数，本地增加
 					setCount(prev => prev + 1)
