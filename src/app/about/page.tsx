@@ -10,201 +10,70 @@ import { useConfigStore } from '@/app/(home)/stores/config-store'
 import LikeButton from '@/components/like-button'
 import GithubSVG from '@/svgs/github.svg'
 import initialData from './list.json'
+import { getAuthToken } from '@/lib/auth'
 
 export default function Page() {
-	const [data, setData] = useState<AboutData>(initialData as AboutData)
-	const [originalData, setOriginalData] = useState<AboutData>(initialData as AboutData)
-	const [isEditMode, setIsEditMode] = useState(false)
-	const [isSaving, setIsSaving] = useState(false)
-	const [isPreviewMode, setIsPreviewMode] = useState(false)
-	const keyInputRef = useRef<HTMLInputElement>(null)
-
-	const { isAuth, setPrivateKey } = useAuthStore()
+	const [visitCount, setVisitCount] = useState<number>(0)
+	const [siteAge, setSiteAge] = useState<number>(0)
 	const { siteContent } = useConfigStore()
-	const { content, loading } = useMarkdownRender(data.content)
 	const hideEditButton = siteContent.hideEditButton ?? false
 
-	const handleChoosePrivateKey = async (file: File) => {
-		try {
-			const text = await file.text()
-			setPrivateKey(text)
-			await handleSave()
-		} catch (error) {
-			console.error('Failed to read private key:', error)
-			toast.error('读取密钥文件失败')
-		}
-	}
-
-	const handleSaveClick = () => {
-		if (!isAuth) {
-			keyInputRef.current?.click()
-		} else {
-			handleSave()
-		}
-	}
-
-	const handleEnterEditMode = () => {
-		setIsEditMode(true)
-		setIsPreviewMode(false)
-	}
-
-	const handleSave = async () => {
-		setIsSaving(true)
-
-		try {
-			await pushAbout(data)
-
-			setOriginalData(data)
-			setIsEditMode(false)
-			setIsPreviewMode(false)
-			toast.success('保存成功！')
-		} catch (error: any) {
-			console.error('Failed to save:', error)
-			toast.error(`保存失败: ${error?.message || '未知错误'}`)
-		} finally {
-			setIsSaving(false)
-		}
-	}
-
-	const handleCancel = () => {
-		setData(originalData)
-		setIsEditMode(false)
-		setIsPreviewMode(false)
-	}
-
-	const buttonText = isAuth ? '保存' : '导入密钥'
-
+	// 计算网站运行天数
 	useEffect(() => {
-		const handleKeyDown = (e: KeyboardEvent) => {
-			if (!isEditMode && (e.ctrlKey || e.metaKey) && e.key === ',') {
-				e.preventDefault()
-				setIsEditMode(true)
-				setIsPreviewMode(false)
-			}
+		// 网站创建日期（根据实际情况修改）
+		const siteCreationDate = new Date('2026-02-01')
+		const now = new Date()
+		const ageInDays = Math.floor((now.getTime() - siteCreationDate.getTime()) / (1000 * 60 * 60 * 24))
+		setSiteAge(ageInDays)
+	}, [])
+
+	// 获取访客量（这里使用模拟数据，实际项目中可以调用API）
+	useEffect(() => {
+		// 模拟获取访客量
+		// 实际项目中，这里可以调用后端API获取真实的访客量
+		const fetchVisitCount = async () => {
+			// 模拟API调用延迟
+			await new Promise(resolve => setTimeout(resolve, 500))
+			// 模拟访客量数据
+			setVisitCount(12345)
 		}
 
-		window.addEventListener('keydown', handleKeyDown)
-		return () => {
-			window.removeEventListener('keydown', handleKeyDown)
-		}
-	}, [isEditMode])
+		fetchVisitCount()
+	}, [])
 
 	return (
 		<>
-			<input
-				ref={keyInputRef}
-				type='file'
-				accept='.pem'
-				className='hidden'
-				onChange={async e => {
-					const f = e.target.files?.[0]
-					if (f) await handleChoosePrivateKey(f)
-					if (e.currentTarget) e.currentTarget.value = ''
-				}}
-			/>
-
 			<div className='flex flex-col items-center justify-center px-6 pt-32 pb-12 max-sm:px-0'>
 				<div className='w-full max-w-[800px]'>
-					{isEditMode ? (
-						isPreviewMode ? (
-							<div className='space-y-6'>
-								<div className='text-center'>
-									<h1 className='mb-4 text-4xl font-bold'>{data.title || '标题预览'}</h1>
-									<p className='text-secondary text-lg'>{data.description || '描述预览'}</p>
-								</div>
+					<motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className='mb-12 text-center'>
+						<h1 className='mb-4 text-4xl font-bold'>关于网站</h1>
+						<p className='text-secondary text-lg'>网站统计信息</p>
+					</motion.div>
 
-								{loading ? (
-									<div className='text-secondary text-center'>预览渲染中...</div>
-								) : (
-									<div className='card relative p-6'>
-										<div className='prose prose-sm max-w-none'>{content}</div>
-									</div>
-								)}
+					<motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} className='card relative p-6'>
+						<div className='grid grid-cols-1 gap-8 md:grid-cols-2'>
+							<div className='space-y-4'>
+								<h2 className='text-2xl font-bold'>网站运行天数</h2>
+								<div className='text-6xl font-bold text-brand'>{siteAge}</div>
+								<p className='text-secondary'>从网站创建至今的运行天数</p>
 							</div>
-						) : (
-							<div className='space-y-6'>
-								<div className='space-y-4'>
-									<input
-										type='text'
-										placeholder='标题'
-										className='w-full px-4 py-3 text-center text-2xl font-bold'
-										value={data.title}
-										onChange={e => setData({ ...data, title: e.target.value })}
-									/>
-									<input
-										type='text'
-										placeholder='描述'
-										className='w-full px-4 py-3 text-center text-lg'
-										value={data.description}
-										onChange={e => setData({ ...data, description: e.target.value })}
-									/>
-								</div>
 
-								<div className='card relative'>
-									<textarea
-										placeholder='Markdown 内容'
-										className='min-h-[400px] w-full resize-none text-sm'
-										value={data.content}
-										onChange={e => setData({ ...data, content: e.target.value })}
-									/>
-								</div>
+							<div className='space-y-4'>
+								<h2 className='text-2xl font-bold'>访客量</h2>
+								<div className='text-6xl font-bold text-brand'>{visitCount.toLocaleString()}</div>
+								<p className='text-secondary'>网站总访客量</p>
 							</div>
-						)
-					) : (
-						<>
-							<motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className='mb-12 text-center'>
-								<h1 className='mb-4 text-4xl font-bold'>{data.title}</h1>
-								<p className='text-secondary text-lg'>{data.description}</p>
-							</motion.div>
+						</div>
 
-							{loading ? (
-								<div className='text-secondary text-center'>加载中...</div>
-							) : (
-								<motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} className='card relative p-6'>
-									<div className='prose prose-sm max-w-none'>{content}</div>
-								</motion.div>
-							)}
-						</>
-					)}
-
+						<div className='mt-12 space-y-6'>
+							<h2 className='text-2xl font-bold'>网站信息</h2>
+							<p>这是一个个人博客网站，用于分享技术文章、项目经验和生活感悟。</p>
+							<p>网站使用现代前端技术栈构建，包括 React、Next.js 等。</p>
+							<p>感谢您的访问和支持！</p>
+						</div>
+					</motion.div>
 				</div>
 			</div>
-
-			<motion.div initial={{ opacity: 0, scale: 0.6 }} animate={{ opacity: 1, scale: 1 }} className='fixed top-4 right-6 z-10 flex gap-3 max-sm:hidden'>
-				{isEditMode ? (
-					<>
-						<motion.button
-							whileHover={{ scale: 1.05 }}
-							whileTap={{ scale: 0.95 }}
-							onClick={handleCancel}
-							disabled={isSaving}
-							className='rounded-xl border bg-white/60 px-6 py-2 text-sm'>
-							取消
-						</motion.button>
-						<motion.button
-							whileHover={{ scale: 1.05 }}
-							whileTap={{ scale: 0.95 }}
-							onClick={() => setIsPreviewMode(prev => !prev)}
-							disabled={isSaving}
-							className={`rounded-xl border bg-white/60 px-6 py-2 text-sm`}>
-							{isPreviewMode ? '继续编辑' : '预览'}
-						</motion.button>
-						<motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={handleSaveClick} disabled={isSaving} className='brand-btn px-6'>
-							{isSaving ? '保存中...' : buttonText}
-						</motion.button>
-					</>
-				) : (
-					!hideEditButton && (
-						<motion.button
-							whileHover={{ scale: 1.05 }}
-							whileTap={{ scale: 0.95 }}
-							onClick={handleEnterEditMode}
-							className='rounded-xl border bg-white/60 px-6 py-2 text-sm backdrop-blur-sm transition-colors hover:bg-white/80'>
-							编辑
-						</motion.button>
-					)
-				)}
-			</motion.div>
 		</>
 	)
 }

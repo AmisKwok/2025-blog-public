@@ -27,7 +27,7 @@ export function signAppJwt(appId: string, privateKeyPem: string): string {
 	const now = Math.floor(Date.now() / 1000)
 	const header = { alg: 'RS256', typ: 'JWT' }
 	const payload = { iat: now - 60, exp: now + 8 * 60, iss: appId }
-	const prv = KEYUTIL.getKey(privateKeyPem) as unknown as string
+	const prv = privateKeyPem
 	return KJUR.jws.JWS.sign('RS256', JSON.stringify(header), JSON.stringify(payload), prv)
 }
 

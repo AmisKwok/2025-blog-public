@@ -34,11 +34,11 @@ export function WriteActions() {
 		}
 	}
 
-	const buttonText = isAuth ? (mode === 'edit' ? '更新' : '发布') : '导入密钥'
+	const buttonText = mode === 'edit' ? '更新' : '发布'
 
 	const handleDelete = () => {
 		if (!isAuth) {
-			toast.info('请先导入密钥')
+			toast.info('请先登录')
 			return
 		}
 		const confirmMsg = form?.title ? `确定删除《${form.title}》吗？该操作不可恢复。` : '确定删除当前文章吗？该操作不可恢复。'

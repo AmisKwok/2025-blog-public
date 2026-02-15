@@ -21,6 +21,7 @@ import { cn } from '@/lib/utils'
 import { saveBlogEdits } from './services/save-blog-edits'
 import { Check } from 'lucide-react'
 import { CategoryModal } from './components/category-modal'
+import { getAuthToken } from '@/lib/auth'
 
 type DisplayMode = 'day' | 'week' | 'month' | 'year' | 'category'
 
@@ -142,7 +143,7 @@ export default function BlogPage() {
 	}, [paginatedItems, displayMode, categoryList])
 
 	const selectedCount = selectedSlugs.size
-	const buttonText = isAuth ? '保存' : '导入密钥'
+	const buttonText = '保存'
 
 	const toggleEditMode = useCallback(() => {
 		if (editMode) {
@@ -285,19 +286,33 @@ export default function BlogPage() {
 			setCategoryModalOpen(false)
 		} catch (error: any) {
 			console.error(error)
-			toast.error(error?.message || '保存失败')
+			// 检查是否是认证相关错误
+			if (error?.message?.includes('需要先登录') || error?.message?.includes('需要先设置私钥')) {
+				toast.info('认证过期，正在重新获取令牌...')
+				try {
+					// 重新获取认证令牌
+					await getAuthToken()
+					// 重新尝试保存
+					await saveBlogEdits(items, editableItems, normalizedCategoryList)
+					setEditMode(false)
+					setSelectedSlugs(new Set())
+					setCategoryModalOpen(false)
+					toast.success('保存成功！')
+				} catch (retryError: any) {
+					console.error('Retry failed:', retryError)
+					toast.error(retryError?.message || '保存失败，请先登录')
+				}
+			} else {
+				toast.error(error?.message || '保存失败')
+			}
 		} finally {
 			setSaving(false)
 		}
 	}, [items, editableItems, categoryList, categoriesFromServer])
 
 	const handleSaveClick = useCallback(() => {
-		if (!isAuth) {
-			keyInputRef.current?.click()
-			return
-		}
 		void handleSave()
-	}, [handleSave, isAuth])
+	}, [handleSave])
 
 	const handlePrivateKeySelection = useCallback(
 		async (file: File) => {

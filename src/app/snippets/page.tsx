@@ -7,6 +7,7 @@ import { Plus, X } from 'lucide-react'
 import { DialogModal } from '@/components/dialog-modal'
 import { useAuthStore } from '@/hooks/use-auth'
 import { useConfigStore } from '@/app/(home)/stores/config-store'
+import { getAuthToken } from '@/lib/auth'
 import initialList from './list.json'
 import { pushSnippets } from './services/push-snippets'
 
@@ -50,18 +51,31 @@ export default function Page() {
 			toast.success('保存成功！')
 		} catch (error: any) {
 			console.error('Failed to save snippets:', error)
-			toast.error(`保存失败: ${error?.message || '未知错误'}`)
+			// 检查是否是认证相关错误
+			if (error?.message?.includes('需要先登录') || error?.message?.includes('需要先设置私钥')) {
+				toast.info('认证过期，正在重新获取令牌...')
+				try {
+					// 重新获取认证令牌
+					await getAuthToken()
+					// 重新尝试保存
+					await pushSnippets({ snippets })
+					setOriginalSnippets(snippets)
+					setIsEditMode(false)
+					toast.success('保存成功！')
+				} catch (retryError: any) {
+					console.error('Retry failed:', retryError)
+					toast.error(retryError?.message || '保存失败，请先登录')
+				}
+			} else {
+				toast.error(`保存失败: ${error?.message || '未知错误'}`)
+			}
 		} finally {
 			setIsSaving(false)
 		}
 	}
 
 	const handleSaveClick = () => {
-		if (!isAuth) {
-			keyInputRef.current?.click()
-		} else {
-			void handleSave()
-		}
+		void handleSave()
 	}
 
 	const handleCancel = () => {
@@ -117,7 +131,7 @@ export default function Page() {
 		setNewSnippet('')
 	}
 
-	const buttonText = isAuth ? '保存' : '导入密钥'
+	const buttonText = '保存'
 
 	return (
 		<>

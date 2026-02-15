@@ -8,6 +8,7 @@ import CreateDialog from './components/create-dialog'
 import { pushShares } from './services/push-shares'
 import { useAuthStore } from '@/hooks/use-auth'
 import { useConfigStore } from '@/app/(home)/stores/config-store'
+import { getAuthToken } from '@/lib/auth'
 import initialList from './list.json'
 import type { Share } from './components/share-card'
 import type { LogoItem } from './components/logo-upload-dialog'
@@ -70,11 +71,7 @@ export default function Page() {
 	}
 
 	const handleSaveClick = () => {
-		if (!isAuth) {
-			keyInputRef.current?.click()
-		} else {
-			handleSave()
-		}
+		handleSave()
 	}
 
 	const handleSave = async () => {
@@ -92,7 +89,28 @@ export default function Page() {
 			toast.success('保存成功！')
 		} catch (error: any) {
 			console.error('Failed to save:', error)
-			toast.error(`保存失败: ${error?.message || '未知错误'}`)
+			// 检查是否是认证相关错误
+			if (error?.message?.includes('需要先登录') || error?.message?.includes('需要先设置私钥')) {
+				toast.info('认证过期，正在重新获取令牌...')
+				try {
+					// 重新获取认证令牌
+					await getAuthToken()
+					// 重新尝试保存
+					await pushShares({
+						shares,
+						logoItems
+					})
+					setOriginalShares(shares)
+					setLogoItems(new Map())
+					setIsEditMode(false)
+					toast.success('保存成功！')
+				} catch (retryError: any) {
+					console.error('Retry failed:', retryError)
+					toast.error(retryError?.message || '保存失败，请先登录')
+				}
+			} else {
+				toast.error(`保存失败: ${error?.message || '未知错误'}`)
+			}
 		} finally {
 			setIsSaving(false)
 		}
@@ -104,7 +122,7 @@ export default function Page() {
 		setIsEditMode(false)
 	}
 
-	const buttonText = isAuth ? '保存' : '导入密钥'
+	const buttonText = '保存'
 
 	useEffect(() => {
 		const handleKeyDown = (e: KeyboardEvent) => {

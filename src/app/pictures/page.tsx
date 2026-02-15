@@ -167,11 +167,7 @@ export default function Page() {
 	}
 
 	const handleSaveClick = () => {
-		if (!isAuth) {
-			keyInputRef.current?.click()
-		} else {
-			handleSave()
-		}
+		handleSave()
 	}
 
 	const handleSave = async () => {
@@ -201,7 +197,7 @@ export default function Page() {
 		setIsEditMode(false)
 	}
 
-	const buttonText = isAuth ? '保存' : '导入密钥'
+	const buttonText = '保存'
 
 	useEffect(() => {
 		const handleKeyDown = (e: KeyboardEvent) => {
