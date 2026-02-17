@@ -9,6 +9,14 @@ const translations: Translations = {
       share: '推荐分享',
       bloggers: '优秀博客'
     },
+    password: {
+      required: '需要密码',
+      pleaseEnter: '请输入访问密码以继续',
+      placeholder: '请输入密码',
+      incorrect: '密码错误，请重试！',
+      cancel: '取消',
+      submit: '确认'
+    },
     write: '写文章',
     languages: {
       'zh-CN': '简体中文',
@@ -262,6 +270,14 @@ const translations: Translations = {
       share: 'Recommendations',
       bloggers: 'Great Blogs'
     },
+    password: {
+      required: 'Password Required',
+      pleaseEnter: 'Please enter the password to continue',
+      placeholder: 'Enter password',
+      incorrect: 'Incorrect password, please try again!',
+      cancel: 'Cancel',
+      submit: 'Submit'
+    },
     write: 'Write',
     languages: {
       'zh-CN': 'Simplified Chinese',
@@ -514,6 +530,14 @@ const translations: Translations = {
       about: '關於網站',
       share: '推薦分享',
       bloggers: '優秀部落格'
+    },
+    password: {
+      required: '需要密碼',
+      pleaseEnter: '請輸入訪問密碼以繼續',
+      placeholder: '請輸入密碼',
+      incorrect: '密碼錯誤，請重試！',
+      cancel: '取消',
+      submit: '確認'
     },
     write: '寫文章',
     languages: {

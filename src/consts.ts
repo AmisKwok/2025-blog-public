@@ -13,4 +13,5 @@ export const GITHUB_CONFIG = {
 	BRANCH: process.env.NEXT_PUBLIC_GITHUB_BRANCH || 'main',
 	APP_ID: process.env.NEXT_PUBLIC_GITHUB_APP_ID || '2837611',
 	ENCRYPT_KEY: process.env.NEXT_PUBLIC_GITHUB_ENCRYPT_KEY || 'wudishiduomejimo',
+	BLOGGERS_PASSWORD: process.env.NEXT_BLOG_PASSWORD || 'zhegeshimima',
 } as const
