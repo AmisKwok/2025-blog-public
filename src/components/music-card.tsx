@@ -12,19 +12,11 @@ import { Pause, Repeat, SkipBack, SkipForward, ChevronUp, ChevronDown } from 'lu
 import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
 
-// 音乐文件列表
-const MUSIC_FILES = [
-	'/music/By-my-side.mp3',
-	'/music/christmas.m4a',
-	'/music/close-to-you.mp3'
-]
-
-// 音乐信息列表
-const MUSIC_INFO = [
-	{ title: 'By my side', artist: 'Unknown' },
-	{ title: 'Christmas', artist: 'Unknown' },
-	{ title: 'Close to you', artist: 'Unknown' }
-]
+//// // 音乐文件类型
+interface MusicFile {
+  path: string
+  title: string
+}
 
 export default function MusicCard() {
 	const pathname = usePathname()
@@ -35,6 +27,7 @@ export default function MusicCard() {
 	const clockCardStyles = cardStyles.clockCard
 	const calendarCardStyles = cardStyles.calendarCard
 
+	const [musicFiles, setMusicFiles] = useState<MusicFile[]>([])
 	const [isPlaying, setIsPlaying] = useState(false)
 	const [loopMode, setLoopMode] = useState<'none' | 'single' | 'list'>('list')
 	const [currentIndex, setCurrentIndex] = useState(0)
@@ -42,6 +35,23 @@ export default function MusicCard() {
 	const [showPlaylist, setShowPlaylist] = useState(false)
 	const audioRef = useRef<HTMLAudioElement | null>(null)
 	const currentIndexRef = useRef(0)
+
+	// 从API获取音乐文件列表
+	useEffect(() => {
+		const fetchMusicFiles = async () => {
+			try {
+				const response = await fetch('/api/music')
+				if (response.ok) {
+					const data = await response.json()
+					setMusicFiles(data)
+				}
+			} catch (error) {
+				console.error('Failed to fetch music files:', error)
+			}
+		}
+
+		fetchMusicFiles()
+	}, [])
 
 	const isHomePage = pathname === '/'
 
@@ -88,7 +98,7 @@ export default function MusicCard() {
 				break
 			case 'list':
 				// 列表循环
-				const nextIndex = (currentIndexRef.current + 1) % MUSIC_FILES.length
+				const nextIndex = (currentIndexRef.current + 1) % musicFiles.length
 				currentIndexRef.current = nextIndex
 				setCurrentIndex(nextIndex)
 				setProgress(0)
@@ -124,18 +134,17 @@ export default function MusicCard() {
 	// Handle currentIndex change - load new audio
 	useEffect(() => {
 		currentIndexRef.current = currentIndex
-		if (audioRef.current) {
-			const wasPlaying = !audioRef.current.paused
+		if (audioRef.current && musicFiles.length > 0) {
 			audioRef.current.pause()
-			audioRef.current.src = MUSIC_FILES[currentIndex]
+			audioRef.current.src = musicFiles[currentIndex].path
 			audioRef.current.loop = false
 			setProgress(0)
 
-			if (wasPlaying) {
+			if (isPlaying) {
 				audioRef.current.play().catch(console.error)
 			}
 		}
-	}, [currentIndex])
+	}, [currentIndex, isPlaying, musicFiles])
 
 	// Handle play/pause state change
 	useEffect(() => {
@@ -163,13 +172,13 @@ export default function MusicCard() {
 	}
 
 	const handlePrevious = () => {
-		const prevIndex = (currentIndex - 1 + MUSIC_FILES.length) % MUSIC_FILES.length
+		const prevIndex = (currentIndex - 1 + musicFiles.length) % musicFiles.length
 		setCurrentIndex(prevIndex)
 		setIsPlaying(true)
 	}
 
 	const handleNext = () => {
-		const nextIndex = (currentIndex + 1) % MUSIC_FILES.length
+		const nextIndex = (currentIndex + 1) % musicFiles.length
 		setCurrentIndex(nextIndex)
 		setIsPlaying(true)
 	}
@@ -221,12 +230,12 @@ export default function MusicCard() {
 					<MusicSVG className='h-8 w-8' />
 
 					<div className='flex-1'>
-						<div className='text-secondary text-sm'>{MUSIC_INFO[currentIndex].title}</div>
+					<div className='text-secondary text-sm'>{musicFiles.length > 0 ? musicFiles[currentIndex].title : 'Loading...'}</div>
 
-						<div className='mt-1 h-2 rounded-full bg-white/60'>
-							<div className='bg-linear h-full rounded-full transition-all duration-300' style={{ width: `${progress}%` }} />
-						</div>
+					<div className='mt-1 h-2 rounded-full bg-white/60'>
+						<div className='bg-linear h-full rounded-full transition-all duration-300' style={{ width: `${progress}%` }} />
 					</div>
+				</div>
 
 					<div className='flex items-center gap-2 pointer-events-none'>
 						<div className='flex items-center gap-2 pointer-events-auto'>
@@ -276,7 +285,7 @@ export default function MusicCard() {
 				<>
 					<div className="fixed inset-0 bg-black/50 z-40" onClick={togglePlaylist} />
 					<div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
-						<div className="bg-card/80 backdrop-blur-lg p-4 rounded-2xl shadow-xl max-h-96 overflow-y-auto w-80 border border-white/20">
+						<div className="bg-card/80 backdrop-blur-lg p-4 rounded-2xl shadow-xl max-h-96 overflow-y-auto w-80 border border-white/20 scrollbar-none">
 							<div className="flex justify-between items-center mb-4">
 								<h3 className="text-lg font-semibold text-primary">音乐列表</h3>
 								<button onClick={togglePlaylist} className="text-secondary hover:text-primary">
@@ -284,20 +293,20 @@ export default function MusicCard() {
 								</button>
 							</div>
 							<div className="space-y-2">
-								{MUSIC_INFO.map((song, index) => (
-									<button
-										key={index}
-										onClick={() => handleSongSelect(index)}
-										className={`w-full text-left p-3 rounded-xl transition-colors ${
-										index === currentIndex 
-											? 'bg-brand/20 text-brand font-medium'
-											: 'hover:bg-white/10 text-primary'
+						{musicFiles.map((song, index) => (
+							<button
+								key={index}
+								onClick={() => handleSongSelect(index)}
+								className={`w-full text-left p-3 rounded-xl transition-colors ${
+									index === currentIndex 
+										? 'bg-brand/20 text-brand font-medium'
+										: 'hover:bg-white/10 text-primary'
 									}`}
-									>
-										<div className="font-medium">{song.title}</div>
-									</button>
-								))}
-							</div>
+								>
+									<div className="font-medium">{song.title}</div>
+								</button>
+						))}
+					</div>
 						</div>
 					</div>
 				</>
