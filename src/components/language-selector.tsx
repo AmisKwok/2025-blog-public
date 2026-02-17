@@ -38,8 +38,8 @@ export default function LanguageSelector({ direction = 'down', mobile = false }:
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: direction === 'down' ? -10 : 10, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className={`absolute ${direction === 'down' ? 'top-full left-0 mt-2' : 'bottom-full left-0 mb-2'} w-48 rounded-lg bg-card shadow-lg border border-border overflow-hidden z-50`}
-            style={{ backdropFilter: 'blur(10px)', backgroundColor: 'rgba(255, 255, 255, 0.7)' }}
+            className={`absolute ${direction === 'down' ? 'top-full left-0 mt-2' : 'bottom-full left-0 mb-2'} w-48 rounded-lg shadow-lg border border-border overflow-hidden z-50`}
+            style={{ backdropFilter: 'blur(12px)', backgroundColor: 'rgba(255, 255, 255, 0.3)', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)' }}
           >
             {languages.map((lang) => (
               <motion.button
