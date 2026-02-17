@@ -29,7 +29,7 @@ export default function MusicCard() {
 
 	const [musicFiles, setMusicFiles] = useState<MusicFile[]>([])
 	const [isPlaying, setIsPlaying] = useState(false)
-	const [loopMode, setLoopMode] = useState<'none' | 'single' | 'list'>('list')
+	const [loopMode, setLoopMode] = useState<'none' | 'single' | 'list' | 'single-play'>('list')
 	const [currentIndex, setCurrentIndex] = useState(0)
 	const [progress, setProgress] = useState(0)
 	const [showPlaylist, setShowPlaylist] = useState(false)
@@ -106,11 +106,26 @@ export default function MusicCard() {
 				// 确保isPlaying为true，这样useEffect会自动播放下一首
 				setIsPlaying(true)
 				break
-			case 'none':
-			default:
-				// 不循环，停止播放
+			case 'single-play':
+				// 单曲播放，播放完就结束
 				setIsPlaying(false)
 				setProgress(0)
+				break
+			case 'none':
+			default:
+				// 列表播放不循环，播放完整个列表就不播放了
+				if (currentIndex < musicFiles.length - 1) {
+					// 还有下一首，继续播放
+					const nextIndex = currentIndex + 1
+					currentIndexRef.current = nextIndex
+					setCurrentIndex(nextIndex)
+					setProgress(0)
+					setIsPlaying(true)
+				} else {
+					// 已经是最后一首，停止播放
+					setIsPlaying(false)
+					setProgress(0)
+				}
 				break
 			}
 		}
@@ -257,11 +272,13 @@ export default function MusicCard() {
 							<button 
 								onClick={(e) => {
 									e.stopPropagation()
-									// 循环切换三种模式：none -> single -> list -> none
+									// 循环切换四种模式：none -> single -> list -> single-play -> none
 									if (loopMode === 'none') {
 										setLoopMode('single')
 									} else if (loopMode === 'single') {
 										setLoopMode('list')
+									} else if (loopMode === 'list') {
+										setLoopMode('single-play')
 									} else {
 										setLoopMode('none')
 									}
@@ -269,18 +286,23 @@ export default function MusicCard() {
 								className={`flex h-8 w-8 items-center justify-center rounded-full transition-colors ${
 									loopMode === 'none' ? 'bg-white/80 text-secondary hover:bg-white' : 
 									loopMode === 'single' ? 'bg-brand/20 text-brand' : 
-									'bg-brand/30 text-brand'
+									loopMode === 'list' ? 'bg-brand/30 text-brand' :
+									'bg-brand/40 text-brand'
 								}`}
 								title={
-									loopMode === 'none' ? '开启单曲循环' : 
-									loopMode === 'single' ? '开启列表循环' : 
-									'关闭循环'
+									loopMode === 'none' ? '当前：列表播放不循环，点击开启单曲循环' : 
+									loopMode === 'single' ? '当前：单曲循环，点击开启列表循环' : 
+									loopMode === 'list' ? '当前：列表循环，点击开启单曲播放' : 
+									'当前：单曲播放，点击开启列表播放不循环'
 								}
 							>
 								<Repeat className='h-4 w-4' />
-								{loopMode === 'single' && (
-									<span className='absolute text-xs font-bold'>1</span>
-								)}
+									{loopMode === 'single' && (
+										<span className='absolute text-xs font-bold'>1</span>
+									)}
+									{loopMode === 'single-play' && (
+										<span className='absolute text-xs font-bold'>/</span>
+									)}
 							</button>
 						</div>
 					</div>
