@@ -21,9 +21,9 @@ const MUSIC_FILES = [
 
 // 音乐信息列表
 const MUSIC_INFO = [
-	{ title: 'By my side', artist: 'Unknown' },
-	{ title: 'Christmas', artist: 'Unknown' },
-	{ title: 'Close to you', artist: 'Unknown' }
+	{ title: 'By my side' },
+	{ title: 'Christmas' },
+	{ title: 'Close to you' }
 ]
 
 export default function MusicCard() {
@@ -125,17 +125,16 @@ export default function MusicCard() {
 	useEffect(() => {
 		currentIndexRef.current = currentIndex
 		if (audioRef.current) {
-			const wasPlaying = !audioRef.current.paused
 			audioRef.current.pause()
 			audioRef.current.src = MUSIC_FILES[currentIndex]
 			audioRef.current.loop = false
 			setProgress(0)
 
-			if (wasPlaying) {
+			if (isPlaying) {
 				audioRef.current.play().catch(console.error)
 			}
 		}
-	}, [currentIndex])
+	}, [currentIndex, isPlaying])
 
 	// Handle play/pause state change
 	useEffect(() => {
@@ -276,7 +275,7 @@ export default function MusicCard() {
 				<>
 					<div className="fixed inset-0 bg-black/50 z-40" onClick={togglePlaylist} />
 					<div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
-						<div className="bg-card/80 backdrop-blur-lg p-4 rounded-2xl shadow-xl max-h-96 overflow-y-auto w-80 border border-white/20">
+						<div className="bg-card/80 backdrop-blur-lg p-4 rounded-2xl shadow-xl max-h-96 overflow-y-auto w-80 border border-white/20 scrollbar-none">
 							<div className="flex justify-between items-center mb-4">
 								<h3 className="text-lg font-semibold text-primary">音乐列表</h3>
 								<button onClick={togglePlaylist} className="text-secondary hover:text-primary">
