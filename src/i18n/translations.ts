@@ -154,6 +154,30 @@ const translations: Translations = {
       },
       navCard: {
         mode: '混乱模式'
+      },
+      comment: {
+        title: '评论',
+        placeholder: '请输入您的评论...',
+        noServer: '请在配置中设置Waline服务器地址',
+        locale: 'zh-CN'
+      },
+      waline: {
+        title: 'Waline 评论配置',
+        serverURL: '服务器 URL',
+        serverURLHint: '需要部署 Waline 后端服务，或使用第三方服务',
+        theme: '主题',
+        themeAuto: '自动',
+        themeLight: '浅色',
+        themeDark: '深色',
+        dark: '暗黑模式',
+        darkAuto: '自动',
+        darkLight: '浅色',
+        darkDark: '深色',
+        requiredMeta: '必填信息',
+        requiredMetaNick: '昵称',
+        requiredMetaMail: '邮箱',
+        requiredMetaLink: '网站',
+        pageview: '启用页面访问统计'
       }
     },
     home: {
@@ -438,6 +462,30 @@ const translations: Translations = {
       },
       navCard: {
         mode: 'Chaos Mode'
+      },
+      comment: {
+        title: 'Comments',
+        placeholder: 'Please enter your comment...',
+        noServer: 'Please set up Waline server address in configuration',
+        locale: 'en-US'
+      },
+      waline: {
+        title: 'Waline Comment Configuration',
+        serverURL: 'Server URL',
+        serverURLHint: 'Need to deploy Waline backend service, or use third-party service',
+        theme: 'Theme',
+        themeAuto: 'Auto',
+        themeLight: 'Light',
+        themeDark: 'Dark',
+        dark: 'Dark Mode',
+        darkAuto: 'Auto',
+        darkLight: 'Light',
+        darkDark: 'Dark',
+        requiredMeta: 'Required Information',
+        requiredMetaNick: 'Nickname',
+        requiredMetaMail: 'Email',
+        requiredMetaLink: 'Website',
+        pageview: 'Enable page view statistics'
       }
     },
     home: {
@@ -722,6 +770,30 @@ const translations: Translations = {
       },
       navCard: {
         mode: '狂暴模式'
+      },
+      comment: {
+        title: '評論',
+        placeholder: '請輸入您的評論...',
+        noServer: '請在配置中設定Waline伺服器地址',
+        locale: 'zh-TW'
+      },
+      waline: {
+        title: 'Waline 評論配置',
+        serverURL: '伺服器 URL',
+        serverURLHint: '需要部署 Waline 後端服務，或使用第三方服務',
+        theme: '主題',
+        themeAuto: '自動',
+        themeLight: '淺色',
+        themeDark: '深色',
+        dark: '暗黑模式',
+        darkAuto: '自動',
+        darkLight: '淺色',
+        darkDark: '深色',
+        requiredMeta: '必填資訊',
+        requiredMetaNick: '暱稱',
+        requiredMetaMail: '郵箱',
+        requiredMetaLink: '網站',
+        pageview: '啟用頁面訪問統計'
       }
     },
     home: {

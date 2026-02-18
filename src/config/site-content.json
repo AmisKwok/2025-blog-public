@@ -78,5 +78,16 @@
 	"beian": {
 		"text": "",
 		"link": ""
+	},
+	"waline": {
+		"serverURL": "https://www.amisweb.online/",
+		"theme": "auto",
+		"dark": "auto",
+		"options": {
+			"requiredMeta": ["nick", "mail"],
+			"pageview": true,
+			"imageUploader": false,
+			"math": false
+		}
 	}
 }

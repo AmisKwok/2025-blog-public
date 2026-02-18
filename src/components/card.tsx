@@ -15,9 +15,11 @@ interface Props {
   y: number
   children: React.ReactNode
   onClick?: () => void
+  disableHover?: boolean
+  disableTap?: boolean
 }
 
-export default function Card({ children, order, width, height, x, y, className, onClick }: Props) {
+export default function Card({ children, order, width, height, x, y, className, onClick, disableHover, disableTap }: Props) {
 	const { maxSM, init } = useSize()
 	let [show, setShow] = useState(false)
 	if (maxSM && init) order = 0
@@ -39,8 +41,8 @@ export default function Card({ children, order, width, height, x, y, className, 
 			className={cn('card squircle', className)}
 			initial={{ opacity: 0, scale: 0.6, left: x, top: y, width, height }}
 			animate={{ opacity: 1, scale: 1, left: x, top: y, width, height }}
-			whileHover={{ scale: 1.05 }}
-			whileTap={{ scale: 0.95 }}
+			whileHover={disableHover ? {} : { scale: 1.05 }}
+			whileTap={disableTap ? {} : { scale: 0.95 }}
 			onClick={onClick}>
 			{children}
 		</motion.div>

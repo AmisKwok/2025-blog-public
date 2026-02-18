@@ -9,6 +9,7 @@ import { BackgroundImagesSection } from './background-images-section'
 import { SocialButtonsSection } from './social-buttons-section'
 import { HatSection } from './hat-section'
 import { BeianForm } from './beian-form'
+import { WalineSection } from './waline-section'
 import { useLanguage } from '@/i18n/context'
 
 export type { FileItem, ArtImageUploads, BackgroundImageUploads, SocialButtonImageUploads } from './types'
@@ -130,6 +131,8 @@ export function SiteSettings({
 			</div>
 
 			<HatSection formData={formData} setFormData={setFormData} />
+
+		<WalineSection formData={formData} setFormData={setFormData} />
 		</div>
 	)
 }
