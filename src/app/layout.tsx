@@ -72,7 +72,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
 								'youtube.com'
 							],
 							// 允许的协议
-							allowedProtocols: ['http:', 'https:'],
+					allowedProtocols: ['http:', 'https:', 'blob:'], // 添加blob:协议以支持本地文件下载
 							// 是否启用调试日志
 							enableDebug: false
 						};
