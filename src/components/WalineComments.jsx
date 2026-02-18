@@ -51,7 +51,7 @@ export default function WalineComments({ path }) {
       avatar: 'mp', // 头像生成方式
       meta: ['nick', 'mail'], // 显示的表单字段
       pageSize: 10, // 每页评论数
-      userAgent: false, // 禁用显示用户代理信息（浏览器和系统）
+      noCopyright: true, // 禁用显示版权信息（默认开启）
     });
 
     return () => {
