@@ -84,7 +84,10 @@
 		"theme": "auto",
 		"dark": "auto",
 		"options": {
-			"requiredMeta": ["nick", "mail"],
+			"requiredMeta": [
+				"nick",
+				"mail"
+			],
 			"pageview": true,
 			"imageUploader": false,
 			"math": false
