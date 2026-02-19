@@ -11,8 +11,8 @@ import ScrollOutlineSVG from '@/svgs/scroll-outline.svg'
 import ScrollFilledSVG from '@/svgs/scroll-filled.svg'
 import ProjectsFilledSVG from '@/svgs/projects-filled.svg'
 import ProjectsOutlineSVG from '@/svgs/projects-outline.svg'
-import AboutFilledSVG from '@/svgs/about-filled.svg'
-import AboutOutlineSVG from '@/svgs/about-outline.svg'
+import CommentsFilledSVG from '@/svgs/comments-filled.svg'
+import CommentsOutlineSVG from '@/svgs/comments-outline.svg'
 import ShareFilledSVG from '@/svgs/share-filled.svg'
 import ShareOutlineSVG from '@/svgs/share-outline.svg'
 import WebsiteFilledSVG from '@/svgs/website-filled.svg'
@@ -41,8 +41,8 @@ const list = [
     href: '/projects'
   },
   {
-    icon: AboutOutlineSVG,
-    iconActive: AboutFilledSVG,
+    icon: CommentsOutlineSVG,
+    iconActive: CommentsFilledSVG,
     key: 'nav.comments',
     href: '/comments'
   },
