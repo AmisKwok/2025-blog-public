@@ -2,6 +2,7 @@
 @import 'katex/dist/katex.min.css';
 @import './theme.css';
 @import './article.css';
+@import './waline.css';
 
 @plugin 'tailwindcss-animate';
 

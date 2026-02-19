@@ -5,7 +5,7 @@ import { init } from '@waline/client';
 import { useConfigStore } from '@/app/(home)/stores/config-store';
 import { useLanguage } from '@/i18n/context';
 
-// 导入 Waline 官方样式
+// 导入 Waline 官方样式以保持良好的排版
 import '@waline/client/style';
 
 export default function WalineComments({ path }) {
