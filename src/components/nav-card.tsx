@@ -7,16 +7,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { motion } from 'motion/react'
 import { useCenterStore } from '@/hooks/use-center'
 import { CARD_SPACING, GITHUB_CONFIG } from '@/consts'
-import ScrollOutlineSVG from '@/svgs/scroll-outline.svg'
-import ScrollFilledSVG from '@/svgs/scroll-filled.svg'
-import ProjectsFilledSVG from '@/svgs/projects-filled.svg'
-import ProjectsOutlineSVG from '@/svgs/projects-outline.svg'
-import CommentsFilledSVG from '@/svgs/comments-filled.svg'
-import CommentsOutlineSVG from '@/svgs/comments-outline.svg'
-import ShareFilledSVG from '@/svgs/share-filled.svg'
-import ShareOutlineSVG from '@/svgs/share-outline.svg'
-import WebsiteFilledSVG from '@/svgs/website-filled.svg'
-import WebsiteOutlineSVG from '@/svgs/website-outline.svg'
+
 import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
 import { cn } from '@/lib/utils'
@@ -26,35 +17,41 @@ import { HomeDraggableLayer } from '@/app/(home)/home-draggable-layer'
 import { useLanguage } from '@/i18n/context'
 import { PasswordModal } from './password-modal'
 import { useLocalAuthStore } from '@/hooks/use-local-auth'
+import { LottieIcon } from './lottie-icon'
+import blogLottie from '@/lottie/blog.json'
+import projectsLottie from '@/lottie/projects.json'
+import commentsLottie from '@/lottie/comments.json'
+import shareLottie from '@/lottie/share.json'
+import bloggersLottie from '@/lottie/bloggers.json'
 
 const list = [
   {
-    icon: ScrollOutlineSVG,
-    iconActive: ScrollFilledSVG,
+    icon: blogLottie,
+    iconActive: blogLottie,
     key: 'nav.blog',
     href: '/blog'
   },
   {
-    icon: ProjectsOutlineSVG,
-    iconActive: ProjectsFilledSVG,
+    icon: projectsLottie,
+    iconActive: projectsLottie,
     key: 'nav.projects',
     href: '/projects'
   },
   {
-    icon: CommentsOutlineSVG,
-    iconActive: CommentsFilledSVG,
+    icon: commentsLottie,
+    iconActive: commentsLottie,
     key: 'nav.comments',
     href: '/comments'
   },
   {
-    icon: ShareOutlineSVG,
-    iconActive: ShareFilledSVG,
+    icon: shareLottie,
+    iconActive: shareLottie,
     key: 'nav.share',
     href: '/share'
   },
   {
-    icon: WebsiteOutlineSVG,
-    iconActive: WebsiteFilledSVG,
+    icon: bloggersLottie,
+    iconActive: bloggersLottie,
     key: 'nav.bloggers',
     href: '/bloggers'
   }
@@ -206,7 +203,11 @@ export default function NavCard() {
                         onClick={handleClick}
                       >
                         <div className="flex h-7 w-7 items-center justify-center">
-                          {hoveredIndex == index ? <item.iconActive className="text-brand absolute h-7 w-7" /> : <item.icon className="absolute h-7 w-7" />}
+                          <LottieIcon 
+                            src={hoveredIndex == index ? item.iconActive : item.icon} 
+                            isActive={hoveredIndex == index} 
+                            size={28}
+                          />
                         </div>
                         {form !== 'icons' && <span className={clsx(index == hoveredIndex && 'text-primary font-medium')}>{t(item.key)}</span>}
                       </Link>

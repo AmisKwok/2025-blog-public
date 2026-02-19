@@ -7,7 +7,7 @@ const translations: Translations = {
     projects: '我的项目',
     comments: '留言区',
     share: '推荐分享',
-    bloggers: '优秀博客'
+    bloggers: '秘密空间'
   },
     password: {
       required: '需要密码',
@@ -321,7 +321,7 @@ const translations: Translations = {
     projects: 'My Projects',
     comments: 'Guestbook',
     share: 'Recommendations',
-    bloggers: 'Great Blogs'
+    bloggers: 'Secret Space'
   },
     password: {
       required: 'Password Required',
@@ -635,7 +635,7 @@ const translations: Translations = {
     projects: '我的專案',
     comments: '留言區',
     share: '推薦分享',
-    bloggers: '優秀部落格'
+    bloggers: '秘密空間'
   },
     password: {
       required: '需要密碼',
