@@ -9,6 +9,7 @@ import { loadBlog, type BlogConfig } from '@/lib/load-blog'
 import { useReadArticles } from '@/hooks/use-read-articles'
 import LiquidGrass from '@/components/liquid-grass'
 import { useLanguage } from '@/i18n/context'
+import { useAuthStore } from '@/hooks/use-auth'
 
 const origin = typeof window !== 'undefined' ? window.location.origin : ''
 
@@ -18,6 +19,10 @@ export default function Page() {
 	const router = useRouter()
 	const { markAsRead } = useReadArticles()
 	const { t } = useLanguage()
+	const { isAuth } = useAuthStore()
+	useEffect(() => {
+		useAuthStore.getState().refreshAuthState()
+	}, [])
 
 	const [blog, setBlog] = useState<{ config: BlogConfig; markdown: string; cover?: string } | null>(null)
 	const [error, setError] = useState<string | null>(null)
@@ -75,26 +80,28 @@ export default function Page() {
 	return (
 		<>
 			<BlogPreview
-				markdown={blog.markdown}
-				title={title}
-				tags={tags}
-				date={date}
-				summary={blog.config.summary}
-				cover={blog.cover ? (blog.cover.startsWith('http') ? blog.cover : `${origin}${blog.cover}`) : undefined}
-				slug={slug}
-			/>
+			markdown={blog.markdown}
+			title={title}
+			tags={tags}
+			date={date}
+			summary={blog.config.summary}
+			cover={blog.cover ? (blog.cover.startsWith('http') ? blog.cover : `${origin}${blog.cover}`) : undefined}
+			slug={slug}
+		/>
 
+		{isAuth && (
 			<motion.button
-			initial={{ opacity: 0, scale: 0.6 }}
-			animate={{ opacity: 1, scale: 1 }}
-			whileHover={{ scale: 1.05 }}
-			whileTap={{ scale: 0.95 }}
-			onClick={handleEdit}
-			className='absolute top-4 right-6 rounded-xl border bg-white/60 px-6 py-2 text-sm backdrop-blur-sm transition-colors hover:bg-white/80 max-sm:hidden'>
-			{t('about.edit')}
-		</motion.button>
+				initial={{ opacity: 0, scale: 0.6 }}
+				animate={{ opacity: 1, scale: 1 }}
+				whileHover={{ scale: 1.05 }}
+				whileTap={{ scale: 0.95 }}
+				onClick={handleEdit}
+				className='absolute top-4 right-6 rounded-xl border bg-white/60 px-6 py-2 text-sm backdrop-blur-sm transition-colors hover:bg-white/80 max-sm:hidden'>
+				{t('about.edit')}
+			</motion.button>
+		)}
 
-			{slug === 'liquid-grass' && <LiquidGrass />}
+		{slug === 'liquid-grass' && <LiquidGrass />}
 		</>
 	)
 }
