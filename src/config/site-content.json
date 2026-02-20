@@ -60,7 +60,7 @@
 		},
 		{
 			"id": "juejin",
-			"type": "link",
+			"type": "gitee",
 			"value": "https://gitee.com/AmisKwok",
 			"label": "Gitee",
 			"order": 2
