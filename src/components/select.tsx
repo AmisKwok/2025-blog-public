@@ -189,7 +189,7 @@ export function Select({ value, onChange, options, className, disabled }: Select
 												{option.label}
 											</button>
 										)
-									})
+									})}
 								</div>
 							</motion.div>
 						)}
