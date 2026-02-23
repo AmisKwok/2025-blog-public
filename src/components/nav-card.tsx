@@ -115,7 +115,7 @@ export default function NavCard() {
 
   const size = useMemo(() => {
     if (form === 'mini') return { width: 64, height: 64 }
-    else if (form === 'icons') return { width: 340, height: 64 }
+    else if (form === 'icons') return { width: 380, height: 64 }
     else return { width: styles.width, height: styles.height }
   }, [form, styles])
 
