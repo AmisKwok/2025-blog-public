@@ -23,6 +23,7 @@ import projectsLottie from '@/lottie/projects.json'
 import commentsLottie from '@/lottie/comments.json'
 import shareLottie from '@/lottie/share.json'
 import bloggersLottie from '@/lottie/bloggers.json'
+import trainLottie from '@/lottie/RP_Train.json'
 
 const list = [
   {
@@ -48,6 +49,13 @@ const list = [
     iconActive: shareLottie,
     key: 'nav.share',
     href: '/share'
+  },
+  {
+    icon: trainLottie,
+    iconActive: trainLottie,
+    key: 'nav.links',
+    href: 'https://www.travellings.cn/train.html',
+    isExternal: true
   },
   {
     icon: bloggersLottie,
@@ -182,7 +190,11 @@ export default function NavCard() {
                     const isBloggersLink = item.key === 'nav.bloggers'
 
                     const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-                      if (isBloggersLink) {
+                      if (item.isExternal) {
+                        // 外部链接在新窗口打开
+                        e.preventDefault()
+                        window.open(item.href, '_blank', 'noopener,noreferrer')
+                      } else if (isBloggersLink) {
                         e.preventDefault()
                         // 如果用户已登录，直接跳转到优秀博客页面
                         if (isLoggedIn) {

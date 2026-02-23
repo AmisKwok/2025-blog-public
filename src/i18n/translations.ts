@@ -7,6 +7,7 @@ const translations: Translations = {
     projects: '我的项目',
     comments: '留言区',
     share: '推荐分享',
+    links: '友链',
     bloggers: '秘密空间'
   },
     password: {
@@ -357,6 +358,7 @@ const translations: Translations = {
     projects: 'My Projects',
     comments: 'Guestbook',
     share: 'Recommendations',
+    links: 'Friends Link',
     bloggers: 'Secret Space'
   },
     password: {
@@ -707,6 +709,7 @@ const translations: Translations = {
     projects: '我的專案',
     comments: '留言區',
     share: '推薦分享',
+    links: '友鏈',
     bloggers: '秘密空間'
   },
     password: {
@@ -1053,12 +1056,13 @@ const translations: Translations = {
   },
   'ja': {
     nav: {
-      blog: 'すべての記事',
-      projects: 'マイプロジェクト',
-      comments: 'ゲストブック',
-      share: 'おすすめ',
-      bloggers: '秘密の空間'
-    },
+    blog: 'すべての記事',
+    projects: 'マイプロジェクト',
+    comments: 'ゲストブック',
+    share: 'おすすめ',
+    links: '友達リンク',
+    bloggers: '秘密の空間'
+  },
     password: {
       required: 'パスワードが必要',
       pleaseEnter: '続行するにはアクセスパスワードを入力してください',
@@ -1408,6 +1412,7 @@ const translations: Translations = {
       projects: '내 프로젝트',
       comments: '방명록',
       share: '추천 공유',
+      links: '친구 링크',
       bloggers: '비밀 공간'
     },
     password: {

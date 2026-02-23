@@ -10,6 +10,14 @@ import { useEffect, useRef, useState } from 'react'
 const width = 210
 const height = 150
 
+/**
+ * 液态玻璃效果组件
+ * 
+ * 创建一个具有拖拽功能的玻璃形态动画效果，使用SVG滤镜实现特殊的视觉变形效果。
+ * 组件在页面加载1秒后显示，具有透明度动画和点击放大效果。
+ * 
+ * @returns {React.ReactPortal | null} 返回渲染到document.body的玻璃效果portal，未显示时返回null
+ */
 export default function LiquidGrass() {
 	const bodyRef = useRef(document.body)
 	const [show, setShow] = useState(false)
