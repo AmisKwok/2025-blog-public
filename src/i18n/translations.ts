@@ -180,7 +180,7 @@ const translations: Translations = {
           morning: '早上好',
           afternoon: '下午好',
           evening: '晚上好',
-          night: '晚安'
+          night: '晚安啦，还没睡吗?'
         },
         introduction: '我是 {username}，很高兴认识你！'
       },
@@ -531,7 +531,7 @@ const translations: Translations = {
           morning: 'Good Morning',
           afternoon: 'Good Afternoon',
           evening: 'Good Evening',
-          night: 'Good Night'
+          night: 'Good morning! Did you get any sleep?'
         },
         introduction: "I'm {username}, Nice to meet you!"
       },
@@ -882,7 +882,7 @@ const translations: Translations = {
           morning: '早上好',
           afternoon: '下午好',
           evening: '晚上好',
-          night: '晚安'
+          night: '晚安，還沒睡嗎？'
         },
         introduction: '我是 {username}，很高興認識你！'
       },
@@ -1234,7 +1234,7 @@ const translations: Translations = {
           morning: 'おはようございます',
           afternoon: 'こんにちは',
           evening: 'こんばんは',
-          night: 'おやすみなさい'
+          night: 'おはよう！寝ましたか？'
         },
         introduction: '私は {username} です、はじめまして！'
       },
@@ -1587,7 +1587,7 @@ const translations: Translations = {
           morning: '좋은 아침',
           afternoon: '안녕하세요',
           evening: '좋은 저녁',
-          night: '안녕히 주무세요'
+          night: '좋은 아침! 잠을 잘 잤어요?'
         },
         introduction: '저는 {username}입니다, 만나서 반갑습니다!'
       },
