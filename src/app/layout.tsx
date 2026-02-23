@@ -365,7 +365,11 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
 					})();
 			      `
 					}}
-				/>
+				/> 
+
+				{/* 51LA统计代码 */}
+				<script charSet="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+				<script dangerouslySetInnerHTML={{ __html: `LA.init({id:"3P6a7VyuRuBRzhjJ",ck:"3P6a7VyuRuBRzhjJ",autoTrack:true})` }} />
 
 				<LanguageProvider>
 					<Layout>{children}</Layout>
