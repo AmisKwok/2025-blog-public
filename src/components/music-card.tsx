@@ -8,9 +8,10 @@ import { CARD_SPACING } from '@/consts'
 import MusicSVG from '@/svgs/music.svg'
 import PlaySVG from '@/svgs/play.svg'
 import { HomeDraggableLayer } from '../app/(home)/home-draggable-layer'
-import { Pause, Repeat, SkipBack, SkipForward, ChevronUp, ChevronDown } from 'lucide-react'
+import { Pause, Repeat, Repeat1, List, Shuffle, SkipBack, SkipForward, ChevronUp, ChevronDown } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
+import { motion } from 'motion/react'
 
 //// // 音乐文件类型
 interface MusicFile {
@@ -29,10 +30,11 @@ export default function MusicCard() {
 
 	const [musicFiles, setMusicFiles] = useState<MusicFile[]>([])
 	const [isPlaying, setIsPlaying] = useState(false)
-	const [loopMode, setLoopMode] = useState<'none' | 'single' | 'list' | 'single-play'>('list')
+	const [loopMode, setLoopMode] = useState<'none' | 'single' | 'list' | 'shuffle'>('none')
 	const [currentIndex, setCurrentIndex] = useState(0)
 	const [progress, setProgress] = useState(0)
 	const [showPlaylist, setShowPlaylist] = useState(false)
+	const [disableCardTap, setDisableCardTap] = useState(false)
 	const audioRef = useRef<HTMLAudioElement | null>(null)
 	const currentIndexRef = useRef(0)
 
@@ -106,10 +108,14 @@ export default function MusicCard() {
 				// 确保isPlaying为true，这样useEffect会自动播放下一首
 				setIsPlaying(true)
 				break
-			case 'single-play':
-				// 单曲播放，播放完就结束
-				setIsPlaying(false)
+			case 'shuffle':
+				// 随机播放，播放完当前歌曲后随机选择下一首
+				const randomIndex = Math.floor(Math.random() * musicFiles.length)
+				currentIndexRef.current = randomIndex
+				setCurrentIndex(randomIndex)
 				setProgress(0)
+				// 确保isPlaying为true，这样useEffect会自动播放下一首
+				setIsPlaying(true)
 				break
 			case 'none':
 			default:
@@ -191,15 +197,29 @@ export default function MusicCard() {
 
 	const handlePrevious = () => {
 		if (musicFiles.length === 0) return
-		const prevIndex = (currentIndex - 1 + musicFiles.length) % musicFiles.length
-		setCurrentIndex(prevIndex)
+		if (loopMode === 'shuffle') {
+			// 随机播放模式下，随机选择一首歌曲
+			const randomIndex = Math.floor(Math.random() * musicFiles.length)
+			setCurrentIndex(randomIndex)
+		} else {
+			// 其他模式下，按照列表顺序播放上一首
+			const prevIndex = (currentIndex - 1 + musicFiles.length) % musicFiles.length
+			setCurrentIndex(prevIndex)
+		}
 		setIsPlaying(true)
 	}
 
 	const handleNext = () => {
 		if (musicFiles.length === 0) return
-		const nextIndex = (currentIndex + 1) % musicFiles.length
-		setCurrentIndex(nextIndex)
+		if (loopMode === 'shuffle') {
+			// 随机播放模式下，随机选择一首歌曲
+			const randomIndex = Math.floor(Math.random() * musicFiles.length)
+			setCurrentIndex(randomIndex)
+		} else {
+			// 其他模式下，按照列表顺序播放下一首
+			const nextIndex = (currentIndex + 1) % musicFiles.length
+			setCurrentIndex(nextIndex)
+		}
 		setIsPlaying(true)
 	}
 
@@ -223,14 +243,15 @@ export default function MusicCard() {
 		<>
 			<HomeDraggableLayer cardKey='musicCard' x={x} y={y} width={styles.width} height={styles.height}>
 				<Card 
-					order={styles.order} 
-					width={styles.width} 
-					height={styles.height} 
-					x={x} 
-					y={y} 
-					className={clsx('flex items-center gap-3 cursor-pointer', !isHomePage && 'fixed')}
-					onClick={togglePlaylist}
-				>
+				order={styles.order} 
+				width={styles.width} 
+				height={styles.height} 
+				x={x} 
+				y={y} 
+				className={clsx('flex items-center gap-3 cursor-pointer', !isHomePage && 'fixed')}
+				onClick={togglePlaylist}
+				disableTap={disableCardTap}
+			>
 					{siteContent.enableChristmas && (
 						<>
 							<img
@@ -260,50 +281,55 @@ export default function MusicCard() {
 
 					<div className='flex items-center gap-2 pointer-events-none'>
 						<div className='flex items-center gap-2 pointer-events-auto'>
-							<button onClick={(e) => { e.stopPropagation(); handlePrevious(); }} className='flex h-8 w-8 items-center justify-center rounded-full bg-white/80 transition-opacity hover:opacity-100'>
+							<motion.button whileTap={{ scale: 1 }} onClick={(e) => { e.stopPropagation(); handlePrevious(); }} onMouseEnter={(e) => { e.stopPropagation(); setDisableCardTap(true); }} onMouseLeave={(e) => { e.stopPropagation(); setDisableCardTap(false); }} className='flex h-8 w-8 items-center justify-center rounded-full bg-white/80 transition-all hover:bg-white hover:scale-105'>
 								<SkipBack className='text-secondary h-3 w-3' />
-							</button>
-							<button onClick={(e) => { e.stopPropagation(); togglePlayPause(); }} className='flex h-10 w-10 items-center justify-center rounded-full bg-white transition-opacity hover:opacity-80'>
+							</motion.button>
+							<motion.button whileTap={{ scale: 1 }} onClick={(e) => { e.stopPropagation(); togglePlayPause(); }} onMouseEnter={(e) => { e.stopPropagation(); setDisableCardTap(true); }} onMouseLeave={(e) => { e.stopPropagation(); setDisableCardTap(false); }} className='flex h-10 w-10 items-center justify-center rounded-full bg-white transition-all hover:opacity-80 hover:scale-105'>
 								{isPlaying ? <Pause className='text-brand h-4 w-4' /> : <PlaySVG className='text-brand ml-1 h-4 w-4' />}
-							</button>
-							<button onClick={(e) => { e.stopPropagation(); handleNext(); }} className='flex h-8 w-8 items-center justify-center rounded-full bg-white/80 transition-opacity hover:opacity-100'>
+							</motion.button>
+							<motion.button whileTap={{ scale: 1 }} onClick={(e) => { e.stopPropagation(); handleNext(); }} onMouseEnter={(e) => { e.stopPropagation(); setDisableCardTap(true); }} onMouseLeave={(e) => { e.stopPropagation(); setDisableCardTap(false); }} className='flex h-8 w-8 items-center justify-center rounded-full bg-white/80 transition-all hover:bg-white hover:scale-105'>
 								<SkipForward className='text-secondary h-3 w-3' />
-							</button>
-							<button 
+							</motion.button>
+							<motion.button 
+								whileTap={{ scale: 1 }}
 								onClick={(e) => {
 									e.stopPropagation()
-									// 循环切换四种模式：none -> single -> list -> single-play -> none
+									// 循环切换四种模式：none -> list -> single -> shuffle (随机播放) -> none
 									if (loopMode === 'none') {
-										setLoopMode('single')
-									} else if (loopMode === 'single') {
 										setLoopMode('list')
 									} else if (loopMode === 'list') {
-										setLoopMode('single-play')
+										setLoopMode('single')
+									} else if (loopMode === 'single') {
+										setLoopMode('shuffle')
 									} else {
 										setLoopMode('none')
 									}
 								}}
-								className={`flex h-8 w-8 items-center justify-center rounded-full transition-colors ${
-									loopMode === 'none' ? 'bg-white/80 text-secondary hover:bg-white' : 
-									loopMode === 'single' ? 'bg-brand/20 text-brand' : 
-									loopMode === 'list' ? 'bg-brand/30 text-brand' :
-									'bg-brand/40 text-brand'
+								onMouseEnter={(e) => { e.stopPropagation(); setDisableCardTap(true); }}
+								onMouseLeave={(e) => { e.stopPropagation(); setDisableCardTap(false); }}
+								className={`flex h-8 w-8 items-center justify-center rounded-full transition-all ${
+									loopMode === 'none' ? 'bg-white/80 text-secondary hover:bg-white hover:scale-105' : 
+									loopMode === 'single' ? 'bg-white/80 text-secondary hover:bg-white hover:scale-105' : 
+									loopMode === 'list' ? 'bg-white/80 text-secondary hover:bg-white hover:scale-105' :
+									'bg-white/80 text-secondary hover:bg-white hover:scale-105'
 								}`}
 								title={
-									loopMode === 'none' ? '当前：列表播放不循环，点击开启单曲循环' : 
-									loopMode === 'single' ? '当前：单曲循环，点击开启列表循环' : 
-									loopMode === 'list' ? '当前：列表循环，点击开启单曲播放' : 
-									'当前：单曲播放，点击开启列表播放不循环'
+									loopMode === 'none' ? '当前：列表播放不循环，点击开启列表循环' : 
+									loopMode === 'list' ? '当前：列表循环，点击开启单曲循环' : 
+									loopMode === 'single' ? '当前：单曲循环，点击开启随机播放' : 
+									'当前：随机播放，点击开启列表播放不循环'
 								}
 							>
-								<Repeat className='h-4 w-4' />
-									{loopMode === 'single' && (
-										<span className='absolute text-xs font-bold'>1</span>
-									)}
-									{loopMode === 'single-play' && (
-										<span className='absolute text-xs font-bold'>/</span>
-									)}
-							</button>
+								{loopMode === 'none' ? (
+									<List className='h-4 w-4' />
+								) : loopMode === 'list' ? (
+									<Repeat className='h-4 w-4' />
+								) : loopMode === 'single' ? (
+									<Repeat1 className='h-4 w-4' />
+								) : (
+									<Shuffle className='h-4 w-4' />
+								)}
+							</motion.button>
 						</div>
 					</div>
 				</Card>
