@@ -35,7 +35,7 @@ export default function Page() {
           className='card relative p-6'
         >
           {siteContent.waline?.serverURL && (
-            <WalineComments path={currentPath} />
+            <WalineComments path="/" />
           )}
         </motion.div>
       </div>

@@ -56,25 +56,32 @@ export function BlogSidebar({ cover, summary, toc, slug }: BlogSidebarProps) {
 			)}
 
 			{/* 摘要 */}
-			{summary && !summaryInContent && (
-				<motion.div
-					initial={{ opacity: 0, scale: 0.8 }}
-					animate={{ opacity: 1, scale: 1 }}
-					transition={{ delay: INIT_DELAY + ANIMATION_DELAY * 2 }}
-					className='bg-card w-full rounded-xl border p-3 text-sm'>
-					<h2 className='text-secondary mb-2 font-medium'>摘要</h2>
-					<div className='text-secondary scrollbar-none max-h-[240px] cursor-text overflow-auto'>{summary}</div>
-				</motion.div>
-			)}
+				{summary && !summaryInContent && (
+					<motion.div
+						initial={{ opacity: 0, scale: 0.8 }}
+						animate={{ opacity: 1, scale: 1 }}
+						transition={{ delay: INIT_DELAY + ANIMATION_DELAY * 2 }}
+						className='bg-card w-full rounded-xl border p-3 text-sm'>
+						<h2 className='text-secondary mb-2 font-medium'>摘要</h2>
+						<div className='text-secondary scrollbar-none max-h-[240px] cursor-text overflow-auto'>{summary}</div>
+					</motion.div>
+				)}
 
-			{/* 目录 */}
-			<BlogToc toc={toc} delay={INIT_DELAY + ANIMATION_DELAY * 3} />
+				{/* 目录 */}
+				<BlogToc toc={toc} delay={INIT_DELAY + ANIMATION_DELAY * 3} />
 
-			{/* 点赞按钮 */}
-			<LikeButton slug={slug} delay={(INIT_DELAY + ANIMATION_DELAY * 4) * 1000} />
+				{/* 间距 */}
+				<div className="mt-10"></div>
 
-			{/* 回到顶部按钮 */}
-			<ScrollTopButton delay={INIT_DELAY + ANIMATION_DELAY * 5} />
+				{/* 点赞按钮 */}
+				<div className="w-full flex justify-end">
+					<LikeButton slug={slug} delay={(INIT_DELAY + ANIMATION_DELAY * 4) * 1000} />
+				</div>
+
+				{/* 回到顶部按钮 */}
+				<div className="w-full flex justify-end mt-4">
+					<ScrollTopButton delay={INIT_DELAY + ANIMATION_DELAY * 5} />
+				</div>
 		</div>
 	)
 }

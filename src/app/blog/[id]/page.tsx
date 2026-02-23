@@ -14,6 +14,7 @@ import { useReadArticles } from '@/hooks/use-read-articles'
 import LiquidGrass from '@/components/liquid-grass'
 import { useLanguage } from '@/i18n/context'
 import { useLocalAuthStore } from '@/hooks/use-local-auth'
+import WalineComments from '@/components/WalineComments'
 
 // 获取当前域名
 const origin = typeof window !== 'undefined' ? window.location.origin : ''
@@ -130,6 +131,14 @@ export default function Page() {
 
 			{/* 特殊效果：液体草动画（仅特定文章） */}
 			{slug === 'liquid-grass' && <LiquidGrass />}
+
+			{/* 文章评论区 */}
+			<div className="mx-auto flex max-w-[1140px] justify-center gap-6 px-6 pt-12 pb-12 max-sm:px-0">
+				<div className="card bg-article static flex-1 overflow-auto rounded-xl p-8">
+					<WalineComments path={`/blog/${slug}`} />
+				</div>
+			</div>
+
 		</>
 	)
 }

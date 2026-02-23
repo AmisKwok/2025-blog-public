@@ -26,7 +26,7 @@ export default function WalineComments({ path }) {
     walineInstanceRef.current = init({
       el: containerRef.current,
       serverURL: serverURL, // 您的 Waline 服务地址
-      path: '/', // 固定使用根路径以匹配正确的API端点
+      path: path, // 使用动态路径以确保评论隔离
       lang: language, // 使用当前网站语言
       dark: false, // 禁用暗色模式
       reaction: false, // 启用表情反应
