@@ -102,7 +102,7 @@ export default function MusicCard() {
 								rowCount={musicFiles.length}
 								rowHeight={60}
 								overscanCount={2}
-								style={{ height: 320, width: '100%' }}
+								style={{ height: 320, width: '100%', overflow: 'hidden' }}
 								rowComponent={({ index, style }) => (
 									<div style={style}>
 										<button

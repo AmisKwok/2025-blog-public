@@ -43,86 +43,11 @@ export default function AudioPlayer({ className, onDisableCardTapChange }: Audio
       onDisableCardTapChange(disable)
     }
   }
-  const audioRef = useRef<HTMLAudioElement | null>(null)
 
   // 从API获取音乐文件列表
   useEffect(() => {
     fetchMusicFiles()
   }, [fetchMusicFiles])
-
-  // Initialize audio element
-  useEffect(() => {
-    if (!audioRef.current) {
-      audioRef.current = new Audio()
-    }
-
-    const audio = audioRef.current
-
-    const updateProgress = () => {
-      if (audio.duration) {
-        setProgress((audio.currentTime / audio.duration) * 100)
-      }
-    }
-
-    const handleEnded = () => {
-      if (musicFiles.length === 0) return
-      playNext()
-    }
-
-    const handleTimeUpdate = () => {
-      updateProgress()
-    }
-
-    const handleLoadedMetadata = () => {
-      updateProgress()
-    }
-
-    audio.addEventListener('timeupdate', handleTimeUpdate)
-    audio.addEventListener('ended', handleEnded)
-    audio.addEventListener('loadedmetadata', handleLoadedMetadata)
-
-    return () => {
-      audio.removeEventListener('timeupdate', handleTimeUpdate)
-      audio.removeEventListener('ended', handleEnded)
-      audio.removeEventListener('loadedmetadata', handleLoadedMetadata)
-    }
-  }, [musicFiles, playNext, setProgress])
-
-  // Handle currentIndex change - load new audio
-  useEffect(() => {
-    if (audioRef.current && musicFiles.length > 0 && currentIndex >= 0 && currentIndex < musicFiles.length) {
-      // 只有当currentIndex变化时才重新设置src，避免暂停后播放从头开始
-      audioRef.current.pause()
-      audioRef.current.src = musicFiles[currentIndex].path
-      audioRef.current.loop = false
-      setProgress(0)
-
-      if (isPlaying) {
-        audioRef.current.play().catch(console.error)
-      }
-    }
-  }, [currentIndex, musicFiles]) // 移除isPlaying依赖，只在currentIndex或musicFiles变化时重新设置
-
-  // 专门处理isPlaying变化，只控制播放/暂停，不重新设置src
-  useEffect(() => {
-    if (!audioRef.current || musicFiles.length === 0 || currentIndex < 0 || currentIndex >= musicFiles.length) return
-
-    if (isPlaying) {
-      audioRef.current.play().catch(console.error)
-    } else {
-      audioRef.current.pause()
-    }
-  }, [isPlaying, musicFiles, currentIndex])
-
-  // Cleanup on unmount
-  useEffect(() => {
-    return () => {
-      if (audioRef.current) {
-        audioRef.current.pause()
-        audioRef.current.src = ''
-      }
-    }
-  }, [])
 
   return (
     <>

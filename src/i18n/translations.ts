@@ -263,6 +263,15 @@ const translations: Translations = {
     audioPlayer: {
       playlist: '音乐列表'
     },
+    globalAudioPlayer: {
+      loading: '加载中...',
+      previous: '上一首',
+      play: '播放',
+      pause: '暂停',
+      next: '下一首',
+      hide: '隐藏',
+      show: '显示'
+    },
     imageToolbox: {
       title: 'PNG / JPG 转 WEBP',
       description: '选择图片 → 调整质量 → 一键转换下载',
@@ -617,6 +626,15 @@ const translations: Translations = {
     audioPlayer: {
       playlist: 'Music Playlist'
     },
+    globalAudioPlayer: {
+      loading: 'Loading...',
+      previous: 'Previous',
+      play: 'Play',
+      pause: 'Pause',
+      next: 'Next',
+      hide: 'Hide',
+      show: 'Show'
+    },
     imageToolbox: {
       title: 'PNG / JPG to WEBP',
       description: 'Select images → Adjust quality → Convert and download',
@@ -970,6 +988,15 @@ const translations: Translations = {
     },
     audioPlayer: {
       playlist: '音樂列表'
+    },
+    globalAudioPlayer: {
+      loading: '載入中...',
+      previous: '上一首',
+      play: '播放',
+      pause: '暫停',
+      next: '下一首',
+      hide: '隱藏',
+      show: '顯示'
     },
     imageToolbox: {
       title: 'PNG / JPG 轉 WEBP',
@@ -1326,6 +1353,15 @@ const translations: Translations = {
     audioPlayer: {
       playlist: '音楽リスト'
     },
+    globalAudioPlayer: {
+      loading: '読み込み中...',
+      previous: '前へ',
+      play: '再生',
+      pause: '一時停止',
+      next: '次へ',
+      hide: '非表示',
+      show: '表示'
+    },
     imageToolbox: {
       title: 'PNG / JPG から WEBP へ',
       description: '画像を選択 → 品質を調整 → 一括変換してダウンロード',
@@ -1681,6 +1717,15 @@ const translations: Translations = {
     },
     audioPlayer: {
       playlist: '음악 목록'
+    },
+    globalAudioPlayer: {
+      loading: '로딩 중...',
+      previous: '이전',
+      play: '재생',
+      pause: '일시 정지',
+      next: '다음',
+      hide: '숨기기',
+      show: '보기'
     },
     imageToolbox: {
       title: 'PNG / JPG to WEBP',
