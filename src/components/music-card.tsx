@@ -8,7 +8,7 @@ import { CARD_SPACING } from '@/consts'
 import MusicSVG from '@/svgs/music.svg'
 import PlaySVG from '@/svgs/play.svg'
 import { HomeDraggableLayer } from '../app/(home)/home-draggable-layer'
-import { Pause, Repeat, Repeat1, List as ListIcon, Shuffle, SkipBack, SkipForward, ChevronUp, ChevronDown } from 'lucide-react'
+import { Pause, Repeat, Repeat1, List as ListIcon, Shuffle, SkipBack, SkipForward, ChevronUp, ChevronDown, ListVideo } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
 import { motion } from 'motion/react'
@@ -249,8 +249,7 @@ export default function MusicCard() {
 				height={styles.height} 
 				x={x} 
 				y={y} 
-				className={clsx('flex items-center gap-3 cursor-pointer', !isHomePage && 'fixed')}
-				onClick={togglePlaylist}
+				className={clsx('flex items-center gap-3', !isHomePage && 'fixed')}
 				disableTap={disableCardTap}
 			>
 					{siteContent.enableChristmas && (
@@ -321,15 +320,18 @@ export default function MusicCard() {
 									'当前：随机播放，点击开启列表播放不循环'
 								}
 							>
-								{loopMode === 'none' ? (
-												<ListIcon className='h-4 w-4' />
-											) : loopMode === 'list' ? (
-												<Repeat className='h-4 w-4' />
-											) : loopMode === 'single' ? (
+								{loopMode === 'none' ? ( 
+											<Repeat className='h-4 w-4' />
+										) : loopMode === 'list' ? (
 												<Repeat1 className='h-4 w-4' />
-											) : (
+										) : loopMode === 'single' ? (
 												<Shuffle className='h-4 w-4' />
-											)}
+										) : (
+												<ListIcon className='h-4 w-4' />
+										)}
+							</motion.button>
+							<motion.button whileTap={{ scale: 1 }} onClick={(e) => { e.stopPropagation(); togglePlaylist(); }} onMouseEnter={(e) => { e.stopPropagation(); setDisableCardTap(true); }} onMouseLeave={(e) => { e.stopPropagation(); setDisableCardTap(false); }} className='flex h-8 w-8 items-center justify-center rounded-full bg-white/80 transition-all hover:bg-white hover:scale-105'>
+								<ListVideo className='text-secondary h-4 w-4' />
 							</motion.button>
 						</div>
 					</div>
