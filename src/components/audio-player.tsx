@@ -16,9 +16,10 @@ export interface MusicFile {
 
 interface AudioPlayerProps {
   className?: string
+  onDisableCardTapChange?: (disable: boolean) => void
 }
 
-export default function AudioPlayer({ className }: AudioPlayerProps) {
+export default function AudioPlayer({ className, onDisableCardTapChange }: AudioPlayerProps) {
   const { t } = useLanguage()
   const {
     musicFiles,
@@ -37,7 +38,11 @@ export default function AudioPlayer({ className }: AudioPlayerProps) {
     setProgress
   } = useAudioStore()
   
-  const [disableCardTap, setDisableCardTap] = useState(false)
+  const setDisableCardTap = (disable: boolean) => {
+    if (onDisableCardTapChange) {
+      onDisableCardTapChange(disable)
+    }
+  }
   const audioRef = useRef<HTMLAudioElement | null>(null)
 
   // 从API获取音乐文件列表
@@ -169,42 +174,7 @@ export default function AudioPlayer({ className }: AudioPlayerProps) {
         </div>
       </div>
 
-      {showPlaylist && (
-        <>
-          <div className="fixed inset-0 bg-black/50 z-40" onClick={togglePlaylist} />
-          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
-            <div className="bg-card/80 backdrop-blur-lg p-4 rounded-2xl shadow-xl max-h-96 overflow-y-auto w-80 border border-white/20 scrollbar-none">
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-semibold text-primary">{t('audioPlayer.playlist')}</h3>
-                <button onClick={togglePlaylist} className="text-secondary hover:text-primary">
-                  {showPlaylist ? <ChevronDown className="h-5 w-5" /> : <ChevronUp className="h-5 w-5" />}
-                </button>
-              </div>
-              <VirtualList
-                rowCount={musicFiles.length}
-                rowHeight={60}
-                overscanCount={2}
-                style={{ height: 320, width: '100%' }}
-                rowComponent={({ index, style }) => (
-                  <div style={style}>
-                    <button
-                      onClick={() => playSong(index)}
-                      className={`w-full text-left p-3 rounded-xl transition-colors ${
-                        index === currentIndex
-                          ? 'bg-brand/20 text-brand font-medium'
-                          : 'hover:bg-white/10 text-primary'
-                        }`}
-                      >
-                        <div className="font-medium">{musicFiles[index].title}</div>
-                      </button>
-                    </div>
-                )}
-                rowProps={{}}
-              />
-            </div>
-          </div>
-        </>
-      )}
+      
     </>
   )
 }
