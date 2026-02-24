@@ -92,11 +92,15 @@ export default function LanguageSelector({ direction = 'down', mobile = false, o
               <motion.button
                 key={lang.code}
                 onClick={() => handleLanguageSelect(lang.code)}
-                className={`w-full text-left px-4 py-2 flex items-center transition-colors ${language === lang.code ? 'bg-brand/20 text-primary' : 'hover:bg-secondary/10'}`}
-                whileHover={{ backgroundColor: language === lang.code ? 'rgba(var(--color-brand), 0.2)' : 'rgba(var(--color-secondary), 0.1)' }}
-                whileTap={{ scale: 0.98 }}
+                className={`w-full text-left px-4 py-3 flex items-center transition-all duration-250 ${language === lang.code ? 'bg-brand/25 text-primary font-semibold' : 'hover:bg-secondary/15'}`}
+                whileHover={{ 
+                  backgroundColor: language === lang.code ? 'rgba(var(--color-brand), 0.3)' : 'rgba(var(--color-secondary), 0.2)',
+                  x: 8,
+                  transition: { duration: 0.18 }
+                }}
+                whileTap={{ scale: 0.97 }}
               >
-                <span>{lang.label}</span>
+                <span className={language === lang.code ? 'text-primary font-semibold' : 'text-secondary'}>{lang.label}</span>
               </motion.button>
             ))}
           </motion.div>
