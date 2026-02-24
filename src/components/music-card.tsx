@@ -169,7 +169,7 @@ export default function MusicCard() {
 				audioRef.current.play().catch(console.error)
 			}
 		}
-	}, [currentIndex, isPlaying, musicFiles])
+	}, [currentIndex, musicFiles])
 
 	// Handle play/pause state change
 	useEffect(() => {
