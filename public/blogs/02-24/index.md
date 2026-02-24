@@ -165,7 +165,7 @@ const position = useMemo(() => {
 
 点击卡片显示音乐列表弹窗，支持歌曲选择：
 
-<img src="https://github.com/AmisKwok/2025-blog-public/blob/main/public/blogs/blogimg/b23e02fd-3d97-4a18-8878-917c56adefc3.png?raw=true" alt="音乐播放列表弹窗" width="300" style="cursor: pointer; border-radius: 8px; border: 1px solid #e5e7eb; transition: transform 0.2s; transform-origin: center;" onMouseOver="this.style.transform='scale(1.02)'" onMouseOut="this.style.transform='scale(1)'"/>
+<img src="/blogs/blogimg/b23e02fd-3d97-4a18-8878-917c56adefc3.png" alt="音乐播放列表弹窗" width="300" style="cursor: pointer; border-radius: 8px; border: 1px solid #e5e7eb; transition: transform 0.2s;"/>
 
 ```tsx
 {showPlaylist && (
