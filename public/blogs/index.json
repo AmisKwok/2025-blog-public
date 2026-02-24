@@ -1,27 +1,15 @@
 [
   {
-    "slug": "01-02",
-    "title": "Vibe Music Server",
+    "slug": "02-24",
+    "title": "音乐组件 (MusicCard) 技术解析",
     "tags": [
-      "Java",
-      "SpringBoot3"
+      "说明文档",
+      "配置文档"
     ],
-    "date": "2026-02-13T17:21",
-    "summary": "Vibe Music Server是为了Vibe Music App提供后端服务而开发的后端系统",
-    "cover": "/blogs/01-02/ac9881f8db9513c5.png",
+    "date": "2026-02-24T23:44",
+    "summary": "因为音乐组件被我大改过，很多人问我具体功能和配置问题，所以就有了这篇文章",
+    "cover": "/blogs/02-24/8818239f4c3c3e4f.png",
     "hidden": false,
-    "category": "开源"
-  },
-  {
-    "slug": "01-01",
-    "title": "Vibe Music App",
-    "tags": [
-      "Flutter"
-    ],
-    "date": "2026-02-12T07:19",
-    "summary": "Vibe Music客户端",
-    "cover": "/blogs/01-01/9f40327af19232a6.jpg",
-    "hidden": false,
-    "category": "开源"
+    "category": "代码实现"
   }
 ]
