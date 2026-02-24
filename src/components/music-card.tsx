@@ -8,10 +8,11 @@ import { CARD_SPACING } from '@/consts'
 import MusicSVG from '@/svgs/music.svg'
 import PlaySVG from '@/svgs/play.svg'
 import { HomeDraggableLayer } from '../app/(home)/home-draggable-layer'
-import { Pause, Repeat, Repeat1, List, Shuffle, SkipBack, SkipForward, ChevronUp, ChevronDown } from 'lucide-react'
+import { Pause, Repeat, Repeat1, List as ListIcon, Shuffle, SkipBack, SkipForward, ChevronUp, ChevronDown } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
 import { motion } from 'motion/react'
+import { List as VirtualList } from 'react-window'
 
 //// // 音乐文件类型
 interface MusicFile {
@@ -321,14 +322,14 @@ export default function MusicCard() {
 								}
 							>
 								{loopMode === 'none' ? (
-									<List className='h-4 w-4' />
-								) : loopMode === 'list' ? (
-									<Repeat className='h-4 w-4' />
-								) : loopMode === 'single' ? (
-									<Repeat1 className='h-4 w-4' />
-								) : (
-									<Shuffle className='h-4 w-4' />
-								)}
+												<ListIcon className='h-4 w-4' />
+											) : loopMode === 'list' ? (
+												<Repeat className='h-4 w-4' />
+											) : loopMode === 'single' ? (
+												<Repeat1 className='h-4 w-4' />
+											) : (
+												<Shuffle className='h-4 w-4' />
+											)}
 							</motion.button>
 						</div>
 					</div>
@@ -346,21 +347,27 @@ export default function MusicCard() {
 									{showPlaylist ? <ChevronDown className="h-5 w-5" /> : <ChevronUp className="h-5 w-5" />}
 								</button>
 							</div>
-							<div className="space-y-2">
-						{musicFiles.map((song, index) => (
-							<button
-								key={index}
-								onClick={() => handleSongSelect(index)}
-								className={`w-full text-left p-3 rounded-xl transition-colors ${
-									index === currentIndex 
-										? 'bg-brand/20 text-brand font-medium'
-										: 'hover:bg-white/10 text-primary'
-									}`}
-								>
-									<div className="font-medium">{song.title}</div>
-								</button>
-						))}
-					</div>
+							<VirtualList
+								rowCount={musicFiles.length}
+								rowHeight={60}
+								overscanCount={2}
+								style={{ height: 320, width: '100%' }}
+								rowComponent={({ index, style }) => (
+									<div style={style}>
+										<button
+											onClick={() => handleSongSelect(index)}
+											className={`w-full text-left p-3 rounded-xl transition-colors ${
+												index === currentIndex
+													? 'bg-brand/20 text-brand font-medium'
+													: 'hover:bg-white/10 text-primary'
+												}`}
+											>
+												<div className="font-medium">{musicFiles[index].title}</div>
+											</button>
+										</div>
+								)}
+								rowProps={{}}
+							/>
 						</div>
 					</div>
 				</>
