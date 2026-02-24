@@ -260,6 +260,9 @@ const translations: Translations = {
       timer: '计时器',
       lap: '计次'
     },
+    audioPlayer: {
+      playlist: '音乐列表'
+    },
     imageToolbox: {
       title: 'PNG / JPG 转 WEBP',
       description: '选择图片 → 调整质量 → 一键转换下载',
@@ -611,6 +614,9 @@ const translations: Translations = {
       timer: 'Timer',
       lap: 'Lap'
     },
+    audioPlayer: {
+      playlist: 'Music Playlist'
+    },
     imageToolbox: {
       title: 'PNG / JPG to WEBP',
       description: 'Select images → Adjust quality → Convert and download',
@@ -958,9 +964,12 @@ const translations: Translations = {
       noContent: '暫無內容'
     },
     clock: {
-      stopwatch: '碼表',
+      stopwatch: '碼錶',
       timer: '計時器',
       lap: '計次'
+    },
+    audioPlayer: {
+      playlist: '音樂列表'
     },
     imageToolbox: {
       title: 'PNG / JPG 轉 WEBP',
@@ -1314,6 +1323,9 @@ const translations: Translations = {
       timer: 'タイマー',
       lap: 'ラップ'
     },
+    audioPlayer: {
+      playlist: '音楽リスト'
+    },
     imageToolbox: {
       title: 'PNG / JPG から WEBP へ',
       description: '画像を選択 → 品質を調整 → 一括変換してダウンロード',
@@ -1666,6 +1678,9 @@ const translations: Translations = {
       stopwatch: '스톱워치',
       timer: '타이머',
       lap: '랩'
+    },
+    audioPlayer: {
+      playlist: '음악 목록'
     },
     imageToolbox: {
       title: 'PNG / JPG to WEBP',
