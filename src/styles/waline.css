@@ -339,6 +339,98 @@ span.wl-browser {
   backdrop-filter: blur(4px);
 }
 
+
+/* 回复内容容器样式 */
+.wl-content,
+.waline-content {
+  display: inline-block;
+  position: relative;
+  min-height: 24px;
+}
+
+/* 回复目标样式 */
+.wl-reply-to,
+.waline-reply-to {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 8px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  line-height: 20px;
+  margin-bottom: 0;
+  font-size: 14px;
+  vertical-align: middle;
+  height: 20px;
+  box-sizing: border-box;
+}
+
+/* 回复目标中的链接样式 */
+.wl-reply-to a,
+.waline-reply-to a {
+  display: inline-block;
+  line-height: 20px;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  vertical-align: middle;
+  height: 33px;
+  box-sizing: border-box;
+}
+
+/* 回复目标中的 span 样式 */
+.wl-reply-to span,
+.waline-reply-to span {
+  display: inline-block;
+  line-height: 32px;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  vertical-align: middle;
+  height: 44px;
+  box-sizing: border-box;
+}
+
+/* 回复内容文本样式 */
+.wl-content > div:not(.wl-reply-to),
+.waline-content > div:not(.waline-reply-to) {
+  display: inline-block;
+  line-height: 20px;
+  margin-top: 0;
+  margin-left: 8px;
+  font-size: 14px;
+  padding: 0;
+  margin: 0 0 0 8px;
+  vertical-align: middle;
+  height: 40px;
+  box-sizing: border-box;
+}
+
+/* 回复内容中的段落样式 */
+.wl-content > div:not(.wl-reply-to) p,
+.waline-content > div:not(.waline-reply-to) p {
+  display: inline-block;
+  line-height: 20px;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  vertical-align: middle;
+  height: 0px;
+  box-sizing: border-box;
+}
+
+.wl-reply-to a,
+.waline-reply-to a {
+  color: var(--waline-theme-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.wl-reply-to a:hover,
+.waline-reply-to a:hover {
+  text-decoration: underline;
+}
+
 /* 分页样式 */
 .waline-pagination {
   margin-top: 20px;
@@ -483,6 +575,24 @@ span.wl-browser {
 .waline-input::placeholder,
 .waline-editor textarea::placeholder {
   color: var(--waline-light-grey);
+}
+
+/* 表情选择器样式 - 确保置顶显示 */
+.wl-emoji,
+.waline-emoji,
+.wl-emoji-popover,
+.waline-emoji-popover,
+.wl-emoji-popup,
+.waline-emoji-popup {
+  z-index: 9999 !important;
+  position: relative !important;
+}
+
+/* 确保表情选择器容器的层级 */
+.wl-emoji-container,
+.waline-emoji-container {
+  z-index: 9999 !important;
+  position: relative !important;
 }
 
 /* 响应式设计 */
