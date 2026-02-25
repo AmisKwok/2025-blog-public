@@ -12,6 +12,7 @@ import MusicCard from '@/components/music-card'
 import GlobalAudioPlayer from '@/components/global-audio-player'
 import { MobileLanguageButton } from '@/components/mobile-language-button'
 import { usePathname } from 'next/navigation'
+import AddToFavorites from '@/components/add-to-favorites'
 
 export default function Layout({ children }: PropsWithChildren) {
 	useCenterInit()
@@ -71,13 +72,14 @@ export default function Layout({ children }: PropsWithChildren) {
 				</main>
 
 				{maxSM && init && (
-					<>
-						<ScrollTopButton className='bg-brand/20 fixed right-6 bottom-12 z-50 shadow-md' />
-						<MobileLanguageButton className='bg-brand/20 fixed left-6 bottom-28 z-50 shadow-md' />
-					</>
+				<>
+					<ScrollTopButton className='bg-brand/20 fixed right-6 bottom-12 z-50 shadow-md' />
+					<MobileLanguageButton className='bg-brand/20 fixed left-6 bottom-28 z-50 shadow-md' />
+				</>
 				)}
 
 				<GlobalAudioPlayer />
+				<AddToFavorites />
 			</>
 		)
 }

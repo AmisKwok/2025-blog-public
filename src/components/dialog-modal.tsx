@@ -16,7 +16,7 @@ interface DialogModalProps {
 	closeOnEsc?: boolean
 }
 
-export function DialogModal({ open, onClose, children, className, disableCloseOnOverlay = false, lockScroll = true, closeOnEsc = true }: DialogModalProps) {
+export function DialogModal({ open, onClose, children, className, overlayClassName, disableCloseOnOverlay = false, lockScroll = true, closeOnEsc = true }: DialogModalProps) {
 	const [mounted, setMounted] = useState(false)
 
 	useEffect(() => {
@@ -54,7 +54,7 @@ export function DialogModal({ open, onClose, children, className, disableCloseOn
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
 					exit={{ opacity: 0 }}
-					className={'fixed inset-0 z-50 flex items-center justify-center bg-card p-4 backdrop-blur-xl'}
+					className={cn('fixed inset-0 z-50 flex items-center justify-center p-4', overlayClassName || 'bg-card backdrop-blur-xl')}
 					onClick={disableCloseOnOverlay ? undefined : onClose}>
 					<motion.div
 						initial={{ opacity: 0, scale: 0.8, y: 20 }}

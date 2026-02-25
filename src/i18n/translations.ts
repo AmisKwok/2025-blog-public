@@ -362,6 +362,14 @@ const translations: Translations = {
       imageAlreadyExists: '该图片已在列表中',
       imageDuplicate: '图片已存在，不重复添加',
       loadBlogFailed: '加载博客失败'
+    },
+    addToFavorites: {
+      title: '收藏我们的网站',
+      message: '喜欢我们的内容吗？请将我们的网站添加到收藏夹，以便随时访问！',
+      later: '稍后再说',
+      add: '关注 ⭐',
+      bookmarkHint: '请按 Ctrl+D (Windows/Linux) 或 Command+D (Mac) 将本网站添加到收藏夹',
+      bookmarkHintOpera: '请按 Ctrl+D 将本网站添加到收藏夹'
     }
   },
   'en': {
@@ -725,6 +733,14 @@ const translations: Translations = {
       imageAlreadyExists: 'This image is already in the list',
       imageDuplicate: 'Image already exists, not added again',
       loadBlogFailed: 'Failed to load blog'
+    },
+    addToFavorites: {
+      title: 'Bookmark Our Website',
+      message: 'Like our content? Please add our website to your bookmarks for easy access anytime!',
+      later: 'Maybe Later',
+      add: 'Follow ⭐',
+      bookmarkHint: 'Please press Ctrl+D (Windows/Linux) or Command+D (Mac) to bookmark this website',
+      bookmarkHintOpera: 'Please press Ctrl+D to bookmark this website'
     }
   },
   'zh-TW': {
@@ -1088,6 +1104,14 @@ const translations: Translations = {
       imageAlreadyExists: '此圖片已在清單中',
       imageDuplicate: '圖片已存在，不重複新增',
       loadBlogFailed: '載入部落格失敗'
+    },
+    addToFavorites: {
+      title: '收藏我們的網站',
+      message: '喜歡我們的內容嗎？請將我們的網站新增到收藏夾，以便隨時訪問！',
+      later: '稍後再說',
+      add: '關注 ⭐',
+      bookmarkHint: '請按 Ctrl+D (Windows/Linux) 或 Command+D (Mac) 將本網站新增到收藏夾',
+      bookmarkHintOpera: '請按 Ctrl+D 將本網站新增到收藏夾'
     }
   },
   'ja': {
@@ -1452,6 +1476,14 @@ const translations: Translations = {
       imageAlreadyExists: 'この画像はすでにリストにあります',
       imageDuplicate: '画像はすでに存在するため、重複して追加されません',
       loadBlogFailed: 'ブログの読み込みに失敗しました'
+    },
+    addToFavorites: {
+      title: 'ウェブサイトをブックマーク',
+      message: 'コンテンツが気に入りましたか？いつでもアクセスしやすいように、当ウェブサイトをブックマークに追加してください！',
+      later: '後で',
+      add: 'フォロー ⭐',
+      bookmarkHint: 'このウェブサイトをブックマークするには、Ctrl+D (Windows/Linux) または Command+D (Mac) を押してください',
+      bookmarkHintOpera: 'このウェブサイトをブックマークするには、Ctrl+D を押してください'
     }
   },
   'ko': {
@@ -1779,7 +1811,7 @@ const translations: Translations = {
       invalidId: '유효하지 않은 블로그 ID'
     },
     toast: {
-      gettingBranchInfo: '브랜치 정보 가져오는 중...',
+      gettingBranchInfo: '브랜치 정보를 가져오는 중...',
       preparingFiles: '파일 준비 중...',
       uploadingImages: '이미지 업로드 중...',
       uploadingFavicon: 'Favicon 업로드 중...',
@@ -1795,15 +1827,15 @@ const translations: Translations = {
       updatingCategories: '카테고리 업데이트 중...',
       collectingFiles: '파일 수집 중...',
       checkingFilesToDelete: '삭제할 파일 확인 중...',
-      publishSuccess: '게시 성공!',
-      saveSuccess: '저장 성공!',
-      deleteSuccess: '삭제 성공!',
-      deleteSuccessWithDeploy: '삭제 성공! 페이지 배포를 기다린 후 새로고침하세요',
+      publishSuccess: '게시 성공！',
+      saveSuccess: '저장 성공！',
+      deleteSuccess: '삭제 성공！',
+      deleteSuccessWithDeploy: '삭제 성공！페이지 배포를 기다린 후 새로고침하세요',
       updateSuccess: '업데이트 성공',
       addSuccess: '추가 성공',
-      setCoverSuccess: '커버가 설정되었습니다',
+      setCoverSuccess: '커버 설정 성공',
       blogLoadSuccess: '블로그 로드 성공',
-      error: '작업 실패, 다시 시도하세요',
+      error: '작업 실패. 다시 시도하세요',
       noAuth: '먼저 GitHub에 로그인하세요',
       noSlug: 'slug가 없어 삭제할 수 없습니다',
       readKeyFileError: '키 파일 읽기 실패',
@@ -1813,10 +1845,18 @@ const translations: Translations = {
       pleaseUploadImageOrEnterUrl: '이미지를 업로드하거나 URL을 입력하세요',
       pleaseDragImage: '이미지 파일을 드래그하세요',
       pleaseFillAllRequiredFields: '모든 필수 필드를 입력하세요',
-      pleaseAddAtLeastOneTag: '적어도 하나의 태그를 추가하세요',
+      pleaseAddAtLeastOneTag: '최소 하나의 태그를 추가하세요',
       imageAlreadyExists: '이 이미지는 이미 목록에 있습니다',
       imageDuplicate: '이미지가 이미 존재하므로 중복 추가되지 않습니다',
       loadBlogFailed: '블로그 로드 실패'
+    },
+    addToFavorites: {
+      title: '웹사이트 북마크',
+      message: '우리 콘텐츠를 좋아하세요？언제든지 접근할 수 있도록 웹사이트를 북마크에 추가해 주세요！',
+      later: '나중에',
+      add: '팔로우 ⭐',
+      bookmarkHint: '이 웹사이트를 북마크하려면 Ctrl+D (Windows/Linux) 또는 Command+D (Mac) 키를 눌러주세요',
+      bookmarkHintOpera: '이 웹사이트를 북마크하려면 Ctrl+D 키를 눌러주세요'
     }
   }
 };
