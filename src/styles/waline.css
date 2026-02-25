@@ -583,7 +583,9 @@ span.wl-browser {
 .wl-emoji-popover,
 .waline-emoji-popover,
 .wl-emoji-popup,
-.waline-emoji-popup {
+.waline-emoji-popup,
+.wl-tab-wrapper,
+.waline-tab-wrapper {
   z-index: 9999 !important;
   position: relative !important;
 }
@@ -593,6 +595,13 @@ span.wl-browser {
 .waline-emoji-container {
   z-index: 9999 !important;
   position: relative !important;
+}
+
+/* 确保表情预览图像的层级 */
+.wl-emoji-preview,
+.waline-emoji-preview {
+  z-index: 10000 !important;
+  position: absolute !important;
 }
 
 /* 响应式设计 */
