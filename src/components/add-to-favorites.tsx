@@ -48,12 +48,12 @@ const AddToFavorites: React.FC = () => {
 
     // 尝试添加到收藏夹
     try {
-      if (window.sidebar && window.sidebar.addPanel) {
+      if ('sidebar' in window && (window as any).sidebar && (window as any).sidebar.addPanel) {
         // Firefox
-        window.sidebar.addPanel(document.title, window.location.href, '');
+        (window.sidebar as any).addPanel(document.title, window.location.href, '');
       } else if (window.external && ('AddFavorite' in window.external)) {
         // IE
-        window.external.AddFavorite(window.location.href, document.title);
+        (window.external as any).AddFavorite(window.location.href, document.title);
       } else if (window.navigator.userAgent.includes('Opera')) {
         // Opera
         alert(t('addToFavorites.bookmarkHintOpera'));
