@@ -92,6 +92,15 @@ export default function MusicCard() {
 					<div className="fixed inset-0 bg-black/50 z-40" onClick={(e) => { e.stopPropagation(); togglePlaylist(); }} />
 					<div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
 						<div className="bg-card/80 backdrop-blur-lg p-4 rounded-2xl shadow-xl max-h-96 overflow-y-auto w-80 border border-white/20 scrollbar-none">
+							<style jsx>{`
+								.scrollbar-none::-webkit-scrollbar {
+									display: none;
+								}
+								.scrollbar-none {
+									-ms-overflow-style: none;
+									scrollbar-width: none;
+								}
+							`}</style>
 							<div className="flex justify-between items-center mb-4">
 								<h3 className="text-lg font-semibold text-primary">音乐列表</h3>
 								<button onClick={(e) => { e.stopPropagation(); togglePlaylist(); }} className="text-secondary hover:text-primary">
@@ -102,7 +111,7 @@ export default function MusicCard() {
 								rowCount={musicFiles.length}
 								rowHeight={60}
 								overscanCount={2}
-								style={{ height: 320, width: '100%', overflow: 'hidden' }}
+								style={{ height: 320, width: '100%' }}
 								rowComponent={({ index, style }) => (
 									<div style={style}>
 										<button
