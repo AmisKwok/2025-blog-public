@@ -84,13 +84,13 @@ export default function AudioPlayer({ className, onDisableCardTapChange }: Audio
             }
           >
             {loopMode === 'none' ? ( 
-                      <Repeat className='h-4 w-4' />
-                    ) : loopMode === 'list' ? (
-                      <Repeat1 className='h-4 w-4' />
-                    ) : loopMode === 'single' ? (
-                      <Shuffle className='h-4 w-4' />
-                    ) : (
                       <ListIcon className='h-4 w-4' />
+                    ) : loopMode === 'list' ? (
+                      <Repeat className='h-4 w-4' />
+                    ) : loopMode === 'single' ? (
+                      <Repeat1 className='h-4 w-4' />
+                    ) : (
+                      <Shuffle className='h-4 w-4' />
                     )}
           </motion.button>
           <motion.button whileTap={{ scale: 1 }} onClick={(e) => { e.stopPropagation(); togglePlaylist(); }} onMouseEnter={(e) => { e.stopPropagation(); setDisableCardTap(true); }} onMouseLeave={(e) => { e.stopPropagation(); setDisableCardTap(false); }} className='flex h-8 w-8 items-center justify-center rounded-full bg-white/80 transition-all hover:bg-white hover:scale-105'>
