@@ -77,10 +77,10 @@ export default function AudioPlayer({ className, onDisableCardTapChange }: Audio
               'bg-white/80 text-secondary hover:bg-white hover:scale-105'
             }`}
             title={
-              loopMode === 'none' ? '当前：列表播放不循环，点击开启列表循环' : 
-              loopMode === 'list' ? '当前：列表循环，点击开启单曲循环' : 
+              loopMode === 'list' ? '当前：列表循环，点击开启列表播放不循环' : 
+              loopMode === 'none' ? '当前：列表播放不循环，点击开启单曲循环' : 
               loopMode === 'single' ? '当前：单曲循环，点击开启随机播放' : 
-              '当前：随机播放，点击开启列表播放不循环'
+              '当前：随机播放，点击开启列表循环'
             }
           >
             {loopMode === 'none' ? ( 

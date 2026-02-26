@@ -172,10 +172,10 @@ export const useAudioStore = create<AudioStore>((set, get) => {
     }),
 
     // 循环模式
-    loopMode: 'none',
+    loopMode: 'list',
     setLoopMode: (mode) => set({ loopMode: mode }),
     toggleLoopMode: () => set((state) => {
-      const modes: Array<'none' | 'single' | 'list' | 'shuffle'> = ['none', 'list', 'single', 'shuffle'];
+      const modes: Array<'none' | 'single' | 'list' | 'shuffle'> = ['list', 'none', 'single', 'shuffle'];
       const currentIndex = modes.indexOf(state.loopMode);
       const nextIndex = (currentIndex + 1) % modes.length;
       return { loopMode: modes[nextIndex] };
@@ -282,7 +282,7 @@ export const useAudioStore = create<AudioStore>((set, get) => {
       set({
         musicFiles: [],
         isPlaying: false,
-        loopMode: 'none',
+        loopMode: 'list',
         currentIndex: 0,
         progress: 0,
         showPlaylist: false,
