@@ -26,6 +26,6 @@
 			"@/*": ["./src/*"] // 路径别名配置
 		}
 	},
-	"include": ["global.d.ts", "next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", ".next/dev/types/**/*.ts", "**/*.mts"], // 包含的文件
+	"include": ["global.d.ts", "next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", ".next/dev/types/**/*.ts", "**/*.mts", "src/i18n/translations.ts.bak"], // 包含的文件
 	"exclude": ["node_modules"] // 排除的目录
 }

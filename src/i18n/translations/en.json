@@ -1,0 +1,373 @@
+{
+  "nav": {
+    "blog": "All Articles",
+    "projects": "My Projects",
+    "comments": "Guestbook",
+    "share": "Recommendations",
+    "links": "Friends Link",
+    "bloggers": "Secret Space"
+  },
+  "password": {
+    "required": "Password Required",
+    "pleaseEnter": "Please enter the password to continue",
+    "placeholder": "Enter password",
+    "incorrect": "Incorrect password, please try again!",
+    "cancel": "Cancel",
+    "submit": "Submit"
+  },
+  "write": "Write",
+  "login": {
+    "title": "Login",
+    "description": "Please enter your username and password to login",
+    "username": "Username",
+    "password": "Password",
+    "usernamePlaceholder": "Please enter username",
+    "passwordPlaceholder": "Please enter password",
+    "incorrect": "Incorrect username or password, please try again!",
+    "error": "Login failed, please try again",
+    "cancel": "Cancel",
+    "submit": "Login",
+    "loading": "Logging in...",
+    "logout": "Logout"
+  },
+  "languages": {
+    "zh-CN": "Simplified Chinese",
+    "en": "English",
+    "zh-TW": "Traditional Chinese",
+    "ja": "Japanese",
+    "ko": "Korean"
+  },
+  "weekdays": {
+    "monday": "Mon",
+    "tuesday": "Tue",
+    "wednesday": "Wed",
+    "thursday": "Thu",
+    "friday": "Fri",
+    "saturday": "Sat",
+    "sunday": "Sun"
+  },
+  "config": {
+    "siteSettings": "Site Settings",
+    "colorConfig": "Color Config",
+    "homeLayout": "Home Layout",
+    "preview": "Preview",
+    "cancel": "Cancel",
+    "saving": "Saving...",
+    "importKey": "Import Key",
+    "save": "Save"
+  },
+  "siteSettings": {
+    "siteMeta": {
+      "title": "Site Title",
+      "username": "Username",
+      "description": "Site Description"
+    },
+    "beian": {
+      "title": "Beian Info",
+      "number": "Beian Number",
+      "link": "Beian Link (Optional)",
+      "placeholder": "e.g., 京ICP备12345678号"
+    },
+    "socialButtons": {
+      "title": "Social Buttons",
+      "addButton": "+ Add Button",
+      "noButtons": "No social buttons configured yet. Click the \"+\" below to add.",
+      "deleteImage": "Delete Image",
+      "uploadImage": "Upload Image",
+      "wechatPlaceholder": "WeChat ID or QR code link",
+      "qqPlaceholder": "QQ ID or QR code link",
+      "emailPlaceholder": "example@email.com",
+      "urlPlaceholder": "https://example.com",
+      "labelPlaceholder": "Label text (Optional)",
+      "orderPlaceholder": "Order",
+      "accountPlaceholders": {
+        "wechat": "WeChat ID",
+        "qq": "QQ ID",
+        "qqGroup": "QQ Group ID"
+      },
+      "copied": {
+        "email": "Email copied to clipboard",
+        "wechat": "WeChat ID copied to clipboard",
+        "qq": "QQ ID copied to clipboard",
+        "qqGroup": "QQ group ID copied to clipboard"
+      },
+      "types": {
+        "github": "Github",
+        "gitee": "Gitee",
+        "juejin": "Juejin",
+        "email": "Email",
+        "x": "X",
+        "tg": "Telegram",
+        "wechat": "WeChat",
+        "qq": "QQ",
+        "qqGroup": "QQ Group",
+        "facebook": "Facebook",
+        "tiktok": "TikTok",
+        "instagram": "Instagram",
+        "weibo": "Weibo",
+        "xiaohongshu": "Xiaohongshu",
+        "zhihu": "Zhihu",
+        "bilibili": "Bilibili",
+        "link": "Link"
+      }
+    },
+    "homeLayout": {
+      "offsetHint": "(Offset represents position relative to center)",
+      "reset": "Reset",
+      "startEditing": "Enter Home Page Drag Layout",
+      "editing": "Home page is being edited",
+      "cardLabels": {
+        "artCard": "Featured Image",
+        "hiCard": "Center",
+        "clockCard": "Clock",
+        "calendarCard": "Calendar",
+        "musicCard": "Music",
+        "socialButtons": "Contact",
+        "shareCard": "Share",
+        "articleCard": "Articles",
+        "writeButtons": "Writing",
+        "navCard": "Navigation",
+        "likePosition": "Like",
+        "hatCard": "Hat",
+        "beianCard": "Beian"
+      },
+      "table": {
+        "card": "Card",
+        "width": "Width",
+        "height": "Height",
+        "order": "Display Order",
+        "offsetX": "Horizontal Offset",
+        "offsetY": "Vertical Offset",
+        "enabled": "Enabled"
+      }
+    },
+    "clockShowSeconds": "Show seconds on clock",
+    "summaryInContent": "Include summary in content",
+    "hideEditButton": "Hide edit button (Edit shortcut: ctrl/cmd + ,)",
+    "cachePem": "Cache PEM (encrypted, but with risk)",
+    "enableCategories": "Enable article categories",
+    "enableChristmas": "Enable Christmas",
+    "artImages": {
+      "title": "Home Images",
+      "noImages": "No Art images configured yet. Click the \"+\" below to add.",
+      "current": "Current",
+      "delete": "Delete",
+      "urlPlaceholder": "Enter image URL",
+      "addUrl": "Add URL",
+      "pleaseEnterUrl": "Please enter image URL"
+    },
+    "backgroundImages": {
+      "title": "Background Images",
+      "cancel": "Cancel Setting",
+      "enableBlur": "Enable glassmorphism effect",
+      "urlPlaceholder": "Enter image URL",
+      "addUrl": "Add URL",
+      "pleaseEnterUrl": "Please enter image URL"
+    },
+    "hat": {
+      "title": "Hat Images",
+      "current": "Current",
+      "flip": "Flip Left/Right"
+    },
+    "like": {
+      "bubble": "Please like this post～ 😊",
+      "dailyLimit": "Thank you! 😘 You can't like again today 💕",
+      "thanks": "💕 Thanks for liking! 💕😘"
+    },
+    "hiCard": {
+      "greeting": {
+        "morning": "Good Morning",
+        "afternoon": "Good Afternoon",
+        "evening": "Good Evening",
+        "night": "Good morning! Did you get any sleep?"
+      },
+      "introduction": "I'm {username}, Nice to meet you!"
+    },
+    "navCard": {
+      "mode": "Chaos Mode"
+    },
+    "comment": {
+      "title": "Messages",
+      "placeholder": "Please enter your message...",
+      "noServer": "Please set up Waline server address in configuration",
+      "locale": "en-US"
+    },
+    "waline": {
+      "title": "Waline Guestbook Configuration",
+      "serverURL": "Server URL",
+      "serverURLHint": "Need to deploy Waline backend service, or use third-party service",
+      "theme": "Theme",
+      "themeAuto": "Auto",
+      "themeLight": "Light",
+      "themeDark": "Dark",
+      "dark": "Dark Mode",
+      "darkAuto": "Auto",
+      "darkLight": "Light",
+      "darkDark": "Dark",
+      "requiredMeta": "Required Information",
+      "requiredMetaNick": "Nickname",
+      "requiredMetaMail": "Email",
+      "requiredMetaLink": "Website",
+      "pageview": "Enable page view statistics",
+      "nick": "Nickname:",
+      "mail": "Email:",
+      "placeholder": "Welcome to leave a message! (Fill in your email to receive replies)",
+      "nickPlaceholder": "Please enter nickname",
+      "mailPlaceholder": "Please enter email (for reply notifications)"
+    }
+  },
+  "home": {
+    "editingLayout": "Editing home layout, drag cards to adjust positions",
+    "layoutSaved": "Home layout offsets saved (not yet committed to remote config)",
+    "layoutEditCanceled": "Layout edit canceled",
+    "saveOffset": "Save Offsets",
+    "articleCard": {
+      "title": "Latest Article"
+    },
+    "shareCard": {
+      "title": "Random Recommendation"
+    }
+  },
+  "bloggers": {
+    "confirmDelete": "Are you sure you want to delete {name}?",
+    "add": "Add"
+  },
+  "pictures": {
+    "confirmDeleteGroup": "Are you sure you want to delete this group of pictures?",
+    "noImages": "No images uploaded yet. Click 'Edit' in the top right corner to start uploading.",
+    "compressTool": "Compress Tool",
+    "upload": "Upload"
+  },
+  "projects": {
+    "confirmDelete": "Are you sure you want to delete {name}?",
+    "add": "Add"
+  },
+  "share": {
+    "confirmDelete": "Are you sure you want to delete {name}?",
+    "add": "Add"
+  },
+  "snippets": {
+    "enterSentence": "Please enter a sentence",
+    "addAtLeastOneSentence": "Please add at least one sentence",
+    "manage": "Manage",
+    "addNew": "Add new",
+    "add": "Add",
+    "noContent": "No content"
+  },
+  "clock": {
+    "stopwatch": "Stopwatch",
+    "timer": "Timer",
+    "lap": "Lap"
+  },
+  "audioPlayer": {
+    "playlist": "Music Playlist"
+  },
+  "globalAudioPlayer": {
+    "loading": "Loading...",
+    "previous": "Previous",
+    "play": "Play",
+    "pause": "Pause",
+    "next": "Next",
+    "hide": "Hide",
+    "show": "Show"
+  },
+  "imageToolbox": {
+    "title": "PNG / JPG to WEBP",
+    "description": "Select images → Adjust quality → Convert and download",
+    "clickOrDrag": "Click or drag images",
+    "supportedFormats": "Supports PNG, JPG, JPEG, HEIC and other common formats",
+    "selectedImages": "Selected {count} images",
+    "converting": "Converting...",
+    "reconvert": "Reconvert",
+    "convert": "Convert",
+    "compare": "Compare",
+    "download": "Download",
+    "remove": "Remove",
+    "batchConverting": "Batch converting...",
+    "convertAll": "Convert All",
+    "downloadAll": "Download All"
+  },
+  "about": {
+    "title": "Title",
+    "description": "Description",
+    "markdownContent": "Markdown content",
+    "titlePreview": "Title Preview",
+    "descriptionPreview": "Description Preview",
+    "renderingPreview": "Rendering preview...",
+    "loading": "Loading...",
+    "edit": "Edit",
+    "continueEditing": "Continue Editing"
+  },
+  "blog": {
+    "day": "Day",
+    "week": "Week",
+    "month": "Month",
+    "year": "Year",
+    "category": "Category",
+    "articles": "articles",
+    "uncategorized": "Uncategorized",
+    "selectArticlesToDelete": "Please select articles to delete",
+    "enterCategoryName": "Please enter category name",
+    "noChangesToSave": "No changes to save",
+    "keyImportSuccess": "Key imported successfully, please click save again",
+    "deselectAll": "Deselect All",
+    "selectAllGroup": "Select All in Group",
+    "selectAll": "Select All",
+    "delete": "Delete",
+    "selected": "Selected",
+    "more": "More",
+    "loading": "Loading...",
+    "noArticles": "No articles yet",
+    "invalidLink": "Invalid link",
+    "articleNotFound": "Article not found",
+    "invalidId": "Invalid blog ID"
+  },
+  "toast": {
+    "gettingBranchInfo": "Getting branch info...",
+    "preparingFiles": "Preparing files...",
+    "uploadingImages": "Uploading images...",
+    "uploadingFavicon": "Uploading Favicon...",
+    "uploadingAvatar": "Uploading Avatar...",
+    "uploadingArtImages": "Uploading Art images...",
+    "uploadingBackgroundImages": "Uploading background images...",
+    "uploadingSocialButtonImages": "Uploading social button images...",
+    "creatingFiles": "Creating files...",
+    "creatingTree": "Creating file tree...",
+    "creatingCommit": "Creating commit...",
+    "updatingBranch": "Updating branch...",
+    "updatingIndex": "Updating index...",
+    "updatingCategories": "Updating categories...",
+    "collectingFiles": "Collecting files...",
+    "checkingFilesToDelete": "Checking files to delete...",
+    "publishSuccess": "Publish successful!",
+    "saveSuccess": "Save successful!",
+    "deleteSuccess": "Delete successful!",
+    "deleteSuccessWithDeploy": "Delete successful! Please wait for deployment and refresh",
+    "updateSuccess": "Update successful",
+    "addSuccess": "Add successful",
+    "setCoverSuccess": "Cover set successfully",
+    "blogLoadSuccess": "Blog loaded successfully",
+    "error": "Operation failed, please retry",
+    "noAuth": "Please login to GitHub first",
+    "noSlug": "Missing slug, cannot delete",
+    "readKeyFileError": "Failed to read key file",
+    "saveFailed": "Save failed",
+    "pleaseSelectImage": "Please select an image file",
+    "pleaseEnterImageUrl": "Please enter image URL",
+    "pleaseUploadImageOrEnterUrl": "Please upload image or enter URL",
+    "pleaseDragImage": "Please drag and drop image file",
+    "pleaseFillAllRequiredFields": "Please fill in all required fields",
+    "pleaseAddAtLeastOneTag": "Please add at least one tag",
+    "imageAlreadyExists": "This image is already in the list",
+    "imageDuplicate": "Image already exists, not added again",
+    "loadBlogFailed": "Failed to load blog"
+  },
+  "addToFavorites": {
+    "title": "Bookmark Our Website",
+    "message": "Like our content? Please add our website to your bookmarks for easy access anytime!",
+    "later": "Maybe Later",
+    "add": "Follow ⭐",
+    "bookmarkHint": "Please press Ctrl+D (Windows/Linux) or Command+D (Mac) to bookmark this website",
+    "bookmarkHintOpera": "Please press Ctrl+D to bookmark this website"
+  }
+}

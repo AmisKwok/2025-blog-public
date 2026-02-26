@@ -1,0 +1,373 @@
+{
+  "nav": {
+    "blog": "所有文章",
+    "projects": "我的项目",
+    "comments": "留言区",
+    "share": "推荐分享",
+    "links": "友链",
+    "bloggers": "秘密空间"
+  },
+  "password": {
+    "required": "需要密码",
+    "pleaseEnter": "请输入访问密码以继续",
+    "placeholder": "请输入密码",
+    "incorrect": "密码错误，请重试！",
+    "cancel": "取消",
+    "submit": "确认"
+  },
+  "write": "写文章",
+  "login": {
+    "title": "登录",
+    "description": "请输入账号密码以登录",
+    "username": "账号",
+    "password": "密码",
+    "usernamePlaceholder": "请输入账号",
+    "passwordPlaceholder": "请输入密码",
+    "incorrect": "账号或密码错误，请重试！",
+    "error": "登录失败，请重试",
+    "cancel": "取消",
+    "submit": "登录",
+    "loading": "登录中...",
+    "logout": "登出"
+  },
+  "languages": {
+    "zh-CN": "简体中文",
+    "en": "English",
+    "zh-TW": "繁體中文",
+    "ja": "日本語",
+    "ko": "한국어"
+  },
+  "weekdays": {
+    "monday": "周一",
+    "tuesday": "周二",
+    "wednesday": "周三",
+    "thursday": "周四",
+    "friday": "周五",
+    "saturday": "周六",
+    "sunday": "周日"
+  },
+  "config": {
+    "siteSettings": "网站设置",
+    "colorConfig": "色彩配置",
+    "homeLayout": "首页布局",
+    "preview": "预览",
+    "cancel": "取消",
+    "saving": "保存中...",
+    "importKey": "导入密钥",
+    "save": "保存"
+  },
+  "siteSettings": {
+    "siteMeta": {
+      "title": "站点标题",
+      "username": "用户名",
+      "description": "站点描述"
+    },
+    "beian": {
+      "title": "备案信息",
+      "number": "备案号",
+      "link": "备案链接（可选）",
+      "placeholder": "例如：京ICP备12345678号"
+    },
+    "socialButtons": {
+      "title": "社交按钮",
+      "addButton": "+ 添加按钮",
+      "noButtons": "暂未配置社交按钮，点击下方「+」添加。",
+      "deleteImage": "删除图片",
+      "uploadImage": "上传图片",
+      "wechatPlaceholder": "微信号或二维码链接",
+      "qqPlaceholder": "QQ号或二维码链接",
+      "emailPlaceholder": "example@email.com",
+      "urlPlaceholder": "https://example.com",
+      "labelPlaceholder": "标签文本（可选）",
+      "orderPlaceholder": "顺序",
+      "accountPlaceholders": {
+        "wechat": "微信号",
+        "qq": "QQ号",
+        "qqGroup": "QQ群号"
+      },
+      "copied": {
+        "email": "邮箱已复制到剪贴板",
+        "wechat": "微信号已复制到剪贴板",
+        "qq": "QQ号已复制到剪贴板",
+        "qqGroup": "QQ群号已复制到剪贴板"
+      },
+      "types": {
+        "github": "Github",
+        "gitee": "Gitee",
+        "juejin": "掘金",
+        "email": "邮箱",
+        "x": "X",
+        "tg": "Telegram",
+        "wechat": "微信",
+        "qq": "QQ",
+        "qqGroup": "QQ群",
+        "facebook": "Facebook",
+        "tiktok": "TikTok",
+        "instagram": "Instagram",
+        "weibo": "微博",
+        "xiaohongshu": "小红书",
+        "zhihu": "知乎",
+        "bilibili": "哔哩哔哩",
+        "link": "链接"
+      }
+    },
+    "homeLayout": {
+      "offsetHint": "（偏移代表相对中心的偏移）",
+      "reset": "重置",
+      "startEditing": "进入主页拖拽布局",
+      "editing": "主页正在编辑中",
+      "cardLabels": {
+        "artCard": "首图",
+        "hiCard": "中心",
+        "clockCard": "时钟",
+        "calendarCard": "日历",
+        "musicCard": "音乐",
+        "socialButtons": "联系",
+        "shareCard": "分享",
+        "articleCard": "文章",
+        "writeButtons": "写作",
+        "navCard": "导航",
+        "likePosition": "点赞",
+        "hatCard": "帽子",
+        "beianCard": "备案"
+      },
+      "table": {
+        "card": "卡片",
+        "width": "宽度",
+        "height": "高度",
+        "order": "显示顺序",
+        "offsetX": "横向偏移",
+        "offsetY": "纵向偏移",
+        "enabled": "启用"
+      }
+    },
+    "clockShowSeconds": "时钟显示秒数",
+    "summaryInContent": "摘要放入内容",
+    "hideEditButton": "隐藏编辑按钮（编辑快捷键 ctrl/cmd + ,）",
+    "cachePem": "缓存PEM(已加密，但存在风险)",
+    "enableCategories": "启用文章分类",
+    "enableChristmas": "开启圣诞节",
+    "artImages": {
+      "title": "首页图片",
+      "noImages": "暂未配置 Art 图片，点击下方「+」添加。",
+      "current": "当前使用",
+      "delete": "删除",
+      "urlPlaceholder": "输入图片 URL",
+      "addUrl": "添加 URL",
+      "pleaseEnterUrl": "请输入图片 URL"
+    },
+    "backgroundImages": {
+      "title": "背景图片",
+      "cancel": "取消设置",
+      "enableBlur": "启用毛玻璃效果",
+      "urlPlaceholder": "输入图片 URL",
+      "addUrl": "添加 URL",
+      "pleaseEnterUrl": "请输入图片 URL"
+    },
+    "hat": {
+      "title": "帽子图片",
+      "current": "当前使用",
+      "flip": "左右翻转"
+    },
+    "like": {
+      "bubble": "麻烦点个赞吧～ 😊",
+      "dailyLimit": "谢谢啦😘，今天已经不能再点赞啦💕",
+      "thanks": "💕感谢点赞！！💕😘"
+    },
+    "hiCard": {
+      "greeting": {
+        "morning": "早上好",
+        "afternoon": "下午好",
+        "evening": "晚上好",
+        "night": "晚安啦，还没睡吗?"
+      },
+      "introduction": "我是 {username}，很高兴认识你！"
+    },
+    "navCard": {
+      "mode": "混乱模式"
+    },
+    "comment": {
+      "title": "留言",
+      "placeholder": "请输入您的留言...",
+      "noServer": "请在配置中设置Waline服务器地址",
+      "locale": "zh-CN"
+    },
+    "waline": {
+      "title": "Waline 留言配置",
+      "serverURL": "服务器 URL",
+      "serverURLHint": "需要部署 Waline 后端服务，或使用第三方服务",
+      "theme": "主题",
+      "themeAuto": "自动",
+      "themeLight": "浅色",
+      "themeDark": "深色",
+      "dark": "暗黑模式",
+      "darkAuto": "自动",
+      "darkLight": "浅色",
+      "darkDark": "深色",
+      "requiredMeta": "必填信息",
+      "requiredMetaNick": "昵称",
+      "requiredMetaMail": "邮箱",
+      "requiredMetaLink": "网站",
+      "pageview": "启用页面访问统计",
+      "nick": "昵称:",
+      "mail": "邮箱:",
+      "placeholder": "欢迎留言！(填写邮箱可在被回复时收到邮件提醒)",
+      "nickPlaceholder": "请输入昵称",
+      "mailPlaceholder": "请输入邮箱（用于接收回复通知）"
+    }
+  },
+  "home": {
+    "editingLayout": "正在编辑首页布局，拖拽卡片调整位置",
+    "layoutSaved": "首页布局偏移已保存（尚未提交到远程配置）",
+    "layoutEditCanceled": "已取消此次拖拽布局修改",
+    "saveOffset": "保存偏移",
+    "articleCard": {
+      "title": "最新文章"
+    },
+    "shareCard": {
+      "title": "随机推荐"
+    }
+  },
+  "bloggers": {
+    "confirmDelete": "确定要删除 {name} 吗？",
+    "add": "添加"
+  },
+  "pictures": {
+    "confirmDeleteGroup": "确定要删除这一组图片吗？",
+    "noImages": "还没有上传图片，点击右上角「编辑」后即可开始上传。",
+    "compressTool": "压缩工具",
+    "upload": "上传"
+  },
+  "projects": {
+    "confirmDelete": "确定要删除 {name} 吗？",
+    "add": "添加"
+  },
+  "share": {
+    "confirmDelete": "确定要删除 {name} 吗？",
+    "add": "添加"
+  },
+  "snippets": {
+    "enterSentence": "请输入句子",
+    "addAtLeastOneSentence": "请至少添加一句话",
+    "manage": "管理",
+    "addNew": "新增",
+    "add": "新增",
+    "noContent": "暂无内容"
+  },
+  "clock": {
+    "stopwatch": "秒表",
+    "timer": "计时器",
+    "lap": "计次"
+  },
+  "audioPlayer": {
+    "playlist": "音乐列表"
+  },
+  "globalAudioPlayer": {
+    "loading": "加载中...",
+    "previous": "上一首",
+    "play": "播放",
+    "pause": "暂停",
+    "next": "下一首",
+    "hide": "隐藏",
+    "show": "显示"
+  },
+  "imageToolbox": {
+    "title": "PNG / JPG 转 WEBP",
+    "description": "选择图片 → 调整质量 → 一键转换下载",
+    "clickOrDrag": "点击或拖拽图片",
+    "supportedFormats": "支持 PNG、JPG、JPEG、HEIC 等常见格式",
+    "selectedImages": "已选择 {count} 张图片",
+    "converting": "转换中...",
+    "reconvert": "重新转换",
+    "convert": "转换",
+    "compare": "对比",
+    "download": "下载",
+    "remove": "移除",
+    "batchConverting": "全部转换中…",
+    "convertAll": "全部转换",
+    "downloadAll": "全部下载"
+  },
+  "about": {
+    "title": "标题",
+    "description": "描述",
+    "markdownContent": "Markdown 内容",
+    "titlePreview": "标题预览",
+    "descriptionPreview": "描述预览",
+    "renderingPreview": "预览渲染中...",
+    "loading": "加载中...",
+    "edit": "编辑",
+    "continueEditing": "继续编辑"
+  },
+  "blog": {
+    "day": "日",
+    "week": "周",
+    "month": "月",
+    "year": "年",
+    "category": "分类",
+    "articles": "篇文章",
+    "uncategorized": "未分类",
+    "selectArticlesToDelete": "请选择要删除的文章",
+    "enterCategoryName": "请输入分类名称",
+    "noChangesToSave": "没有需要保存的改动",
+    "keyImportSuccess": "密钥导入成功，请再次点击保存",
+    "deselectAll": "取消全选",
+    "selectAllGroup": "全选该分组",
+    "selectAll": "全选",
+    "delete": "删除",
+    "selected": "已选",
+    "more": "更多",
+    "loading": "加载中...",
+    "noArticles": "暂无文章",
+    "invalidLink": "无效的链接",
+    "articleNotFound": "文章不存在",
+    "invalidId": "无效的博客 ID"
+  },
+  "toast": {
+    "gettingBranchInfo": "正在获取分支信息...",
+    "preparingFiles": "正在准备文件...",
+    "uploadingImages": "正在上传图片...",
+    "uploadingFavicon": "正在上传 Favicon...",
+    "uploadingAvatar": "正在上传 Avatar...",
+    "uploadingArtImages": "正在上传 Art 图片...",
+    "uploadingBackgroundImages": "正在上传背景图片...",
+    "uploadingSocialButtonImages": "正在上传社交按钮图片...",
+    "creatingFiles": "正在创建文件...",
+    "creatingTree": "正在创建文件树...",
+    "creatingCommit": "正在创建提交...",
+    "updatingBranch": "正在更新分支...",
+    "updatingIndex": "正在更新索引...",
+    "updatingCategories": "正在更新分类...",
+    "collectingFiles": "正在收集文件...",
+    "checkingFilesToDelete": "正在检查需要删除的文件...",
+    "publishSuccess": "发布成功！",
+    "saveSuccess": "保存成功！",
+    "deleteSuccess": "删除成功！",
+    "deleteSuccessWithDeploy": "删除成功！请等待页面部署后刷新",
+    "updateSuccess": "更新成功",
+    "addSuccess": "添加成功",
+    "setCoverSuccess": "已设置封面",
+    "blogLoadSuccess": "博客加载成功",
+    "error": "操作失败，请重试",
+    "noAuth": "请先登录 GitHub",
+    "noSlug": "缺少 slug，无法删除",
+    "readKeyFileError": "读取密钥文件失败",
+    "saveFailed": "保存失败",
+    "pleaseSelectImage": "请选择图片文件",
+    "pleaseEnterImageUrl": "请输入图片 URL",
+    "pleaseUploadImageOrEnterUrl": "请上传图片或输入 URL",
+    "pleaseDragImage": "请拖入图片文件",
+    "pleaseFillAllRequiredFields": "请填写所有必填项",
+    "pleaseAddAtLeastOneTag": "请至少添加一个标签",
+    "imageAlreadyExists": "该图片已在列表中",
+    "imageDuplicate": "图片已存在，不重复添加",
+    "loadBlogFailed": "加载博客失败"
+  },
+  "addToFavorites": {
+    "title": "收藏我们的网站",
+    "message": "喜欢我们的内容吗？请将我们的网站添加到收藏夹，以便随时访问！",
+    "later": "稍后再说",
+    "add": "关注 ⭐",
+    "bookmarkHint": "请按 Ctrl+D (Windows/Linux) 或 Command+D (Mac) 将本网站添加到收藏夹",
+    "bookmarkHintOpera": "请按 Ctrl+D 将本网站添加到收藏夹"
+  }
+}

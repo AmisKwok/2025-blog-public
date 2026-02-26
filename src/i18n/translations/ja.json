@@ -1,0 +1,373 @@
+{
+  "nav": {
+    "blog": "すべての記事",
+    "projects": "マイプロジェクト",
+    "comments": "ゲストブック",
+    "share": "おすすめ",
+    "links": "友達リンク",
+    "bloggers": "秘密の空間"
+  },
+  "password": {
+    "required": "パスワードが必要",
+    "pleaseEnter": "続行するにはアクセスパスワードを入力してください",
+    "placeholder": "パスワードを入力",
+    "incorrect": "パスワードが間違っています。もう一度お試しください！",
+    "cancel": "キャンセル",
+    "submit": "確認"
+  },
+  "write": "記事を書く",
+  "login": {
+    "title": "ログイン",
+    "description": "ログインするにはアカウントとパスワードを入力してください",
+    "username": "アカウント",
+    "password": "パスワード",
+    "usernamePlaceholder": "アカウントを入力",
+    "passwordPlaceholder": "パスワードを入力",
+    "incorrect": "アカウントまたはパスワードが間違っています。もう一度お試しください！",
+    "error": "ログインに失敗しました。もう一度お試しください",
+    "cancel": "キャンセル",
+    "submit": "ログイン",
+    "loading": "ログイン中...",
+    "logout": "ログアウト"
+  },
+  "languages": {
+    "zh-CN": "简体中文",
+    "en": "English",
+    "zh-TW": "繁体中文",
+    "ja": "日本語",
+    "ko": "한국어"
+  },
+  "weekdays": {
+    "monday": "月",
+    "tuesday": "火",
+    "wednesday": "水",
+    "thursday": "木",
+    "friday": "金",
+    "saturday": "土",
+    "sunday": "日"
+  },
+  "config": {
+    "siteSettings": "サイト設定",
+    "colorConfig": "カラー設定",
+    "homeLayout": "ホームレイアウト",
+    "preview": "プレビュー",
+    "cancel": "キャンセル",
+    "saving": "保存中...",
+    "importKey": "キーをインポート",
+    "save": "保存"
+  },
+  "siteSettings": {
+    "siteMeta": {
+      "title": "サイトタイトル",
+      "username": "ユーザー名",
+      "description": "サイトの説明"
+    },
+    "beian": {
+      "title": "備案情報",
+      "number": "備案番号",
+      "link": "備案リンク（オプション）",
+      "placeholder": "例：京ICP備12345678号"
+    },
+    "socialButtons": {
+      "title": "ソーシャルボタン",
+      "addButton": "+ ボタンを追加",
+      "noButtons": "まだソーシャルボタンが設定されていません。下の「+」をクリックして追加してください。",
+      "deleteImage": "画像を削除",
+      "uploadImage": "画像をアップロード",
+      "wechatPlaceholder": "WeChat IDまたはQRコードリンク",
+      "qqPlaceholder": "QQ IDまたはQRコードリンク",
+      "emailPlaceholder": "example@email.com",
+      "urlPlaceholder": "https://example.com",
+      "labelPlaceholder": "ラベルテキスト（オプション）",
+      "orderPlaceholder": "順序",
+      "accountPlaceholders": {
+        "wechat": "WeChat ID",
+        "qq": "QQ ID",
+        "qqGroup": "QQグループID"
+      },
+      "copied": {
+        "email": "メールアドレスをクリップボードにコピーしました",
+        "wechat": "WeChat IDをクリップボードにコピーしました",
+        "qq": "QQ IDをクリップボードにコピーしました",
+        "qqGroup": "QQグループIDをクリップボードにコピーしました"
+      },
+      "types": {
+        "github": "Github",
+        "gitee": "Gitee",
+        "juejin": "掘金",
+        "email": "メール",
+        "x": "X",
+        "tg": "Telegram",
+        "wechat": "WeChat",
+        "qq": "QQ",
+        "qqGroup": "QQグループ",
+        "facebook": "Facebook",
+        "tiktok": "TikTok",
+        "instagram": "Instagram",
+        "weibo": "微博",
+        "xiaohongshu": "小紅書",
+        "zhihu": "知乎",
+        "bilibili": "Bilibili",
+        "link": "リンク"
+      }
+    },
+    "homeLayout": {
+      "offsetHint": "（オフセットはセンターからの相対位置を表します）",
+      "reset": "リセット",
+      "startEditing": "ホームページのドラッグレイアウトに入る",
+      "editing": "ホームページが編集されています",
+      "cardLabels": {
+        "artCard": "フィーチャードイメージ",
+        "hiCard": "センター",
+        "clockCard": "時計",
+        "calendarCard": "カレンダー",
+        "musicCard": "音楽",
+        "socialButtons": "連絡先",
+        "shareCard": "シェア",
+        "articleCard": "記事",
+        "writeButtons": "執筆",
+        "navCard": "ナビゲーション",
+        "likePosition": "いいね",
+        "hatCard": "帽子",
+        "beianCard": "備案"
+      },
+      "table": {
+        "card": "カード",
+        "width": "幅",
+        "height": "高さ",
+        "order": "表示順序",
+        "offsetX": "水平オフセット",
+        "offsetY": "垂直オフセット",
+        "enabled": "有効"
+      }
+    },
+    "clockShowSeconds": "時計に秒を表示",
+    "summaryInContent": "コンテンツに要約を含める",
+    "hideEditButton": "編集ボタンを非表示（編集ショートカット：ctrl/cmd + ,）",
+    "cachePem": "PEMをキャッシュ（暗号化されていますが、リスクがあります）",
+    "enableCategories": "記事カテゴリを有効にする",
+    "enableChristmas": "クリスマスを有効にする",
+    "artImages": {
+      "title": "ホーム画像",
+      "noImages": "まだArt画像が設定されていません。下の「+」をクリックして追加してください。",
+      "current": "現在の",
+      "delete": "削除",
+      "urlPlaceholder": "画像URLを入力",
+      "addUrl": "URLを追加",
+      "pleaseEnterUrl": "画像URLを入力してください"
+    },
+    "backgroundImages": {
+      "title": "背景画像",
+      "cancel": "設定をキャンセル",
+      "enableBlur": "ガラスモーフィズム効果を有効にする",
+      "urlPlaceholder": "画像URLを入力",
+      "addUrl": "URLを追加",
+      "pleaseEnterUrl": "画像URLを入力してください"
+    },
+    "hat": {
+      "title": "帽子画像",
+      "current": "現在の",
+      "flip": "左右反転"
+    },
+    "like": {
+      "bubble": "お気に入りを押してください～ 😊",
+      "dailyLimit": "ありがとうございます！ 😘 今日はもうお気に入りできません 💕",
+      "thanks": "💕 いいねありがとうございます！！ 💕😘"
+    },
+    "hiCard": {
+      "greeting": {
+        "morning": "おはようございます",
+        "afternoon": "こんにちは",
+        "evening": "こんばんは",
+        "night": "おはよう！寝ましたか？"
+      },
+      "introduction": "私は {username} です、はじめまして！"
+    },
+    "navCard": {
+      "mode": "カオスモード"
+    },
+    "comment": {
+      "title": "メッセージ",
+      "placeholder": "メッセージを入力してください...",
+      "noServer": "設定でWalineサーバーアドレスを設定してください",
+      "locale": "ja"
+    },
+    "waline": {
+      "title": "Walineゲストブック設定",
+      "serverURL": "サーバーURL",
+      "serverURLHint": "Walineバックエンドサービスをデプロイするか、サードパーティサービスを使用する必要があります",
+      "theme": "テーマ",
+      "themeAuto": "自動",
+      "themeLight": "ライト",
+      "themeDark": "ダーク",
+      "dark": "ダークモード",
+      "darkAuto": "自動",
+      "darkLight": "ライト",
+      "darkDark": "ダーク",
+      "requiredMeta": "必須情報",
+      "requiredMetaNick": "ニックネーム",
+      "requiredMetaMail": "メール",
+      "requiredMetaLink": "ウェブサイト",
+      "pageview": "ページビュー統計を有効にする",
+      "nick": "ニックネーム:",
+      "mail": "メール:",
+      "placeholder": "メッセージを残してください！（返信を受け取るにはメールを入力してください）",
+      "nickPlaceholder": "ニックネームを入力",
+      "mailPlaceholder": "メールを入力（返信通知用）"
+    }
+  },
+  "home": {
+    "editingLayout": "ホームレイアウトを編集しています。カードをドラッグして位置を調整してください。",
+    "layoutSaved": "ホームレイアウトのオフセットが保存されました（リモート設定にまだコミットされていません）",
+    "layoutEditCanceled": "レイアウト編集がキャンセルされました",
+    "saveOffset": "オフセットを保存",
+    "articleCard": {
+      "title": "最新の記事"
+    },
+    "shareCard": {
+      "title": "ランダムなおすすめ"
+    }
+  },
+  "bloggers": {
+    "confirmDelete": "{name} を削除してもよろしいですか？",
+    "add": "追加"
+  },
+  "pictures": {
+    "confirmDeleteGroup": "このグループの画像を削除してもよろしいですか？",
+    "noImages": "まだ画像がアップロードされていません。右上の「編集」をクリックしてアップロードを開始してください。",
+    "compressTool": "圧縮ツール",
+    "upload": "アップロード"
+  },
+  "projects": {
+    "confirmDelete": "{name} を削除してもよろしいですか？",
+    "add": "追加"
+  },
+  "share": {
+    "confirmDelete": "{name} を削除してもよろしいですか？",
+    "add": "追加"
+  },
+  "snippets": {
+    "enterSentence": "文を入力してください",
+    "addAtLeastOneSentence": "少なくとも1つの文を追加してください",
+    "manage": "管理",
+    "addNew": "新規追加",
+    "add": "追加",
+    "noContent": "コンテンツがありません"
+  },
+  "clock": {
+    "stopwatch": "ストップウォッチ",
+    "timer": "タイマー",
+    "lap": "ラップ"
+  },
+  "audioPlayer": {
+    "playlist": "音楽リスト"
+  },
+  "globalAudioPlayer": {
+    "loading": "読み込み中...",
+    "previous": "前へ",
+    "play": "再生",
+    "pause": "一時停止",
+    "next": "次へ",
+    "hide": "非表示",
+    "show": "表示"
+  },
+  "imageToolbox": {
+    "title": "PNG / JPG から WEBP へ",
+    "description": "画像を選択 → 品質を調整 → 一括変換してダウンロード",
+    "clickOrDrag": "画像をクリックまたはドラッグ",
+    "supportedFormats": "PNG、JPG、JPEG、HEICなどの一般的な形式をサポート",
+    "selectedImages": "{count} 枚の画像を選択",
+    "converting": "変換中...",
+    "reconvert": "再変換",
+    "convert": "変換",
+    "compare": "比較",
+    "download": "ダウンロード",
+    "remove": "削除",
+    "batchConverting": "一括変換中...",
+    "convertAll": "すべて変換",
+    "downloadAll": "すべてダウンロード"
+  },
+  "about": {
+    "title": "タイトル",
+    "description": "説明",
+    "markdownContent": "Markdownコンテンツ",
+    "titlePreview": "タイトルプレビュー",
+    "descriptionPreview": "説明プレビュー",
+    "renderingPreview": "プレビューのレンダリング中...",
+    "loading": "読み込み中...",
+    "edit": "編集",
+    "continueEditing": "編集を続ける"
+  },
+  "blog": {
+    "day": "日",
+    "week": "週",
+    "month": "月",
+    "year": "年",
+    "category": "カテゴリ",
+    "articles": "記事",
+    "uncategorized": "カテゴリなし",
+    "selectArticlesToDelete": "削除する記事を選択してください",
+    "enterCategoryName": "カテゴリ名を入力してください",
+    "noChangesToSave": "保存する変更はありません",
+    "keyImportSuccess": "キーのインポートに成功しました。もう一度保存をクリックしてください",
+    "deselectAll": "すべて選択解除",
+    "selectAllGroup": "グループ内のすべてを選択",
+    "selectAll": "すべて選択",
+    "delete": "削除",
+    "selected": "選択済み",
+    "more": "もっと",
+    "loading": "読み込み中...",
+    "noArticles": "まだ記事がありません",
+    "invalidLink": "無効なリンク",
+    "articleNotFound": "記事が見つかりません",
+    "invalidId": "無効なブログID"
+  },
+  "toast": {
+    "gettingBranchInfo": "ブランチ情報を取得中...",
+    "preparingFiles": "ファイルを準備中...",
+    "uploadingImages": "画像をアップロード中...",
+    "uploadingFavicon": "Faviconをアップロード中...",
+    "uploadingAvatar": "アバターをアップロード中...",
+    "uploadingArtImages": "Art画像をアップロード中...",
+    "uploadingBackgroundImages": "背景画像をアップロード中...",
+    "uploadingSocialButtonImages": "ソーシャルボタン画像をアップロード中...",
+    "creatingFiles": "ファイルを作成中...",
+    "creatingTree": "ファイルツリーを作成中...",
+    "creatingCommit": "コミットを作成中...",
+    "updatingBranch": "ブランチを更新中...",
+    "updatingIndex": "インデックスを更新中...",
+    "updatingCategories": "カテゴリを更新中...",
+    "collectingFiles": "ファイルを収集中...",
+    "checkingFilesToDelete": "削除するファイルを確認中...",
+    "publishSuccess": "公開成功！",
+    "saveSuccess": "保存成功！",
+    "deleteSuccess": "削除成功！",
+    "deleteSuccessWithDeploy": "削除成功！ページのデプロイを待ってからリロードしてください",
+    "updateSuccess": "更新成功",
+    "addSuccess": "追加成功",
+    "setCoverSuccess": "カバーを設定しました",
+    "blogLoadSuccess": "ブログの読み込みに成功しました",
+    "error": "操作に失敗しました。もう一度お試しください",
+    "noAuth": "まずGitHubにログインしてください",
+    "noSlug": "slugが不足しているため、削除できません",
+    "readKeyFileError": "キーファイルの読み込みに失敗しました",
+    "saveFailed": "保存に失敗しました",
+    "pleaseSelectImage": "画像ファイルを選択してください",
+    "pleaseEnterImageUrl": "画像URLを入力してください",
+    "pleaseUploadImageOrEnterUrl": "画像をアップロードするかURLを入力してください",
+    "pleaseDragImage": "画像ファイルをドラッグしてください",
+    "pleaseFillAllRequiredFields": "すべての必須フィールドを入力してください",
+    "pleaseAddAtLeastOneTag": "少なくとも1つのタグを追加してください",
+    "imageAlreadyExists": "この画像はすでにリストにあります",
+    "imageDuplicate": "画像はすでに存在するため、重複して追加されません",
+    "loadBlogFailed": "ブログの読み込みに失敗しました"
+  },
+  "addToFavorites": {
+    "title": "ウェブサイトをブックマーク",
+    "message": "コンテンツが気に入りましたか？いつでもアクセスしやすいように、当ウェブサイトをブックマークに追加してください！",
+    "later": "後で",
+    "add": "フォロー ⭐",
+    "bookmarkHint": "このウェブサイトをブックマークするには、Ctrl+D (Windows/Linux) または Command+D (Mac) を押してください",
+    "bookmarkHintOpera": "このウェブサイトをブックマークするには、Ctrl+D を押してください"
+  }
+}

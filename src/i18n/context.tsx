@@ -2,7 +2,19 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { Language } from './types';
-import translations from './translations';
+import zhCN from './translations/zh-CN.json';
+import en from './translations/en.json';
+import zhTW from './translations/zh-TW.json';
+import ja from './translations/ja.json';
+import ko from './translations/ko.json';
+
+const translations = {
+  'zh-CN': zhCN,
+  en,
+  'zh-TW': zhTW,
+  ja,
+  ko
+};
 
 interface LanguageContextType {
   language: Language;

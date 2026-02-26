@@ -1,0 +1,373 @@
+{
+  "nav": {
+    "blog": "所有文章",
+    "projects": "我的專案",
+    "comments": "留言區",
+    "share": "推薦分享",
+    "links": "友鏈",
+    "bloggers": "秘密空間"
+  },
+  "password": {
+    "required": "需要密碼",
+    "pleaseEnter": "請輸入訪問密碼以繼續",
+    "placeholder": "請輸入密碼",
+    "incorrect": "密碼錯誤，請重試！",
+    "cancel": "取消",
+    "submit": "確認"
+  },
+  "write": "寫文章",
+  "login": {
+    "title": "登入",
+    "description": "請輸入帳號密碼以登入",
+    "username": "帳號",
+    "password": "密碼",
+    "usernamePlaceholder": "請輸入帳號",
+    "passwordPlaceholder": "請輸入密碼",
+    "incorrect": "帳號或密碼錯誤，請重試！",
+    "error": "登入失敗，請重試",
+    "cancel": "取消",
+    "submit": "登入",
+    "loading": "登入中...",
+    "logout": "登出"
+  },
+  "languages": {
+    "zh-CN": "簡體中文",
+    "en": "English",
+    "zh-TW": "繁體中文",
+    "ja": "日本語",
+    "ko": "한국어"
+  },
+  "weekdays": {
+    "monday": "周一",
+    "tuesday": "周二",
+    "wednesday": "周三",
+    "thursday": "周四",
+    "friday": "周五",
+    "saturday": "周六",
+    "sunday": "周日"
+  },
+  "config": {
+    "siteSettings": "網站設定",
+    "colorConfig": "色彩配置",
+    "homeLayout": "首頁佈局",
+    "preview": "預覽",
+    "cancel": "取消",
+    "saving": "儲存中...",
+    "importKey": "匯入金鑰",
+    "save": "儲存"
+  },
+  "siteSettings": {
+    "siteMeta": {
+      "title": "網站標題",
+      "username": "使用者名稱",
+      "description": "網站描述"
+    },
+    "beian": {
+      "title": "備案資訊",
+      "number": "備案號",
+      "link": "備案連結（可選）",
+      "placeholder": "例如：京ICP備12345678號"
+    },
+    "socialButtons": {
+      "title": "社交按鈕",
+      "addButton": "+ 新增按鈕",
+      "noButtons": "暫未配置社交按鈕，點擊下方「+」新增。",
+      "deleteImage": "刪除圖片",
+      "uploadImage": "上傳圖片",
+      "wechatPlaceholder": "微信號或二維碼連結",
+      "qqPlaceholder": "QQ號或二維碼連結",
+      "emailPlaceholder": "example@email.com",
+      "urlPlaceholder": "https://example.com",
+      "labelPlaceholder": "標籤文字（可選）",
+      "orderPlaceholder": "順序",
+      "accountPlaceholders": {
+        "wechat": "微信號",
+        "qq": "QQ號",
+        "qqGroup": "QQ群號"
+      },
+      "copied": {
+        "email": "郵箱已複製到剪貼板",
+        "wechat": "微信號已複製到剪貼板",
+        "qq": "QQ號已複製到剪貼板",
+        "qqGroup": "QQ群號已複製到剪貼板"
+      },
+      "types": {
+        "github": "Github",
+        "gitee": "Gitee",
+        "juejin": "掘金",
+        "email": "郵箱",
+        "x": "X",
+        "tg": "Telegram",
+        "wechat": "微信",
+        "qq": "QQ",
+        "qqGroup": "QQ群",
+        "facebook": "Facebook",
+        "tiktok": "TikTok",
+        "instagram": "Instagram",
+        "weibo": "微博",
+        "xiaohongshu": "小紅書",
+        "zhihu": "知乎",
+        "bilibili": "嗶哩嗶哩",
+        "link": "連結"
+      }
+    },
+    "homeLayout": {
+      "offsetHint": "（偏移代表相對中心的偏移）",
+      "reset": "重置",
+      "startEditing": "進入首頁拖拽佈局",
+      "editing": "首頁正在編輯中",
+      "cardLabels": {
+        "artCard": "首圖",
+        "hiCard": "中心",
+        "clockCard": "時鐘",
+        "calendarCard": "日曆",
+        "musicCard": "音樂",
+        "socialButtons": "聯絡",
+        "shareCard": "分享",
+        "articleCard": "文章",
+        "writeButtons": "寫作",
+        "navCard": "導航",
+        "likePosition": "點讚",
+        "hatCard": "帽子",
+        "beianCard": "備案"
+      },
+      "table": {
+        "card": "卡片",
+        "width": "寬度",
+        "height": "高度",
+        "order": "顯示順序",
+        "offsetX": "橫向偏移",
+        "offsetY": "縱向偏移",
+        "enabled": "啟用"
+      }
+    },
+    "clockShowSeconds": "時鐘顯示秒數",
+    "summaryInContent": "摘要放入內容",
+    "hideEditButton": "隱藏編輯按鈕（編輯快捷鍵 ctrl/cmd + ,）",
+    "cachePem": "快取PEM(已加密，但存在風險)",
+    "enableCategories": "啟用文章分類",
+    "enableChristmas": "開啟聖誕節",
+    "artImages": {
+      "title": "首頁圖片",
+      "noImages": "暫未配置 Art 圖片，點擊下方「+」新增。",
+      "current": "目前使用",
+      "delete": "刪除",
+      "urlPlaceholder": "輸入圖片 URL",
+      "addUrl": "新增 URL",
+      "pleaseEnterUrl": "請輸入圖片 URL"
+    },
+    "backgroundImages": {
+      "title": "背景圖片",
+      "cancel": "取消設定",
+      "enableBlur": "啟用毛玻璃效果",
+      "urlPlaceholder": "輸入圖片 URL",
+      "addUrl": "新增 URL",
+      "pleaseEnterUrl": "請輸入圖片 URL"
+    },
+    "hat": {
+      "title": "帽子圖片",
+      "current": "目前使用",
+      "flip": "左右翻轉"
+    },
+    "like": {
+      "bubble": "麻煩點個讚吧～ 😊",
+      "dailyLimit": "謝謝啦😘，今天已經不能再點讚啦💕",
+      "thanks": "💕感謝點讚！！💕😘"
+    },
+    "hiCard": {
+      "greeting": {
+        "morning": "早上好",
+        "afternoon": "下午好",
+        "evening": "晚上好",
+        "night": "晚安，還沒睡嗎？"
+      },
+      "introduction": "我是 {username}，很高興認識你！"
+    },
+    "navCard": {
+      "mode": "狂暴模式"
+    },
+    "comment": {
+      "title": "留言",
+      "placeholder": "請輸入您的留言...",
+      "noServer": "請在配置中設定Waline伺服器地址",
+      "locale": "zh-TW"
+    },
+    "waline": {
+      "title": "Waline 留言配置",
+      "serverURL": "伺服器 URL",
+      "serverURLHint": "需要部署 Waline 後端服務，或使用第三方服務",
+      "theme": "主題",
+      "themeAuto": "自動",
+      "themeLight": "淺色",
+      "themeDark": "深色",
+      "dark": "暗黑模式",
+      "darkAuto": "自動",
+      "darkLight": "淺色",
+      "darkDark": "深色",
+      "requiredMeta": "必填資訊",
+      "requiredMetaNick": "暱稱",
+      "requiredMetaMail": "郵箱",
+      "requiredMetaLink": "網站",
+      "pageview": "啟用頁面訪問統計",
+      "nick": "暱稱:",
+      "mail": "郵箱:",
+      "placeholder": "歡迎留言！(填寫郵箱可在被回覆時收到郵件提醒)",
+      "nickPlaceholder": "請輸入暱稱",
+      "mailPlaceholder": "請輸入郵箱（用於接收回覆通知）"
+    }
+  },
+  "home": {
+    "editingLayout": "正在編輯首頁佈局，拖拽卡片調整位置",
+    "layoutSaved": "首頁佈局偏移已儲存（尚未提交到遠端配置）",
+    "layoutEditCanceled": "已取消此次拖拽佈局修改",
+    "saveOffset": "儲存偏移",
+    "articleCard": {
+      "title": "最新文章"
+    },
+    "shareCard": {
+      "title": "隨機推薦"
+    }
+  },
+  "bloggers": {
+    "confirmDelete": "確定要刪除 {name} 嗎？",
+    "add": "新增"
+  },
+  "pictures": {
+    "confirmDeleteGroup": "確定要刪除這一組圖片嗎？",
+    "noImages": "還沒有上傳圖片，點擊右上角「編輯」後即可開始上傳。",
+    "compressTool": "壓縮工具",
+    "upload": "上傳"
+  },
+  "projects": {
+    "confirmDelete": "確定要刪除 {name} 嗎？",
+    "add": "新增"
+  },
+  "share": {
+    "confirmDelete": "確定要刪除 {name} 嗎？",
+    "add": "新增"
+  },
+  "snippets": {
+    "enterSentence": "請輸入句子",
+    "addAtLeastOneSentence": "請至少新增一句話",
+    "manage": "管理",
+    "addNew": "新增",
+    "add": "新增",
+    "noContent": "暫無內容"
+  },
+  "clock": {
+    "stopwatch": "碼錶",
+    "timer": "計時器",
+    "lap": "計次"
+  },
+  "audioPlayer": {
+    "playlist": "音樂列表"
+  },
+  "globalAudioPlayer": {
+    "loading": "載入中...",
+    "previous": "上一首",
+    "play": "播放",
+    "pause": "暫停",
+    "next": "下一首",
+    "hide": "隱藏",
+    "show": "顯示"
+  },
+  "imageToolbox": {
+    "title": "PNG / JPG 轉 WEBP",
+    "description": "選擇圖片 → 調整品質 → 一鍵轉換下載",
+    "clickOrDrag": "點擊或拖拽圖片",
+    "supportedFormats": "支援 PNG、JPG、JPEG、HEIC 等常見格式",
+    "selectedImages": "已選擇 {count} 張圖片",
+    "converting": "轉換中...",
+    "reconvert": "重新轉換",
+    "convert": "轉換",
+    "compare": "對比",
+    "download": "下載",
+    "remove": "移除",
+    "batchConverting": "全部轉換中…",
+    "convertAll": "全部轉換",
+    "downloadAll": "全部下載"
+  },
+  "about": {
+    "title": "標題",
+    "description": "描述",
+    "markdownContent": "Markdown 內容",
+    "titlePreview": "標題預覽",
+    "descriptionPreview": "描述預覽",
+    "renderingPreview": "預覽渲染中...",
+    "loading": "載入中...",
+    "edit": "編輯",
+    "continueEditing": "繼續編輯"
+  },
+  "blog": {
+    "day": "日",
+    "week": "周",
+    "month": "月",
+    "year": "年",
+    "category": "分類",
+    "articles": "篇文章",
+    "uncategorized": "未分類",
+    "selectArticlesToDelete": "請選擇要刪除的文章",
+    "enterCategoryName": "請輸入分類名稱",
+    "noChangesToSave": "沒有需要儲存的改動",
+    "keyImportSuccess": "金鑰匯入成功，請再次點擊儲存",
+    "deselectAll": "取消全選",
+    "selectAllGroup": "全選該分組",
+    "selectAll": "全選",
+    "delete": "刪除",
+    "selected": "已選",
+    "more": "更多",
+    "loading": "載入中...",
+    "noArticles": "暫無文章",
+    "invalidLink": "無效的連結",
+    "articleNotFound": "文章不存在",
+    "invalidId": "無效的部落格 ID"
+  },
+  "toast": {
+    "gettingBranchInfo": "正在獲取分支資訊...",
+    "preparingFiles": "正在準備檔案...",
+    "uploadingImages": "正在上傳圖片...",
+    "uploadingFavicon": "正在上傳 Favicon...",
+    "uploadingAvatar": "正在上傳 Avatar...",
+    "uploadingArtImages": "正在上傳 Art 圖片...",
+    "uploadingBackgroundImages": "正在上傳背景圖片...",
+    "uploadingSocialButtonImages": "正在上傳社交按鈕圖片...",
+    "creatingFiles": "正在建立檔案...",
+    "creatingTree": "正在建立檔案樹...",
+    "creatingCommit": "正在建立提交...",
+    "updatingBranch": "正在更新分支...",
+    "updatingIndex": "正在更新索引...",
+    "updatingCategories": "正在更新分類...",
+    "collectingFiles": "正在收集檔案...",
+    "checkingFilesToDelete": "正在檢查需要刪除的檔案...",
+    "publishSuccess": "發布成功！",
+    "saveSuccess": "儲存成功！",
+    "deleteSuccess": "刪除成功！",
+    "deleteSuccessWithDeploy": "刪除成功！請等待頁面部署後刷新",
+    "updateSuccess": "更新成功",
+    "addSuccess": "新增成功",
+    "setCoverSuccess": "已設定封面",
+    "blogLoadSuccess": "部落格載入成功",
+    "error": "操作失敗，請重試",
+    "noAuth": "請先登入 GitHub",
+    "noSlug": "缺少 slug，無法刪除",
+    "readKeyFileError": "讀取金鑰檔案失敗",
+    "saveFailed": "儲存失敗",
+    "pleaseSelectImage": "請選擇圖片檔案",
+    "pleaseEnterImageUrl": "請輸入圖片 URL",
+    "pleaseUploadImageOrEnterUrl": "請上傳圖片或輸入 URL",
+    "pleaseDragImage": "請拖入圖片檔案",
+    "pleaseFillAllRequiredFields": "請填寫所有必填欄位",
+    "pleaseAddAtLeastOneTag": "請至少新增一個標籤",
+    "imageAlreadyExists": "此圖片已在清單中",
+    "imageDuplicate": "圖片已存在，不重複新增",
+    "loadBlogFailed": "載入部落格失敗"
+  },
+  "addToFavorites": {
+    "title": "收藏我們的網站",
+    "message": "喜歡我們的內容嗎？請將我們的網站新增到收藏夾，以便隨時訪問！",
+    "later": "稍後再說",
+    "add": "關注 ⭐",
+    "bookmarkHint": "請按 Ctrl+D (Windows/Linux) 或 Command+D (Mac) 將本網站新增到收藏夾",
+    "bookmarkHintOpera": "請按 Ctrl+D 將本網站新增到收藏夾"
+  }
+}
