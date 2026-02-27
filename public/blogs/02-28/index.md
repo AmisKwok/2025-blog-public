@@ -1,7 +1,7 @@
 ## github
 
 - **项目仓库**：[https://github.com/AmisKwok/amis-s-blog-demo](https://github.com/AmisKwok/amis-s-blog-demo)  
-<img src="/blogs/blogimg/b20260228-021058.png" alt="仓库截图" width="300" style="cursor: pointer; border-radius: 8px; border: 1px solid #e5e7eb; transition: transform 0.2s;"/>
+<img src="/blogs/blogimg/20260228-021058.png" alt="仓库截图" width="300" style="cursor: pointer; border-radius: 8px; border: 1px solid #e5e7eb; transition: transform 0.2s;"/>
 - **Issue 提交地址**：[https://github.com/AmisKwok/amis-s-blog-demo/issues](https://github.com/AmisKwok/amis-s-blog-demo/issues)
 <img src="/blogs/blogimg/20260228-020929.png" alt="issue截图" width="300" style="cursor: pointer; border-radius: 8px; border: 1px solid #e5e7eb; transition: transform 0.2s;"/>
 
