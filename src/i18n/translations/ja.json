@@ -361,7 +361,8 @@
     "pleaseAddAtLeastOneTag": "少なくとも1つのタグを追加してください",
     "imageAlreadyExists": "この画像はすでにリストにあります",
     "imageDuplicate": "画像はすでに存在するため、重複して追加されません",
-    "loadBlogFailed": "ブログの読み込みに失敗しました"
+    "loadBlogFailed": "ブログの読み込みに失敗しました",
+    "rssUrlCopied": "RSS 購読URLがクリップボードにコピーされました！"
   },
   "addToFavorites": {
     "title": "ウェブサイトをブックマーク",

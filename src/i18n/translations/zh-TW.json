@@ -361,7 +361,8 @@
     "pleaseAddAtLeastOneTag": "請至少新增一個標籤",
     "imageAlreadyExists": "此圖片已在清單中",
     "imageDuplicate": "圖片已存在，不重複新增",
-    "loadBlogFailed": "載入部落格失敗"
+    "loadBlogFailed": "載入部落格失敗",
+    "rssUrlCopied": "RSS 訂閱地址已複製到剪貼板！"
   },
   "addToFavorites": {
     "title": "收藏我們的網站",

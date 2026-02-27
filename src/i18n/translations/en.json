@@ -361,7 +361,8 @@
     "pleaseAddAtLeastOneTag": "Please add at least one tag",
     "imageAlreadyExists": "This image is already in the list",
     "imageDuplicate": "Image already exists, not added again",
-    "loadBlogFailed": "Failed to load blog"
+    "loadBlogFailed": "Failed to load blog",
+    "rssUrlCopied": "RSS subscription URL has been copied to clipboard!"
   },
   "addToFavorites": {
     "title": "Bookmark Our Website",

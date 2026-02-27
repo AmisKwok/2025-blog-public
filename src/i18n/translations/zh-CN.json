@@ -359,9 +359,10 @@
     "pleaseDragImage": "请拖入图片文件",
     "pleaseFillAllRequiredFields": "请填写所有必填项",
     "pleaseAddAtLeastOneTag": "请至少添加一个标签",
-    "imageAlreadyExists": "该图片已在列表中",
+    "imageAlreadyExists": "此图片已在列表中",
     "imageDuplicate": "图片已存在，不重复添加",
-    "loadBlogFailed": "加载博客失败"
+    "loadBlogFailed": "加载博客失败",
+    "rssUrlCopied": "RSS 订阅地址已复制到剪贴板！"
   },
   "addToFavorites": {
     "title": "收藏我们的网站",

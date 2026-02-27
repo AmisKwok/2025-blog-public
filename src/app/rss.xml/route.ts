@@ -112,8 +112,8 @@ export const dynamic = 'force-static'
 export const revalidate = false
 
 export function GET(): Response {
-	const title = siteContent.meta?.title || '2025 Blog'
-	const description = siteContent.meta?.description || 'Latest updates from 2025 Blog'
+	const title = siteContent.meta?.title || 'Amis\'s Blog'
+	const description = siteContent.meta?.description || 'Latest updates from Amis\'s Blog'
 
 	const items = blogs
 		.filter(item => item?.slug)

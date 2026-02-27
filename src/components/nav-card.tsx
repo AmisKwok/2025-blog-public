@@ -19,6 +19,7 @@ import { useLanguage } from '@/i18n/context'
 import { PasswordModal } from './password-modal'
 import { useLocalAuthStore } from '@/hooks/use-local-auth'
 import { LottieIcon } from './lottie-icon'
+import { toast } from 'sonner'
 import blogLottie from '@/lottie/blog.json'
 import projectsLottie from '@/lottie/projects.json'
 import commentsLottie from '@/lottie/comments.json'
@@ -26,6 +27,9 @@ import shareLottie from '@/lottie/share.json'
 import bloggersLottie from '@/lottie/bloggers.json'
 import trainLottie from '@/lottie/RP_Train.json'
 import rssLottie from '@/lottie/RSS.json'
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://amisblog.cn'
+const SITE_ORIGIN = SITE_URL.replace(/\/$/, '')
 
 const list = [
   {
@@ -212,9 +216,27 @@ export default function NavCard() {
                           setIsPasswordModalOpen(true)
                         }
                       } else if (item.key === 'nav.rss') {
-                        // RSS 链接在新标签页打开
                         e.preventDefault()
-                        window.open(item.href, '_blank', 'noopener,noreferrer')
+                        
+                        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+                        
+                        // 对于移动端，复制 RSS URL 到剪贴板并直接下载
+                        if (isMobile) {
+                          // 复制 RSS URL 到剪贴板
+                          const rssUrl = `${SITE_ORIGIN}/rss.xml`
+                          navigator.clipboard.writeText(rssUrl).then(() => {
+                            // 显示复制成功的提示
+                            toast.success(t('toast.rssUrlCopied'))
+                          }).catch(err => {
+                            console.error('复制失败:', err)
+                          })
+                          
+                          // 直接访问 RSS URL 触发下载
+                          window.location.href = item.href
+                        } else {
+                          // 对于桌面端，在新标签页打开
+                          window.open(item.href, '_blank', 'noopener,noreferrer')
+                        }
                       }
                     }
 
