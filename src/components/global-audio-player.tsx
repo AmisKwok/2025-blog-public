@@ -143,7 +143,7 @@ export default function GlobalAudioPlayer() {
               initial={{ opacity: 0, y: 0 }}
               animate={{ opacity: 1, y: -10 }}
               exit={{ opacity: 0, y: 0 }}
-              className="absolute top-0 right-0 transform -translate-y-full -translate-x-1/2 mb-2 px-3 py-1 bg-black/80 text-white text-sm rounded-full whitespace-nowrap"
+              className="absolute top-0 right-0 transform -translate-y-full -translate-x-1/4 mb-2 px-3 py-1 bg-card/90 backdrop-blur-lg border border-white/20 text-white text-sm rounded-full whitespace-nowrap shadow-lg"
             >
               {t('globalAudioPlayer.tooltip')}
             </motion.div>
