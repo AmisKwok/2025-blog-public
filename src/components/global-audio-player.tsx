@@ -6,11 +6,13 @@ import { motion } from 'motion/react'
 import { Play, Pause, SkipBack, SkipForward, ChevronDown } from 'lucide-react'
 import { useAudioStore } from '../app/(home)/stores/audio-store'
 import { useLanguage } from '@/i18n/context'
+import { useSize } from '@/hooks/use-size'
 
 export default function GlobalAudioPlayer() {
   const pathname = usePathname()
   const { t } = useLanguage()
   const [isExpanded, setIsExpanded] = useState(true)
+  const { maxSM } = useSize()
   const {
     musicFiles,
     currentIndex,
@@ -29,8 +31,9 @@ export default function GlobalAudioPlayer() {
 
 
 
-  // 在主页和音乐页不显示
-  const shouldShow = pathname !== '/' && pathname !== '/music'
+  // 在移动端显示所有页面（除了音乐页）
+  // 在电脑端显示非主页页面（除了音乐页）
+  const shouldShow = pathname !== '/music' && (maxSM || pathname !== '/')
 
   // 如果不应该显示，直接返回null
   if (!shouldShow) {
