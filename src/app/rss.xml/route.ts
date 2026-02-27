@@ -85,7 +85,8 @@ const serializeItem = (item: BlogIndexItem): string => {
 		console.error(`Error reading blog content for ${item.slug}:`, error)
 	}
 	
-	const description = wrapCdata(content)
+	const description = wrapCdata(item.summary || content.substring(0, 200) + '...')
+	const contentEncoded = wrapCdata(content)
 	const pubDate = new Date(item.date).toUTCString()
 	const categories = (item.tags || [])
 		.filter(Boolean)
@@ -100,6 +101,7 @@ const serializeItem = (item: BlogIndexItem): string => {
 			<link>${link}</link>
 			<guid isPermaLink="false">${escapeXml(link)}</guid>
 			<description>${description}</description>
+			<content:encoded>${contentEncoded}</content:encoded>
 			<pubDate>${pubDate}</pubDate>
 			${categories}
 			${enclosure ?? ''}
@@ -119,7 +121,7 @@ export function GET(): Response {
 		.join('')
 
 	const rss = `<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0">
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
 	<channel xmlns:atom="http://www.w3.org/2005/Atom">
 		<title>${escapeXml(title)}</title>
 		<link>${SITE_ORIGIN}</link>
