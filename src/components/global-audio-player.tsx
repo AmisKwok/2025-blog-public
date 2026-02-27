@@ -12,8 +12,8 @@ export default function GlobalAudioPlayer() {
   const pathname = usePathname()
   const { t } = useLanguage()
   const { maxSM } = useSize()
-  const [isExpanded, setIsExpanded] = useState(!maxSM)
-  const [showTooltip, setShowTooltip] = useState(maxSM)
+  const [isExpanded, setIsExpanded] = useState(true) // 初始值暂时设为 true
+  const [showTooltip, setShowTooltip] = useState(false) // 初始值暂时设为 false
   const {
     musicFiles,
     currentIndex,
@@ -39,6 +39,12 @@ export default function GlobalAudioPlayer() {
       return () => clearTimeout(timer)
     }
   }, [showTooltip])
+
+  // 监听尺寸变化，更新展开状态和提示显示
+  useEffect(() => {
+    setIsExpanded(!maxSM) // 移动端收起，电脑端展开
+    setShowTooltip(maxSM) // 只在移动端显示提示
+  }, [maxSM])
 
 
 
