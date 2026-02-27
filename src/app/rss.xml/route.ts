@@ -4,8 +4,14 @@ import path from 'node:path'
 import siteContent from '@/config/site-content.json'
 import blogIndex from '@/../public/blogs/index.json'
 import type { BlogIndexItem } from '@/app/blog/types'
+import { marked } from 'marked'
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.yysuni.com'
+// 配置 marked 为同步模式
+marked.use({
+  async: false
+})
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://amisblog.cn'
 const FEED_PATH = '/rss.xml'
 const SITE_ORIGIN = SITE_URL.replace(/\/$/, '')
 const FEED_URL = `${SITE_ORIGIN}${FEED_PATH}`
@@ -65,7 +71,21 @@ const buildEnclosure = (cover?: string): string | null => {
 const serializeItem = (item: BlogIndexItem): string => {
 	const link = `${SITE_ORIGIN}/blog/${item.slug}`
 	const title = escapeXml(item.title || item.slug)
-	const description = wrapCdata(item.summary || '')
+	
+	// 读取完整的文章内容
+	let content = item.summary || ''
+	try {
+		const blogPath = path.join(PUBLIC_DIR, 'blogs', item.slug, 'index.md')
+		if (fs.existsSync(blogPath)) {
+			const markdown = fs.readFileSync(blogPath, 'utf8')
+			// 转换 markdown 为 HTML (使用同步方法)
+			content = marked.parse(markdown) as string
+		}
+	} catch (error) {
+		console.error(`Error reading blog content for ${item.slug}:`, error)
+	}
+	
+	const description = wrapCdata(content)
 	const pubDate = new Date(item.date).toUTCString()
 	const categories = (item.tags || [])
 		.filter(Boolean)

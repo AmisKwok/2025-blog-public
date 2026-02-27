@@ -8,6 +8,7 @@ import { motion } from 'motion/react'
 import { useCenterStore } from '@/hooks/use-center'
 import { CARD_SPACING, GITHUB_CONFIG } from '@/consts'
 
+
 import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
 import { cn } from '@/lib/utils'
@@ -24,6 +25,7 @@ import commentsLottie from '@/lottie/comments.json'
 import shareLottie from '@/lottie/share.json'
 import bloggersLottie from '@/lottie/bloggers.json'
 import trainLottie from '@/lottie/RP_Train.json'
+import rssLottie from '@/lottie/RSS.json'
 
 const list = [
   {
@@ -58,11 +60,17 @@ const list = [
     isExternal: true
   },
   {
-    icon: bloggersLottie,
-    iconActive: bloggersLottie,
-    key: 'nav.bloggers',
-    href: '/bloggers'
-  }
+    icon: rssLottie,
+    iconActive: rssLottie,
+    key: 'nav.rss',
+    href: '/rss.xml'
+  },
+  // {
+  //   icon: bloggersLottie,
+  //   iconActive: bloggersLottie,
+  //   key: 'nav.bloggers',
+  //   href: '/bloggers'
+  // }
 ]
 
 const extraSize = 8
@@ -203,6 +211,10 @@ export default function NavCard() {
                           // 未登录，打开密码弹窗
                           setIsPasswordModalOpen(true)
                         }
+                      } else if (item.key === 'nav.rss') {
+                        // RSS 链接在新标签页打开
+                        e.preventDefault()
+                        window.open(item.href, '_blank', 'noopener,noreferrer')
                       }
                     }
 
