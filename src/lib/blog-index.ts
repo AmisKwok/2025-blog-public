@@ -18,12 +18,12 @@ export type { BlogIndexItem } from '@/app/blog/types'
  * @param item 博客索引项
  * @param branch 分支名称
  */
-export async function upsertBlogsIndex(token: string, owner: string, repo: string, item: BlogIndexItem, branch: string): Promise<void> {
+export async function upsertBlogsIndex(token: string, owner: string, repo: string, item: BlogIndexItem, ref: string): Promise<void> {
 	const indexPath = 'public/blogs/index.json'
 	let list: BlogIndexItem[] = []
 	try {
 		// 尝试从 GitHub 读取索引文件
-		const txt = await readTextFileFromRepo(token, owner, repo, indexPath, branch)
+		const txt = await readTextFileFromRepo(token, owner, repo, indexPath, ref)
 		if (txt) {
 			list = JSON.parse(txt)
 		} else {
@@ -60,7 +60,7 @@ export async function upsertBlogsIndex(token: string, owner: string, repo: strin
 	// 按日期降序排序
 	const next = Array.from(map.values()).sort((a, b) => (b.date || '').localeCompare(a.date || ''))
 	const base64 = toBase64Utf8(JSON.stringify(next, null, 2))
-	await putFile(token, owner, repo, indexPath, base64, 'Update blogs index', branch)
+	await putFile(token, owner, repo, indexPath, base64, 'Update blogs index', ref)
 }
 
 /**
@@ -72,12 +72,12 @@ export async function upsertBlogsIndex(token: string, owner: string, repo: strin
  * @param branch 分支名称
  * @returns 格式化的 JSON 字符串
  */
-export async function prepareBlogsIndex(token: string, owner: string, repo: string, item: BlogIndexItem, branch: string): Promise<string> {
+export async function prepareBlogsIndex(token: string, owner: string, repo: string, item: BlogIndexItem, ref: string): Promise<string> {
 	const indexPath = 'public/blogs/index.json'
 	let list: BlogIndexItem[] = []
 	try {
 		// 尝试从 GitHub 读取索引文件
-		const txt = await readTextFileFromRepo(token, owner, repo, indexPath, branch)
+		const txt = await readTextFileFromRepo(token, owner, repo, indexPath, ref)
 		if (txt) {
 			list = JSON.parse(txt)
 		} else {
@@ -125,12 +125,12 @@ export async function prepareBlogsIndex(token: string, owner: string, repo: stri
  * @param branch 分支名称
  * @returns 格式化的 JSON 字符串
  */
-export async function removeBlogsFromIndex(token: string, owner: string, repo: string, slugs: string[], branch: string): Promise<string> {
+export async function removeBlogsFromIndex(token: string, owner: string, repo: string, slugs: string[], ref: string): Promise<string> {
 	const indexPath = 'public/blogs/index.json'
 	let list: BlogIndexItem[] = []
 	try {
 		// 尝试从 GitHub 读取索引文件
-		const txt = await readTextFileFromRepo(token, owner, repo, indexPath, branch)
+		const txt = await readTextFileFromRepo(token, owner, repo, indexPath, ref)
 		if (txt) {
 			list = JSON.parse(txt)
 		} else {
@@ -179,6 +179,6 @@ export async function removeBlogsFromIndex(token: string, owner: string, repo: s
  * @param branch 分支名称
  * @returns 格式化的 JSON 字符串
  */
-export async function removeBlogFromIndex(token: string, owner: string, repo: string, slug: string, branch: string): Promise<string> {
-	return removeBlogsFromIndex(token, owner, repo, [slug], branch)
+export async function removeBlogFromIndex(token: string, owner: string, repo: string, slug: string, ref: string): Promise<string> {
+	return removeBlogsFromIndex(token, owner, repo, [slug], ref)
 }
