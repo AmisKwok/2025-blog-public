@@ -22,10 +22,37 @@ export async function upsertBlogsIndex(token: string, owner: string, repo: strin
 	const indexPath = 'public/blogs/index.json'
 	let list: BlogIndexItem[] = []
 	try {
+		// 尝试从 GitHub 读取索引文件
 		const txt = await readTextFileFromRepo(token, owner, repo, indexPath, branch)
-		if (txt) list = JSON.parse(txt)
+		if (txt) {
+			list = JSON.parse(txt)
+		} else {
+			// 如果 GitHub 上没有索引文件，尝试从本地读取
+			try {
+				const response = await fetch('/blogs/index.json')
+				if (response.ok) {
+					const localData = await response.json()
+					if (Array.isArray(localData)) {
+						list = localData
+					}
+				}
+			} catch {
+				// 忽略本地读取错误
+			}
+		}
 	} catch {
-		// 忽略解析错误，从空列表开始
+		// 忽略 GitHub 读取错误，尝试从本地读取
+		try {
+			const response = await fetch('/blogs/index.json')
+			if (response.ok) {
+				const localData = await response.json()
+				if (Array.isArray(localData)) {
+					list = localData
+				}
+			}
+		} catch {
+			// 忽略本地读取错误，保持空列表
+		}
 	}
 	// 使用 Map 去重并更新项
 	const map = new Map<string, BlogIndexItem>(list.map(i => [i.slug, i]))
@@ -49,10 +76,37 @@ export async function prepareBlogsIndex(token: string, owner: string, repo: stri
 	const indexPath = 'public/blogs/index.json'
 	let list: BlogIndexItem[] = []
 	try {
+		// 尝试从 GitHub 读取索引文件
 		const txt = await readTextFileFromRepo(token, owner, repo, indexPath, branch)
-		if (txt) list = JSON.parse(txt)
+		if (txt) {
+			list = JSON.parse(txt)
+		} else {
+			// 如果 GitHub 上没有索引文件，尝试从本地读取
+			try {
+				const response = await fetch('/blogs/index.json')
+				if (response.ok) {
+					const localData = await response.json()
+					if (Array.isArray(localData)) {
+						list = localData
+					}
+				}
+			} catch {
+				// 忽略本地读取错误
+			}
+		}
 	} catch {
-		// 忽略解析错误，从空列表开始
+		// 忽略 GitHub 读取错误，尝试从本地读取
+		try {
+			const response = await fetch('/blogs/index.json')
+			if (response.ok) {
+				const localData = await response.json()
+				if (Array.isArray(localData)) {
+					list = localData
+				}
+			}
+		} catch {
+			// 忽略本地读取错误，保持空列表
+		}
 	}
 	// 使用 Map 去重并更新项
 	const map = new Map<string, BlogIndexItem>(list.map(i => [i.slug, i]))
@@ -75,10 +129,37 @@ export async function removeBlogsFromIndex(token: string, owner: string, repo: s
 	const indexPath = 'public/blogs/index.json'
 	let list: BlogIndexItem[] = []
 	try {
+		// 尝试从 GitHub 读取索引文件
 		const txt = await readTextFileFromRepo(token, owner, repo, indexPath, branch)
-		if (txt) list = JSON.parse(txt)
+		if (txt) {
+			list = JSON.parse(txt)
+		} else {
+			// 如果 GitHub 上没有索引文件，尝试从本地读取
+			try {
+				const response = await fetch('/blogs/index.json')
+				if (response.ok) {
+					const localData = await response.json()
+					if (Array.isArray(localData)) {
+						list = localData
+					}
+				}
+			} catch {
+				// 忽略本地读取错误
+			}
+		}
 	} catch {
-		// 忽略解析错误，保持空列表
+		// 忽略 GitHub 读取错误，尝试从本地读取
+		try {
+			const response = await fetch('/blogs/index.json')
+			if (response.ok) {
+				const localData = await response.json()
+				if (Array.isArray(localData)) {
+					list = localData
+				}
+			}
+		} catch {
+			// 忽略本地读取错误，保持空列表
+		}
 	}
 	const slugSet = new Set(slugs.filter(Boolean))
 	if (slugSet.size === 0) {
