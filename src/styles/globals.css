@@ -33,9 +33,28 @@
 	input:placeholder-shown {
 		text-overflow: ellipsis;
 	}
-
-	button {
-		@apply cursor-pointer;
+	
+	/* 为输入框和文本区域修改插入光标的颜色，与登录输入框保持一致 */
+	input,
+	textarea,
+	[contenteditable="true"] {
+		caret-color: black;
+	}
+	
+	/* 确保按钮和链接的鼠标样式不受影响 */
+	button,
+	a,
+	[role="button"] {
+		cursor: pointer;
+	}
+	
+	/* 确保其他特殊元素使用默认鼠标样式 */
+	select,
+	input[type="checkbox"],
+	input[type="radio"],
+	input[type="range"],
+	input[type="file"] {
+		cursor: auto;
 	}
 
 	.range-track {
