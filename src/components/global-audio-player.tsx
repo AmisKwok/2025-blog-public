@@ -11,8 +11,9 @@ import { useSize } from '@/hooks/use-size'
 export default function GlobalAudioPlayer() {
   const pathname = usePathname()
   const { t } = useLanguage()
-  const [isExpanded, setIsExpanded] = useState(true)
   const { maxSM } = useSize()
+  const [isExpanded, setIsExpanded] = useState(!maxSM)
+  const [showTooltip, setShowTooltip] = useState(maxSM)
   const {
     musicFiles,
     currentIndex,
@@ -28,6 +29,16 @@ export default function GlobalAudioPlayer() {
   useEffect(() => {
     fetchMusicFiles()
   }, [fetchMusicFiles])
+
+  // 控制气泡提示的显示和消失
+  useEffect(() => {
+    if (showTooltip) {
+      const timer = setTimeout(() => {
+        setShowTooltip(false)
+      }, 3000) // 3秒后消失
+      return () => clearTimeout(timer)
+    }
+  }, [showTooltip])
 
 
 
@@ -121,6 +132,16 @@ export default function GlobalAudioPlayer() {
               d="M9 18V5l12-2v13M9 18c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 13.5V5m12 8.5v-13M12 3v18"
             />
           </svg>
+          {showTooltip && (
+            <motion.div
+              initial={{ opacity: 0, y: 0 }}
+              animate={{ opacity: 1, y: -10 }}
+              exit={{ opacity: 0, y: 0 }}
+              className="absolute top-0 right-0 transform -translate-y-full -translate-x-1/2 mb-2 px-3 py-1 bg-black/80 text-white text-sm rounded-full whitespace-nowrap"
+            >
+              {t('globalAudioPlayer.tooltip')}
+            </motion.div>
+          )}
         </motion.button>
       )}
     </div>

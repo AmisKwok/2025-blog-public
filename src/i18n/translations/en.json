@@ -270,7 +270,8 @@
     "pause": "Pause",
     "next": "Next",
     "hide": "Hide",
-    "show": "Show"
+    "show": "Show",
+    "tooltip": "Click to play music"
   },
   "imageToolbox": {
     "title": "PNG / JPG to WEBP",

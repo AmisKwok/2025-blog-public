@@ -270,7 +270,8 @@
     "pause": "一時停止",
     "next": "次へ",
     "hide": "非表示",
-    "show": "表示"
+    "show": "表示",
+    "tooltip": "クリックして音楽を再生"
   },
   "imageToolbox": {
     "title": "PNG / JPG から WEBP へ",

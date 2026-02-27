@@ -270,7 +270,8 @@
     "pause": "일시 정지",
     "next": "다음",
     "hide": "숨기기",
-    "show": "보기"
+    "show": "보기",
+    "tooltip": "클릭하여 음악 재생"
   },
   "imageToolbox": {
     "title": "PNG / JPG to WEBP",

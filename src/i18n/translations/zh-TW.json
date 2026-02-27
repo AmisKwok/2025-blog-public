@@ -270,7 +270,8 @@
     "pause": "暫停",
     "next": "下一首",
     "hide": "隱藏",
-    "show": "顯示"
+    "show": "顯示",
+    "tooltip": "點開可以播放音樂哦"
   },
   "imageToolbox": {
     "title": "PNG / JPG 轉 WEBP",

@@ -270,7 +270,8 @@
     "pause": "暂停",
     "next": "下一首",
     "hide": "隐藏",
-    "show": "显示"
+    "show": "显示",
+    "tooltip": "点开可以播放音乐哦"
   },
   "imageToolbox": {
     "title": "PNG / JPG 转 WEBP",
