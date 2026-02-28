@@ -11,6 +11,7 @@ type LikeButtonProps = {
 	slug?: string
 	className?: string
 	delay?: number
+	isInArticlePage?: boolean
 }
 
 // 恢复API调用，使用新的后端接口
@@ -18,10 +19,24 @@ const API_HOST = 'https://api.amisweb.fun'
 const API_ENDPOINTS = {
   IP: `${API_HOST}/api/admin/like/ip`,
   LIKE: `${API_HOST}/api/admin/like`,
-  TOTAL: `${API_HOST}/api/admin/like/total`
+  TOTAL: `${API_HOST}/api/admin/like/total`,
+  LIKE_BY_SLUG: `${API_HOST}/api/admin/like/:slug` 
 }
 
-export default function LikeButton({ slug = 'amis', className }: LikeButtonProps) {
+export default function LikeButton({ slug = 'amis', className, isInArticlePage = false }: LikeButtonProps) {
+	// 保存原始 slug
+	const originalSlug = slug
+	
+	// 生成 localStorage 键，区分主页和文章页面
+	const getLocalStorageKey = () => {
+		// 主页点赞使用固定键
+		if (originalSlug === 'amis' || !originalSlug) {
+			return 'last_like_time_home'
+		}
+		// 文章页面点赞使用带有文章 slug 的键
+		return 'last_like_time_article_' + (BLOG_SLUG_KEY + originalSlug)
+	}
+
 	slug = BLOG_SLUG_KEY + slug
 	const [liked, setLiked] = useState(false)
 	const [justLiked, setJustLiked] = useState(false)
@@ -40,22 +55,25 @@ export default function LikeButton({ slug = 'amis', className }: LikeButtonProps
 		}
 	}, [justLiked])
 
-	// 组件加载时获取总点赞数
+	// 组件加载时获取点赞数（文章独立或总点赞数）
 	useEffect(() => {
-		const fetchTotalLikes = async () => {
+		const fetchLikes = async () => {
 			try {
-				const response = await fetch(API_ENDPOINTS.TOTAL)
+				// 主页使用 TOTAL 端点获取总点赞数
+				// 文章页面使用 LIKE_BY_SLUG 端点获取文章独立点赞数
+				const endpoint = (originalSlug === 'amis' || !originalSlug) ? API_ENDPOINTS.TOTAL : API_ENDPOINTS.LIKE_BY_SLUG.replace(':slug', originalSlug)
+				const response = await fetch(endpoint)
 				if (!response.ok) throw new Error('Network response was not ok')
 				const data = await response.json()
 				if (typeof data.data === 'number') {
 					setCount(data.data)
 				}
 			} catch (error) {
-				console.error('获取总点赞数失败:', error)
+				console.error('获取点赞数失败:', error)
 			}
 		}
-		fetchTotalLikes()
-	}, [])
+		fetchLikes()
+	}, [slug])
 
 	// 获取客户端IP
 	const getClientIp = async () => {
@@ -102,7 +120,7 @@ export default function LikeButton({ slug = 'amis', className }: LikeButtonProps
 				const oneDay = 24 * 60 * 60 * 1000
 				
 				// 检查是否已经点过赞（从localStorage获取）
-				const lastLikeTime = typeof window !== 'undefined' ? localStorage.getItem('last_like_time_' + slug) : null
+				const lastLikeTime = typeof window !== 'undefined' ? localStorage.getItem(getLocalStorageKey()) : null
 				
 				// 如果24小时内已经点过赞，直接显示限制提示
 				if (lastLikeTime && now - parseInt(lastLikeTime) < oneDay) {
@@ -138,7 +156,7 @@ export default function LikeButton({ slug = 'amis', className }: LikeButtonProps
 					headers: {
 						'Content-Type': 'application/json'
 					},
-					body: JSON.stringify({ ipAddress: ip })
+					body: JSON.stringify({ ipAddress: ip, slug: originalSlug })
 				})
 				
 				if (!response.ok) throw new Error('Network response was not ok')
@@ -146,15 +164,15 @@ export default function LikeButton({ slug = 'amis', className }: LikeButtonProps
 
 				if (data.data === -1) {
 					// 记录点赞时间
-					if (typeof window !== 'undefined') {
-						localStorage.setItem('last_like_time_' + slug, now.toString())
-					}
+						if (typeof window !== 'undefined') {
+							localStorage.setItem(getLocalStorageKey(), now.toString())
+						}
 					toast(t('siteSettings.like.dailyLimit'))
 				} else {
 					// 记录点赞时间
-					if (typeof window !== 'undefined') {
-						localStorage.setItem('last_like_time_' + slug, now.toString())
-					}
+						if (typeof window !== 'undefined') {
+							localStorage.setItem(getLocalStorageKey(), now.toString())
+						}
 					// 显示感谢点赞的提示
 					toast(t('siteSettings.like.thanks'))
 					// 更新点赞数
@@ -173,16 +191,16 @@ export default function LikeButton({ slug = 'amis', className }: LikeButtonProps
 				const oneDay = 24 * 60 * 60 * 1000
 				
 				// 检查是否已经点过赞（从localStorage获取）
-				const lastLikeTime = typeof window !== 'undefined' ? localStorage.getItem('last_like_time_' + slug) : null
+				const lastLikeTime = typeof window !== 'undefined' ? localStorage.getItem(getLocalStorageKey()) : null
 				
 				// 如果24小时内已经点过赞，显示限制提示
 				if (lastLikeTime && now - parseInt(lastLikeTime) < oneDay) {
 					toast(t('siteSettings.like.dailyLimit'))
 				} else {
 					// 记录点赞时间
-					if (typeof window !== 'undefined') {
-						localStorage.setItem('last_like_time_' + slug, now.toString())
-					}
+						if (typeof window !== 'undefined') {
+							localStorage.setItem(getLocalStorageKey(), now.toString())
+						}
 					// 即使出错也显示感谢提示
 					toast(t('siteSettings.like.thanks'))
 					// 本地增加点赞数作为降级方案
@@ -196,27 +214,29 @@ export default function LikeButton({ slug = 'amis', className }: LikeButtonProps
 
 	return (
 		<div className='relative inline-block'>
-			{/* 聊天气泡提示 */}
-			<motion.div
-				className='absolute top-[-64px] left-1/2 transform -translate-x-1/2 z-0 max-w-md w-auto min-w-40 px-4 py-2 rounded-[40px] bg-card border pointer-events-none'
-				style={{ boxShadow: '0 40px 50px -32px rgba(0, 0, 0, 0.05)', backdropFilter: 'blur(4px)' }}
-				initial={{ opacity: 0, y: 10, scale: 0.8 }}
-				animate={{ opacity: 1, y: 0, scale: 1 }}
-				transition={{ delay: 1, duration: 0.5 }}
-			>
-				<div className='text-sm font-medium text-gray-800 text-center'>
-					{t('siteSettings.like.bubble')}
-				</div>
-				{/* 气泡尾巴 - 暂时注释掉
-				<div className='absolute -bottom-2 left-1/2 transform -translate-x-1/2'>
-					<div className='h-4 w-4 bg-transparent'>
-						<div className='relative h-full w-full'>
-							<div className='absolute bottom-0 left-1/2 transform -translate-x-1/2 rotate-45 h-3 w-3 bg-card border-t border-l rounded-sm'></div>
+			{/* 聊天气泡提示 - 不在文章页面内才显示 */}
+			{!isInArticlePage && (
+				<motion.div
+					className='absolute top-[-64px] left-1/2 transform -translate-x-1/2 z-0 max-w-md w-auto min-w-40 px-4 py-2 rounded-[40px] bg-card border pointer-events-none'
+					style={{ boxShadow: '0 40px 50px -32px rgba(0, 0, 0, 0.05)', backdropFilter: 'blur(4px)' }}
+					initial={{ opacity: 0, y: 10, scale: 0.8 }}
+					animate={{ opacity: 1, y: 0, scale: 1 }}
+					transition={{ delay: 1, duration: 0.5 }}
+				>
+					<div className='text-sm font-medium text-gray-800 text-center'>
+						{t('siteSettings.like.bubble')}
+					</div>
+					{/* 气泡尾巴 - 暂时注释掉
+					<div className='absolute -bottom-2 left-1/2 transform -translate-x-1/2'>
+						<div className='h-4 w-4 bg-transparent'>
+							<div className='relative h-full w-full'>
+								<div className='absolute bottom-0 left-1/2 transform -translate-x-1/2 rotate-45 h-3 w-3 bg-card border-t border-l rounded-sm'></div>
+							</div>
 						</div>
 					</div>
-				</div>
-				*/}
-			</motion.div>
+					*/}
+				</motion.div>
+			)}
 			
 			<motion.button
 				initial={{ opacity: 0, scale: 0.6 }}

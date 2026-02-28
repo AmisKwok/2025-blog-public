@@ -70,16 +70,13 @@ export function BlogSidebar({ cover, summary, toc, slug }: BlogSidebarProps) {
 				{/* 目录 */}
 				<BlogToc toc={toc} delay={INIT_DELAY + ANIMATION_DELAY * 3} />
 
-				{/* 间距 */}
-				<div className="mt-10"></div>
-
 				{/* 点赞按钮 */}
-				<div className="w-full flex justify-end">
-					<LikeButton slug={slug} delay={(INIT_DELAY + ANIMATION_DELAY * 4) * 1000} />
+				<div className="w-full flex justify-start">
+					<LikeButton slug={slug} delay={(INIT_DELAY + ANIMATION_DELAY * 4) * 1000} isInArticlePage={true} />
 				</div>
 
 				{/* 回到顶部按钮 */}
-				<div className="w-full flex justify-end mt-4">
+				<div className="w-full flex justify-start mt-4">
 					<ScrollTopButton delay={INIT_DELAY + ANIMATION_DELAY * 5} />
 				</div>
 		</div>
