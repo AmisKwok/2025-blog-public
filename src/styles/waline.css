@@ -604,6 +604,11 @@ span.wl-browser {
   position: absolute !important;
 }
 
+/* 隐藏 RSS 链接 */
+.wl-rss {
+  display: none !important;
+}
+
 /* 响应式设计 */
 @media (max-width: 768px) {
   .waline-meta {
