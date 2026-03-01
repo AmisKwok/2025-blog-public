@@ -99,5 +99,9 @@
 			"imageUploader": false,
 			"math": false
 		}
+	},
+	"introCard": {
+		"title": "简介",
+		"content": "欢迎来到我的个人博客，这里记录了我的学习、工作和生活。希望你能在这里找到有用的信息。"
 	}
 }

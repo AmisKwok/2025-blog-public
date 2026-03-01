@@ -130,7 +130,8 @@
         "navCard": "네비게이션",
         "likePosition": "좋아요",
         "hatCard": "모자",
-        "beianCard": "비안"
+        "beianCard": "비안",
+        "introCard": "소개"
       },
       "table": {
         "card": "카드",
@@ -215,6 +216,13 @@
       "placeholder": "메시지를 남겨주세요! (답변을 받으려면 이메일을 입력하세요)",
       "nickPlaceholder": "닉네임 입력",
       "mailPlaceholder": "이메일 입력 (답변 알림용)"
+    },
+    "introCard": {
+      "title": "소개 카드",
+      "cardTitle": "카드 제목",
+      "cardTitlePlaceholder": "소개 카드 제목을 입력하세요",
+      "cardContent": "카드 내용",
+      "cardContentPlaceholder": "소개 카드 내용을 입력하세요"
     }
   },
   "home": {
@@ -270,8 +278,7 @@
     "pause": "일시 정지",
     "next": "다음",
     "hide": "숨기기",
-    "show": "보기",
-    "tooltip": "클릭하여 음악 재생"
+    "show": "보기"
   },
   "imageToolbox": {
     "title": "PNG / JPG to WEBP",
@@ -362,8 +369,7 @@
     "pleaseAddAtLeastOneTag": "최소 하나의 태그를 추가하세요",
     "imageAlreadyExists": "이 이미지는 이미 목록에 있습니다",
     "imageDuplicate": "이미지가 이미 존재하므로 중복 추가되지 않습니다",
-    "loadBlogFailed": "블로그 로드 실패",
-    "rssUrlCopied": "RSS 구독 URL이 클립보드에 복사되었습니다！"
+    "loadBlogFailed": "블로그 로드 실패"
   },
   "addToFavorites": {
     "title": "웹사이트 북마크",

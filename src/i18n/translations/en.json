@@ -130,7 +130,8 @@
         "navCard": "Navigation",
         "likePosition": "Like",
         "hatCard": "Hat",
-        "beianCard": "Beian"
+        "beianCard": "Beian",
+        "introCard": "Introduction"
       },
       "table": {
         "card": "Card",
@@ -215,6 +216,13 @@
       "placeholder": "Welcome to leave a message! (Fill in your email to receive replies)",
       "nickPlaceholder": "Please enter nickname",
       "mailPlaceholder": "Please enter email (for reply notifications)"
+    },
+    "introCard": {
+      "title": "Introduction Card",
+      "cardTitle": "Card Title",
+      "cardTitlePlaceholder": "Please enter introduction card title",
+      "cardContent": "Card Content",
+      "cardContentPlaceholder": "Please enter introduction card content"
     }
   },
   "home": {
@@ -270,8 +278,7 @@
     "pause": "Pause",
     "next": "Next",
     "hide": "Hide",
-    "show": "Show",
-    "tooltip": "Click to play music"
+    "show": "Show"
   },
   "imageToolbox": {
     "title": "PNG / JPG to WEBP",
@@ -362,8 +369,7 @@
     "pleaseAddAtLeastOneTag": "Please add at least one tag",
     "imageAlreadyExists": "This image is already in the list",
     "imageDuplicate": "Image already exists, not added again",
-    "loadBlogFailed": "Failed to load blog",
-    "rssUrlCopied": "RSS subscription URL has been copied to clipboard!"
+    "loadBlogFailed": "Failed to load blog"
   },
   "addToFavorites": {
     "title": "Bookmark Our Website",

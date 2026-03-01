@@ -104,5 +104,13 @@
 		"offsetX": null,
 		"offsetY": null,
 		"enabled": false
+	},
+	"introCard": {
+		"width": 300,
+		"height": 200,
+		"order": 9,
+		"offsetX": -400,
+		"offsetY": 100,
+		"enabled": false
 	}
 }

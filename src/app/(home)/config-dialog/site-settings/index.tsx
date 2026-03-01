@@ -132,6 +132,31 @@ export function SiteSettings({
 
 			<HatSection formData={formData} setFormData={setFormData} />
 
+			<div className='rounded-2xl border bg-card p-4'>
+				<h3 className='mb-4 text-sm font-medium'>{t('siteSettings.introCard.title')}</h3>
+				<div className='space-y-4'>
+					<div>
+						<label className='mb-2 block text-xs font-medium text-gray-500'>{t('siteSettings.introCard.cardTitle')}</label>
+						<input
+							type='text'
+							value={formData.introCard?.title || ''}
+							onChange={e => setFormData({ ...formData, introCard: { ...formData.introCard, title: e.target.value } })}
+							className='w-full rounded-lg border bg-secondary/10 px-3 py-2 text-sm'
+							placeholder={t('siteSettings.introCard.cardTitlePlaceholder')}
+						/>
+					</div>
+					<div>
+						<label className='mb-2 block text-xs font-medium text-gray-500'>{t('siteSettings.introCard.cardContent')}</label>
+						<textarea
+							value={formData.introCard?.content || ''}
+							onChange={e => setFormData({ ...formData, introCard: { ...formData.introCard, content: e.target.value } })}
+							className='h-24 w-full rounded-lg border bg-secondary/10 px-3 py-2 text-sm resize-none'
+							placeholder={t('siteSettings.introCard.cardContentPlaceholder')}
+						/>
+					</div>
+				</div>
+			</div>
+
 		<WalineSection formData={formData} setFormData={setFormData} />
 		</div>
 	)

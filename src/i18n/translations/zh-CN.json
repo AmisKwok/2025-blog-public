@@ -130,7 +130,8 @@
         "navCard": "导航",
         "likePosition": "点赞",
         "hatCard": "帽子",
-        "beianCard": "备案"
+        "beianCard": "备案",
+        "introCard": "简介"
       },
       "table": {
         "card": "卡片",
@@ -215,6 +216,13 @@
       "placeholder": "欢迎留言！(填写邮箱可在被回复时收到邮件提醒)",
       "nickPlaceholder": "请输入昵称",
       "mailPlaceholder": "请输入邮箱（用于接收回复通知）"
+    },
+    "introCard": {
+      "title": "简介卡片",
+      "cardTitle": "卡片标题",
+      "cardTitlePlaceholder": "请输入简介卡片标题",
+      "cardContent": "卡片内容",
+      "cardContentPlaceholder": "请输入简介卡片内容"
     }
   },
   "home": {
@@ -270,8 +278,7 @@
     "pause": "暂停",
     "next": "下一首",
     "hide": "隐藏",
-    "show": "显示",
-    "tooltip": "点开可以播放音乐哦"
+    "show": "显示"
   },
   "imageToolbox": {
     "title": "PNG / JPG 转 WEBP",
@@ -360,10 +367,9 @@
     "pleaseDragImage": "请拖入图片文件",
     "pleaseFillAllRequiredFields": "请填写所有必填项",
     "pleaseAddAtLeastOneTag": "请至少添加一个标签",
-    "imageAlreadyExists": "此图片已在列表中",
+    "imageAlreadyExists": "该图片已在列表中",
     "imageDuplicate": "图片已存在，不重复添加",
-    "loadBlogFailed": "加载博客失败",
-    "rssUrlCopied": "RSS 订阅地址已复制到剪贴板！"
+    "loadBlogFailed": "加载博客失败"
   },
   "addToFavorites": {
     "title": "收藏我们的网站",

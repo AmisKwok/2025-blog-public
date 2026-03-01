@@ -130,7 +130,8 @@
         "navCard": "ナビゲーション",
         "likePosition": "いいね",
         "hatCard": "帽子",
-        "beianCard": "備案"
+        "beianCard": "備案",
+        "introCard": "紹介"
       },
       "table": {
         "card": "カード",
@@ -215,6 +216,13 @@
       "placeholder": "メッセージを残してください！（返信を受け取るにはメールを入力してください）",
       "nickPlaceholder": "ニックネームを入力",
       "mailPlaceholder": "メールを入力（返信通知用）"
+    },
+    "introCard": {
+      "title": "紹介カード",
+      "cardTitle": "カードタイトル",
+      "cardTitlePlaceholder": "紹介カードのタイトルを入力してください",
+      "cardContent": "カードコンテンツ",
+      "cardContentPlaceholder": "紹介カードのコンテンツを入力してください"
     }
   },
   "home": {
@@ -270,8 +278,7 @@
     "pause": "一時停止",
     "next": "次へ",
     "hide": "非表示",
-    "show": "表示",
-    "tooltip": "クリックして音楽を再生"
+    "show": "表示"
   },
   "imageToolbox": {
     "title": "PNG / JPG から WEBP へ",
@@ -362,8 +369,7 @@
     "pleaseAddAtLeastOneTag": "少なくとも1つのタグを追加してください",
     "imageAlreadyExists": "この画像はすでにリストにあります",
     "imageDuplicate": "画像はすでに存在するため、重複して追加されません",
-    "loadBlogFailed": "ブログの読み込みに失敗しました",
-    "rssUrlCopied": "RSS 購読URLがクリップボードにコピーされました！"
+    "loadBlogFailed": "ブログの読み込みに失敗しました"
   },
   "addToFavorites": {
     "title": "ウェブサイトをブックマーク",

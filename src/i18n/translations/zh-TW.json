@@ -130,7 +130,8 @@
         "navCard": "導航",
         "likePosition": "點讚",
         "hatCard": "帽子",
-        "beianCard": "備案"
+        "beianCard": "備案",
+        "introCard": "簡介"
       },
       "table": {
         "card": "卡片",
@@ -215,6 +216,13 @@
       "placeholder": "歡迎留言！(填寫郵箱可在被回覆時收到郵件提醒)",
       "nickPlaceholder": "請輸入暱稱",
       "mailPlaceholder": "請輸入郵箱（用於接收回覆通知）"
+    },
+    "introCard": {
+      "title": "簡介卡片",
+      "cardTitle": "卡片標題",
+      "cardTitlePlaceholder": "請輸入簡介卡片標題",
+      "cardContent": "卡片內容",
+      "cardContentPlaceholder": "請輸入簡介卡片內容"
     }
   },
   "home": {
@@ -270,8 +278,7 @@
     "pause": "暫停",
     "next": "下一首",
     "hide": "隱藏",
-    "show": "顯示",
-    "tooltip": "點開可以播放音樂哦"
+    "show": "顯示"
   },
   "imageToolbox": {
     "title": "PNG / JPG 轉 WEBP",
@@ -362,8 +369,7 @@
     "pleaseAddAtLeastOneTag": "請至少新增一個標籤",
     "imageAlreadyExists": "此圖片已在清單中",
     "imageDuplicate": "圖片已存在，不重複新增",
-    "loadBlogFailed": "載入部落格失敗",
-    "rssUrlCopied": "RSS 訂閱地址已複製到剪貼板！"
+    "loadBlogFailed": "載入部落格失敗"
   },
   "addToFavorites": {
     "title": "收藏我們的網站",

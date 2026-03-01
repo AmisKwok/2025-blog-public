@@ -15,6 +15,7 @@ import WriteButtons from '@/app/(home)/write-buttons'
 import LikePosition from './like-position'
 import HatCard from './hat-card'
 import BeianCard from './beian-card'
+import IntroCard from './intro-card'
 
 import { useSize } from '@/hooks/use-size'
 import { motion } from 'motion/react'
@@ -134,10 +135,11 @@ export default function Home() {
 				{!maxSM && cardStyles.shareCard?.enabled !== false && <ShareCard />}
 				{cardStyles.articleCard?.enabled !== false && <AritcleCard />}
 				{!maxSM && cardStyles.writeButtons?.enabled !== false && <WriteButtons />}
+				{!maxSM && cardStyles.introCard?.enabled !== false && <IntroCard />}
 				{cardStyles.likePosition?.enabled !== false && <LikePosition />}
 				{cardStyles.hatCard?.enabled !== false && <HatCard />}
 				{cardStyles.beianCard?.enabled !== false && <BeianCard />}
-	
+			
 			</div>
 
 			{siteContent.enableChristmas && <SnowfallBackground zIndex={2} count={!maxSM ? 125 : 20} />}
