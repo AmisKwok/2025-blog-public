@@ -68,8 +68,34 @@ const nextConfig: NextConfig = {
 		resolveExtensions: ['.mdx', '.tsx', '.ts', '.jsx', '.js', '.mjs', '.json', 'css']
 	},
 	// Webpack 配置
-	webpack: config => {
-		// 添加 SVG 文件处理规则
+	webpack: (config, { dev, isServer }) => {
+		if (!dev && !isServer && config.optimization?.minimizer) {
+			config.optimization.minimizer = config.optimization.minimizer.map((minimizer: any) => {
+				if (minimizer.constructor.name === 'TerserPlugin') {
+					minimizer.options.terserOptions = {
+						...minimizer.options.terserOptions,
+						compress: {
+							...minimizer.options.terserOptions?.compress,
+							drop_console: true,
+							drop_debugger: true,
+							pure_funcs: ['console.log', 'console.info', 'console.debug']
+						},
+						mangle: {
+							...minimizer.options.terserOptions?.mangle,
+							toplevel: true,
+							properties: {
+								regex: /^_/
+							}
+						},
+						format: {
+							comments: false
+						}
+					}
+				}
+				return minimizer
+			})
+		}
+
 		config.module.rules.push({
 			test: /\.svg$/i,
 			use: [{ loader: '@svgr/webpack', options: { svgo: false } }]
