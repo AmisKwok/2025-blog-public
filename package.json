@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack -p 2025",
     "svg": "node scripts/gen-svgs-index.js",
+    "blogIndex": "node scripts/gen-blog-index.js",
     "build": "next build",
     "start": "next start",
     "build:cf": "opennextjs-cloudflare build",
@@ -18,6 +19,7 @@
     "@waline/client": "^3.12.1",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.18",
+    "dayjs-lunar": "^0.0.3",
     "html-react-parser": "^5.2.8",
     "jsrsasign": "^11.1.0",
     "katex": "^0.16.27",

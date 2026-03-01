@@ -23,6 +23,9 @@ importers:
       dayjs:
         specifier: ^1.11.18
         version: 1.11.18
+      dayjs-lunar:
+        specifier: ^0.0.3
+        version: 0.0.3
       html-react-parser:
         specifier: ^5.2.8
         version: 5.2.8(@types/react@19.2.2)(react@19.2.1)
@@ -2733,6 +2736,9 @@ packages:
   csstype@3.2.3:
     resolution: {integrity: sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ==}
 
+  dayjs-lunar@0.0.3:
+    resolution: {integrity: sha512-GbXLt1cODRkY3uFWEAdXM8Y0LO6aueCGdiGROhRyRtjBcOKSRN42nhobnRE7h29vlYMh18SmxlrhEsCRVDJyJg==}
+
   dayjs@1.11.18:
     resolution: {integrity: sha512-zFBQ7WFRvVRhKcWoUh+ZA1g2HVgUbsZm9sbddh8EC5iv93sui8DVVz1Npvz+r6meo9VKfa8NyLWBsQK1VvIKPA==}
 
@@ -3289,6 +3295,9 @@ packages:
     resolution: {integrity: sha512-BRgX5zrWmNy/lkVAe0dXBgd7XQdZ3HTf+Hwe3c9WK6dqgnj9h+hxV+MDncM88xDWlCq27+TKvHGE70ViODNILw==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
+  lunar-typescript@1.8.6:
+    resolution: {integrity: sha512-5Eo4T/cnuXfrgO4k5LCpOGHIUOuz5hCF/IfNv0T29WY2shR36Hiz+ecN9WjnUuxUKhql9gbOkPaQoqLFKtPRNA==}
 
   magic-string@0.30.21:
     resolution: {integrity: sha512-vd2F4YUyEXKGcLHoq+TEyCjxueSeHnFxyyjNp80yg0XV4vUhnDer/lvvlqM/arB5bXQN5K2/3oinyCRyx8T2CQ==}
@@ -7698,6 +7707,10 @@ snapshots:
 
   csstype@3.2.3: {}
 
+  dayjs-lunar@0.0.3:
+    dependencies:
+      lunar-typescript: 1.8.6
+
   dayjs@1.11.18: {}
 
   debug@4.4.3:
@@ -8272,6 +8285,8 @@ snapshots:
   lucide-react@0.553.0(react@19.2.1):
     dependencies:
       react: 19.2.1
+
+  lunar-typescript@1.8.6: {}
 
   magic-string@0.30.21:
     dependencies:
