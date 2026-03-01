@@ -1,6 +1,7 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, memo } from 'react'
 import { motion } from 'motion/react'
+import Image from 'next/image'
 
 interface Snowflake {
 	id: number
@@ -16,7 +17,45 @@ interface Snowflake {
 const SNOWFLAKE_IMAGES = ['/images/christmas/snowflake/1.webp', '/images/christmas/snowflake/2.webp', '/images/christmas/snowflake/3.webp']
 const DOT_RATIO = 0.8
 
-export default function SnowfallBackground({ zIndex, count = 125 }: { zIndex: number; count?: number }) {
+const SnowflakeItem = memo(function SnowflakeItem({ snowflake }: { snowflake: Snowflake }) {
+	return (
+		<motion.div
+			className='absolute will-change-transform'
+			style={{
+				top: -200,
+				left: `${snowflake.left}%`,
+				width: `${snowflake.size}px`,
+				height: `${snowflake.size}px`
+			}}
+			initial={{ y: 0, x: 0 }}
+			animate={{
+				y: typeof window !== 'undefined' ? window.innerHeight + 200 : 1000,
+				x: `-${(Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000)) / 5}px`,
+				rotate: snowflake.type === 'image' ? snowflake.rotate : 0
+			}}
+			transition={{
+				duration: snowflake.duration,
+				delay: snowflake.delay,
+				repeat: Infinity,
+				ease: 'linear'
+			}}>
+			{snowflake.type === 'dot' ? (
+				<div className='h-full w-full rounded-full bg-white' />
+			) : (
+				<Image
+					src={SNOWFLAKE_IMAGES[snowflake.imageIndex!]}
+					alt=''
+					width={snowflake.size}
+					height={snowflake.size}
+					className='h-full w-full object-contain'
+					draggable={false}
+				/>
+			)}
+		</motion.div>
+	)
+})
+
+const SnowfallBackground = memo(function SnowfallBackground({ zIndex, count = 125 }: { zIndex: number; count?: number }) {
 	const [snowflakes, setSnowflakes] = useState<Snowflake[]>([])
 
 	useEffect(() => {
@@ -56,34 +95,10 @@ export default function SnowfallBackground({ zIndex, count = 125 }: { zIndex: nu
 			className='pointer-events-none fixed inset-0 z-0 overflow-hidden'
 			style={{ zIndex }}>
 			{snowflakes.map(snowflake => (
-				<motion.div
-					key={snowflake.id}
-					className='absolute'
-					style={{
-						top: -200,
-						left: `${snowflake.left}%`,
-						width: `${snowflake.size}px`,
-						height: `${snowflake.size}px`
-					}}
-					initial={{ y: 0, x: 0 }}
-					animate={{
-						y: window.innerHeight + 200,
-						x: `-${(Math.random() * window.innerWidth) / 5}px`,
-						rotate: snowflake.type === 'image' ? snowflake.rotate : 0
-					}}
-					transition={{
-						duration: snowflake.duration,
-						delay: snowflake.delay,
-						repeat: Infinity,
-						ease: 'linear'
-					}}>
-					{snowflake.type === 'dot' ? (
-						<div className='h-full w-full rounded-full bg-white' />
-					) : (
-						<img src={SNOWFLAKE_IMAGES[snowflake.imageIndex!]} alt='' className='h-full w-full object-contain' draggable={false} />
-					)}
-				</motion.div>
+				<SnowflakeItem key={snowflake.id} snowflake={snowflake} />
 			))}
 		</motion.div>
 	)
-}
+})
+
+export default SnowfallBackground

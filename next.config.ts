@@ -5,6 +5,11 @@
 import { NextConfig } from 'next'
 import { codeInspectorPlugin } from 'code-inspector-plugin'
 
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+	enabled: process.env.ANALYZE === 'true',
+	openAnalyzer: false
+})
+
 /**
  * Next.js 配置对象
  */
@@ -26,6 +31,23 @@ const nextConfig: NextConfig = {
 	experimental: {
 		// 禁用滚动位置恢复
 		scrollRestoration: false
+	},
+	// 图片优化配置
+	images: {
+		// 允许的图片域名
+		remotePatterns: [
+			{
+				protocol: 'https',
+				hostname: '**'
+			}
+		],
+		// 图片格式优化
+		formats: ['image/avif', 'image/webp'],
+		// 图片尺寸优化
+		deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+		imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+		// 最小缓存时间
+		minimumCacheTTL: 60 * 60 * 24 * 30 // 30 天
 	},
 	// Turbopack 配置
 	turbopack: {
@@ -76,4 +98,4 @@ const nextConfig: NextConfig = {
 	}
 }
 
-export default nextConfig
+export default withBundleAnalyzer(nextConfig)

@@ -8,6 +8,7 @@
     "blogIndex": "node scripts/gen-blog-index.js",
     "build": "next build",
     "start": "next start",
+    "analyze": "ANALYZE=true next build",
     "build:cf": "opennextjs-cloudflare build",
     "preview": "opennextjs-cloudflare preview",
     "deploy": "opennextjs-cloudflare deploy",
@@ -40,6 +41,7 @@
     "zustand": "^5.0.8"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^16.1.6",
     "@svgr/webpack": "^8.1.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
