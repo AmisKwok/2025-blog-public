@@ -16,6 +16,34 @@ type MultiLangDescription = string | Record<Language, string>
 export function LoadingScreen({ isLoading, onComplete }: LoadingScreenProps) {
 	const [showContent, setShowContent] = useState(false)
 	const { language } = useLanguage()
+	const [currentLang, setCurrentLang] = useState<Language>('en')
+
+	// 确保在客户端获取正确的语言，与主页逻辑一致
+	useEffect(() => {
+		if (typeof window !== 'undefined') {
+			// 从 localStorage 读取语言偏好
+			const savedLanguage = localStorage.getItem('language') as Language
+			if (savedLanguage && ['zh-CN', 'en', 'zh-TW', 'ja', 'ko'].includes(savedLanguage)) {
+				setCurrentLang(savedLanguage)
+			} else {
+				// 检测用户系统语言
+				const userLang = navigator.language
+				let defaultLang: Language = 'en'
+				
+				if (userLang.startsWith('zh-TW') || userLang.startsWith('zh-HK') || userLang.startsWith('zh-MO')) {
+					defaultLang = 'zh-TW'
+				} else if (userLang.startsWith('zh-CN') || userLang.startsWith('zh-SG') || userLang.startsWith('zh')) {
+					defaultLang = 'zh-CN'
+				} else if (userLang.startsWith('ja')) {
+					defaultLang = 'ja'
+				} else if (userLang.startsWith('ko')) {
+					defaultLang = 'ko'
+				}
+				
+				setCurrentLang(defaultLang)
+			}
+		}
+	}, [])
 
 	useEffect(() => {
 		if (isLoading) {
@@ -39,7 +67,7 @@ export function LoadingScreen({ isLoading, onComplete }: LoadingScreenProps) {
 		if (typeof desc === 'string') {
 			return desc
 		}
-		return desc[language] || desc['zh-CN'] || ''
+		return desc[currentLang] || desc['en'] || ''
 	}
 
 	return (
