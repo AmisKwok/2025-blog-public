@@ -1,7 +1,13 @@
 {
 	"meta": {
 		"title": "Amis's Blog",
-		"description": "Amis 的个人博客，记录开发、探索、笔记。 更新代码仓库。",
+		"description": {
+			"zh-CN": "Amis 的个人博客，记录开发、探索、笔记。 更新代码仓库。",
+			"en": "Amis's personal blog, recording development, exploration, and notes. Update code repository.",
+			"zh-TW": "Amis 的個人部落格，記錄開發、探索、筆記。 更新程式碼倉庫。",
+			"ja": "Amisの個人ブログ、開発、探索、メモを記録。コードリポジトリを更新。",
+			"ko": "Amis의 개인 블로그, 개발, 탐색, 노트 기록. 코드 저장소 업데이트."
+		},
 		"username": "Amis"
 	},
 	"theme": {

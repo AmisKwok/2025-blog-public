@@ -13,6 +13,7 @@ import GlobalAudioPlayer from '@/components/global-audio-player'
 import { MobileLanguageButton } from '@/components/mobile-language-button'
 import { usePathname } from 'next/navigation'
 import AddToFavorites from '@/components/add-to-favorites'
+import { LoadingScreen } from '@/components/loading-screen'
 
 export default function Layout({ children }: PropsWithChildren) {
 	useCenterInit()
@@ -23,6 +24,18 @@ export default function Layout({ children }: PropsWithChildren) {
 
 	// 控制语言按钮的显示，只有在滑动时才显示
 	const [showLanguageButton, setShowLanguageButton] = useState(false)
+	
+	// 过场动画状态控制
+	const [isLoading, setIsLoading] = useState(true)
+
+	// 初始化过场动画逻辑 - 每次打开博客都显示
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			setIsLoading(false)
+		}, 3000) // 显示2秒
+
+		return () => clearTimeout(timer)
+	}, [])
 
 	// 监听滚动事件
 	useEffect(() => {
@@ -60,6 +73,10 @@ export default function Layout({ children }: PropsWithChildren) {
 
 	return (
 			<>
+				<LoadingScreen 
+					isLoading={isLoading} 
+					onComplete={() => {}} 
+				/>
 				<Toaster
 					position='bottom-right'
 					richColors
