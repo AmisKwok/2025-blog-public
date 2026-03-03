@@ -16,7 +16,6 @@
     "cancel": "取消",
     "submit": "确认"
   },
-  "write": "写文章",
   "login": {
     "title": "登录",
     "description": "请输入账号密码以登录",
@@ -309,9 +308,14 @@
     "pushFailed": "推送失败"
   },
   "blog": {
+    "day": "日",
+    "week": "周",
+    "month": "月",
+    "year": "年",
     "loading": "加载中...",
     "articleNotFound": "文章未找到",
     "invalidLink": "无效链接",
+    "invalidId": "无效的博客 ID",
     "edit": "编辑",
     "delete": "删除",
     "deleteConfirm": "确定要删除这篇文章吗？",
@@ -324,13 +328,23 @@
     "category": "分类",
     "noCategory": "未分类",
     "allCategories": "全部分类",
+    "uncategorized": "未分类",
     "batchDelete": "批量删除",
     "batchDeleteConfirm": "确定要删除选中的 {count} 篇文章吗？",
-    "selectAll": "全选",
+    "selectArticlesToDelete": "请选择要删除的文章",
+    "enterCategoryName": "请输入分类名称",
+    "noChangesToSave": "没有需要保存的改动",
+    "keyImportSuccess": "密钥导入成功，请再次点击保存",
     "deselectAll": "取消全选",
+    "selectAllGroup": "全选该分组",
+    "selectAll": "全选",
+    "selected": "已选",
+    "more": "更多",
+    "noArticles": "暂无文章",
     "articles": "文章"
   },
   "write": {
+    "label": "写文章",
     "title": "标题",
     "titlePlaceholder": "请输入文章标题",
     "content": "内容",

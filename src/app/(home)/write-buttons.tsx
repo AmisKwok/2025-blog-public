@@ -92,7 +92,7 @@ export default function WriteButton() {
 							)}
 
 							<PenSVG />
-							<span>{t('write')}</span>
+							<span>{t('write.label')}</span>
 						</motion.button>
 						<motion.button
 							initial={{ opacity: 0, scale: 0.6 }}
