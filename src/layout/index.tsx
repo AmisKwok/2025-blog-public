@@ -21,9 +21,6 @@ export default function Layout({ children }: PropsWithChildren) {
 	const pathname = usePathname()
 	const { cardStyles, siteContent, regenerateKey } = useConfigStore()
 	const { maxSM, init } = useSize()
-
-	// 控制语言按钮的显示，只有在滑动时才显示
-	const [showLanguageButton, setShowLanguageButton] = useState(false)
 	
 	// 过场动画状态控制
 	const [isLoading, setIsLoading] = useState(true)
@@ -32,36 +29,9 @@ export default function Layout({ children }: PropsWithChildren) {
 	useEffect(() => {
 		const timer = setTimeout(() => {
 			setIsLoading(false)
-		}, 3000) // 显示2秒
+		}, 3000) // 显示3秒
 
 		return () => clearTimeout(timer)
-	}, [])
-
-	// 监听滚动事件
-	useEffect(() => {
-		let scrollTimer: NodeJS.Timeout
-
-		const handleScroll = () => {
-			// 显示语言按钮
-			setShowLanguageButton(true)
-
-			// 清除之前的定时器
-			clearTimeout(scrollTimer)
-
-			// 3秒后隐藏语言按钮
-			scrollTimer = setTimeout(() => {
-				setShowLanguageButton(false)
-			}, 3000)
-		}
-
-		// 添加滚动事件监听器
-		window.addEventListener('scroll', handleScroll)
-
-		// 组件卸载时清除事件监听器和定时器
-		return () => {
-			window.removeEventListener('scroll', handleScroll)
-			clearTimeout(scrollTimer)
-		}
 	}, [])
 
 	const isHomePage = pathname === '/'
@@ -121,7 +91,7 @@ export default function Layout({ children }: PropsWithChildren) {
 				{maxSM && init && (
 		<>
 			<ScrollTopButton className='bg-brand/20 fixed right-6 bottom-28 z-50 shadow-md' />
-			{showLanguageButton && <MobileLanguageButton className='bg-brand/20 fixed left-6 bottom-28 z-50 shadow-md' />}
+			<MobileLanguageButton className='bg-brand/20 fixed left-6 bottom-28 z-50 shadow-md' />
 		</>
 		)}
 

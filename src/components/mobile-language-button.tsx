@@ -12,12 +12,12 @@ type MobileLanguageButtonProps = {
 }
 
 export function MobileLanguageButton({ className, delay }: MobileLanguageButtonProps) {
-	const [show, setShow] = useState(false)
+	const [show, setShow] = useState(true) // 初始就显示
 	const [active, setActive] = useState(true) // 初始状态为显示
 	const [isInteracting, setIsInteracting] = useState(false)
 	const [isListOpen, setIsListOpen] = useState(false)
 	const [isFirstLoad, setIsFirstLoad] = useState(true)
-	const { maxSM } = useSize()
+	const { maxSM, init } = useSize()
 	
 	// 使用 ref 来管理定时器，确保可以在组件的任何地方访问和清除它们
 	const inactivityTimerRef = useRef<NodeJS.Timeout | null>(null)
@@ -62,16 +62,18 @@ export function MobileLanguageButton({ className, delay }: MobileLanguageButtonP
 	}
 	
 	useEffect(() => {
-		if (maxSM) {
-			// 立即显示，不要延迟
-			setShow(true)
-		} else {
-			setShow(false)
+		// 只有在初始化后才根据设备类型来控制显示
+		if (init) {
+			if (maxSM) {
+				setShow(true)
+			} else {
+				setShow(false)
+			}
 		}
-	}, [maxSM])
+	}, [init, maxSM])
 
 	useEffect(() => {
-		if (!maxSM) return
+		if (!init || !maxSM) return
 		
 		const handleScroll = () => {
 			setActive(true)
@@ -107,11 +109,11 @@ export function MobileLanguageButton({ className, delay }: MobileLanguageButtonP
 			window.removeEventListener('scroll', handleScroll)
 			clearAllTimers()
 		}
-	}, [maxSM, isInteracting, isListOpen])
+	}, [init, maxSM, isInteracting, isListOpen])
 
 	// 专门监听语言选择器的打开/关闭状态
 	useEffect(() => {
-		if (!maxSM) return
+		if (!init || !maxSM) return
 		
 		if (isListOpen) {
 			// 语言选择器打开时：清除所有定时器，保持按钮可见
@@ -122,11 +124,11 @@ export function MobileLanguageButton({ className, delay }: MobileLanguageButtonP
 			setActive(true)
 			resetInactivityTimer()
 		}
-	}, [isListOpen, maxSM])
+	}, [isListOpen, init, maxSM])
 
 	// 监听触摸事件，标记为交互状态
 	useEffect(() => {
-		if (!maxSM) return
+		if (!init || !maxSM) return
 		
 		const handleTouchStart = () => {
 			setIsInteracting(true)
@@ -146,9 +148,12 @@ export function MobileLanguageButton({ className, delay }: MobileLanguageButtonP
 			window.removeEventListener('touchstart', handleTouchStart)
 			window.removeEventListener('touchend', handleTouchEnd)
 		}
-	}, [maxSM])
+	}, [init, maxSM])
 
-	if (!show || !maxSM) return null
+	// 桌面端不显示，移动端显示
+	if (!show) return null
+	// 如果已经初始化并且明确是桌面端时才隐藏
+	if (init && !maxSM) return null
 
 	return (
 		<motion.div
