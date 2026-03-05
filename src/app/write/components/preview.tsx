@@ -2,6 +2,7 @@ import { motion } from 'motion/react'
 import { BlogPreview } from '@/components/blog-preview'
 import { useWriteData } from '../hooks/use-write-data'
 import type { PublishForm } from '../types'
+import { scaleIn } from '@/lib/animations'
 
 type WritePreviewProps = {
 	form: PublishForm
@@ -26,8 +27,9 @@ export function WritePreview({ form, coverPreviewUrl, onClose, slug }: WritePrev
 				/>
 			</div>
 			<motion.button
-				initial={{ opacity: 0, scale: 0.6 }}
-				animate={{ opacity: 1, scale: 1 }}
+				variants={scaleIn}
+				initial="initial"
+				animate="animate"
 				whileHover={{ scale: 1.05 }}
 				whileTap={{ scale: 0.95 }}
 				className='absolute top-4 right-6 rounded-xl border bg-white/60 px-6 py-2 text-sm'

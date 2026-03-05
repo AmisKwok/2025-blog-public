@@ -11,6 +11,7 @@ import { BlogToc } from '@/components/blog-toc'
 import { ScrollTopButton } from '@/components/scroll-top-button'
 import { useConfigStore } from '@/app/(home)/stores/config-store'
 import { OptimizedImage } from '@/components/optimized-image'
+import { scaleIn } from '@/lib/animations'
 
 /**
  * 目录项类型
@@ -48,8 +49,9 @@ export function BlogSidebar({ cover, summary, toc, slug }: BlogSidebarProps) {
 			{/* 封面图片 */}
 			{cover && (
 				<motion.div
-					initial={{ opacity: 0, scale: 0.8 }}
-					animate={{ opacity: 1, scale: 1 }}
+					variants={scaleIn}
+					initial="initial"
+					animate="animate"
 					transition={{ delay: INIT_DELAY + ANIMATION_DELAY * 1 }}
 					className='bg-card w-full rounded-xl border p-3'>
 					<div className='relative aspect-4/4 w-full'>
@@ -61,8 +63,9 @@ export function BlogSidebar({ cover, summary, toc, slug }: BlogSidebarProps) {
 			{/* 摘要 */}
 				{summary && !summaryInContent && (
 					<motion.div
-						initial={{ opacity: 0, scale: 0.8 }}
-						animate={{ opacity: 1, scale: 1 }}
+						variants={scaleIn}
+						initial="initial"
+						animate="animate"
 						transition={{ delay: INIT_DELAY + ANIMATION_DELAY * 2 }}
 						className='bg-card w-full rounded-xl border p-3 text-sm'>
 						<h2 className='text-secondary mb-2 font-medium'>摘要</h2>

@@ -6,6 +6,9 @@ import { useConfigStore } from './stores/config-store'
 import { HomeDraggableLayer } from './home-draggable-layer'
 import { useSize } from '@/hooks/use-size'
 import { useEffect, useState } from 'react'
+import { scaleIn } from '@/lib/animations'
+
+
 
 export default function LikePosition() {
 	const center = useCenterStore()
@@ -42,8 +45,9 @@ export default function LikePosition() {
 		return (
 			<motion.div 
 				className='mt-15 mx-auto'
-				initial={{ opacity: 0, scale: 0.6 }}
-				animate={{ opacity: 1, scale: 1 }}
+				variants={scaleIn}
+				initial="initial"
+				animate="animate"
 			>
 				{siteContent.enableChristmas && (
 					<>

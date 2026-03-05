@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from 'react'
 import { motion } from 'motion/react'
 import TopSVG from '@/svgs/top.svg'
 import { cn } from '@/lib/utils'
+import { scaleIn } from '@/lib/animations'
 
 type ScrollTopButtonProps = {
 	className?: string
@@ -35,8 +36,9 @@ export function ScrollTopButton({ className, delay }: ScrollTopButtonProps) {
 
 	return (
 		<motion.button
-			initial={{ opacity: 0, scale: 0.4 }}
-			animate={{ opacity: 1, scale: 1 }}
+			variants={scaleIn}
+			initial="initial"
+			animate="animate"
 			whileHover={{ scale: 1.05 }}
 			whileTap={{ scale: 0.95 }}
 			onClick={handleClick}

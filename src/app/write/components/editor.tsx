@@ -2,6 +2,7 @@ import { motion } from 'motion/react'
 import { useWriteStore } from '../stores/write-store'
 import { INIT_DELAY } from '@/consts'
 import { useRef } from 'react'
+import { scaleIn } from '@/lib/animations'
 
 const defaultText = 'text'
 
@@ -157,9 +158,9 @@ export function WriteEditor() {
 
 	return (
 		<motion.div
-			initial={{ opacity: 0, scale: 0.8 }}
-			animate={{ opacity: 1, scale: 1 }}
-			transition={{ delay: INIT_DELAY }}
+			variants={scaleIn}
+			initial="initial"
+			animate="animate"
 			className='bg-card flex min-h-[800px] w-[800px] flex-col rounded-[40px] border p-6 shadow'>
 			<div className='mb-3 flex gap-3'>
 				<input

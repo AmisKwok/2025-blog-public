@@ -12,6 +12,9 @@ import LanguageSelector from '@/components/language-selector'
 import { useLanguage } from '@/i18n/context'
 import { useLocalAuthStore } from '@/hooks/use-local-auth'
 import { LoginModal } from '@/components/login-modal'
+import { scaleIn, fadeIn } from '@/lib/animations'
+
+
 
 export default function WriteButton() {
 	const center = useCenterStore()
@@ -58,8 +61,9 @@ export default function WriteButton() {
 				{isLoggedIn && (
 					<motion.button
 						onClick={handleLogout}
-						initial={{ opacity: 0, scale: 0.6 }}
-						animate={{ opacity: 1, scale: 1 }}
+						variants={scaleIn}
+						initial="initial"
+						animate="animate"
 						whileHover={{ scale: 1.05 }}
 						whileTap={{ scale: 0.95 }}
 						className='brand-btn whitespace-nowrap'>
@@ -74,8 +78,9 @@ export default function WriteButton() {
 					<>
 						<motion.button
 							onClick={() => router.push('/write')}
-							initial={{ opacity: 0, scale: 0.6 }}
-							animate={{ opacity: 1, scale: 1 }}
+							variants={scaleIn}
+							initial="initial"
+							animate="animate"
 							whileHover={{ scale: 1.05 }}
 							whileTap={{ scale: 0.95 }}
 							style={{ boxShadow: 'inset 0 0 12px rgba(255, 255, 255, 0.4)' }}
@@ -95,8 +100,9 @@ export default function WriteButton() {
 							<span>{t('write.label')}</span>
 						</motion.button>
 						<motion.button
-							initial={{ opacity: 0, scale: 0.6 }}
-							animate={{ opacity: 1, scale: 1 }}
+							variants={scaleIn}
+							initial="initial"
+							animate="animate"
 							whileHover={{ scale: 1.05 }}
 							whileTap={{ scale: 0.95 }}
 							onClick={() => setConfigDialogOpen(true)}

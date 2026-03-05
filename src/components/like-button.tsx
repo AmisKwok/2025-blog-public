@@ -7,6 +7,9 @@ import { toast } from 'sonner'
 import { BLOG_SLUG_KEY } from '@/consts'
 import { useLanguage } from '@/i18n/context'
 import { useSize } from '@/hooks/use-size'
+import { scaleIn } from '@/lib/animations'
+
+
 
 type LikeButtonProps = {
 	slug?: string
@@ -126,7 +129,7 @@ export default function LikeButton({ slug = 'amis', className, isInArticlePage =
 					setCount(data.data)
 				}
 			} catch (error) {
-				console.error('获取点赞数失败:', error)
+				setCount(0)
 			}
 		}
 		fetchLikes()
@@ -301,8 +304,9 @@ export default function LikeButton({ slug = 'amis', className, isInArticlePage =
 			)}
 			
 			<motion.button
-				initial={{ opacity: 0, scale: 0.6 }}
-				animate={{ opacity: 1, scale: 1 }}
+				variants={scaleIn}
+				initial="initial"
+				animate="animate"
 				whileHover={{ scale: 1.05 }}
 				whileTap={{ scale: 0.95 }}
 				aria-label='Like this post'

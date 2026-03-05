@@ -15,6 +15,9 @@ import LiquidGrass from '@/components/liquid-grass'
 import { useLanguage } from '@/i18n/context'
 import { useLocalAuthStore } from '@/hooks/use-local-auth'
 import WalineComments from '@/components/WalineComments'
+import { scaleIn } from '@/lib/animations'
+
+
 
 // 获取当前域名
 const origin = typeof window !== 'undefined' ? window.location.origin : ''
@@ -119,8 +122,9 @@ export default function Page() {
 			{/* 编辑按钮（仅登录后可见） */}
 			{isLoggedIn && (
 				<motion.button
-					initial={{ opacity: 0, scale: 0.6 }}
-					animate={{ opacity: 1, scale: 1 }}
+					variants={scaleIn}
+					initial="initial"
+					animate="animate"
 					whileHover={{ scale: 1.05 }}
 					whileTap={{ scale: 0.95 }}
 					onClick={handleEdit}

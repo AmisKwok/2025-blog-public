@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useLanguage } from '@/i18n/context';
 import { Language } from '@/i18n/types';
+import { cn } from '@/lib/utils';
+import { scaleIn } from '@/lib/animations';
 
 const languages: Array<{ code: Language; label: string }> = [
   { code: 'zh-CN', label: '简体中文' },
@@ -64,8 +66,9 @@ export default function LanguageSelector({ direction = 'down', mobile = false, o
     <div className="relative language-selector-container">
       <motion.button
         onClick={handleToggleOpen}
-        initial={{ opacity: 0, scale: 0.6 }}
-        animate={{ opacity: 1, scale: 1 }}
+        variants={scaleIn}
+        initial="initial"
+        animate="animate"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
 
@@ -81,10 +84,10 @@ export default function LanguageSelector({ direction = 'down', mobile = false, o
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: direction === 'down' ? -10 : 10, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: direction === 'down' ? -10 : 10, scale: 0.95 }}
-            transition={{ duration: 0.2 }}
+            variants={scaleIn}
+            initial="initial"
+            animate="animate"
+            exit="initial"
             className={`absolute ${direction === 'down' ? 'top-full left-0 mt-2' : 'bottom-full left-0 mb-2'} w-48 rounded-lg shadow-lg border border-border overflow-hidden z-50`}
             style={{ backdropFilter: 'blur(12px)', backgroundColor: 'rgba(255, 255, 255, 0.3)', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)' }}
           >

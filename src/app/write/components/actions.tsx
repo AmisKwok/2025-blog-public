@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useWriteStore } from '../stores/write-store'
 import { usePreviewStore } from '../stores/preview-store'
 import { usePublish } from '../hooks/use-publish'
+import { scaleIn } from '@/lib/animations'
 
 export function WriteActions() {
 	const { loading, mode, form, loadBlogForEdit, originalSlug, updateForm } = useWriteStore()
@@ -84,13 +85,14 @@ export function WriteActions() {
 			<ul className='absolute top-4 right-6 flex items-center gap-2'>
 				{mode === 'edit' && (
 					<>
-						<motion.div initial={{ opacity: 0, scale: 0.6 }} animate={{ opacity: 1, scale: 1 }} className='flex items-center gap-2'>
+						<motion.div variants={scaleIn} initial="initial" animate="animate" className='flex items-center gap-2'>
 							<div className='rounded-lg border bg-blue-50 px-4 py-2 text-sm text-blue-700'>编辑模式</div>
 						</motion.div>
 
 						<motion.button
-							initial={{ opacity: 0, scale: 0.6 }}
-							animate={{ opacity: 1, scale: 1 }}
+							variants={scaleIn}
+							initial="initial"
+							animate="animate"
 							whileHover={{ scale: 1.05 }}
 							whileTap={{ scale: 0.95 }}
 							className='rounded-xl border border-red-200 bg-red-50 px-4 py-2 text-sm text-red-600 transition-colors hover:bg-red-100'
@@ -111,8 +113,9 @@ export function WriteActions() {
 				)}
 
 				<motion.button
-					initial={{ opacity: 0, scale: 0.6 }}
-					animate={{ opacity: 1, scale: 1 }}
+					variants={scaleIn}
+					initial="initial"
+					animate="animate"
 					whileHover={{ scale: 1.05 }}
 					whileTap={{ scale: 0.95 }}
 					className='bg-card rounded-xl border px-4 py-2 text-sm'
@@ -121,8 +124,9 @@ export function WriteActions() {
 					导入 MD
 				</motion.button>
 				<motion.button
-					initial={{ opacity: 0, scale: 0.6 }}
-					animate={{ opacity: 1, scale: 1 }}
+					variants={scaleIn}
+					initial="initial"
+					animate="animate"
 					whileHover={{ scale: 1.05 }}
 					whileTap={{ scale: 0.95 }}
 					className='bg-card rounded-xl border px-6 py-2 text-sm'
@@ -131,8 +135,9 @@ export function WriteActions() {
 					预览
 				</motion.button>
 				<motion.button
-					initial={{ opacity: 0, scale: 0.6 }}
-					animate={{ opacity: 1, scale: 1 }}
+					variants={scaleIn}
+					initial="initial"
+					animate="animate"
 					whileHover={{ scale: 1.05 }}
 					whileTap={{ scale: 0.95 }}
 					className='brand-btn px-6'

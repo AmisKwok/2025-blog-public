@@ -13,6 +13,7 @@ import type { Share } from './components/share-card'
 import type { LogoItem } from './components/logo-upload-dialog'
 import { useLanguage } from '@/i18n/context'
 import { useLocalAuthStore } from '@/hooks/use-local-auth'
+import { scaleIn } from '@/lib/animations'
 
 export default function Page() {
 	const [shares, setShares] = useState<Share[]>(initialList as Share[])
@@ -146,7 +147,7 @@ export default function Page() {
 
 			<GridView shares={shares} isEditMode={isEditMode} onUpdate={handleUpdate} onDelete={handleDelete} />
 
-			<motion.div initial={{ opacity: 0, scale: 0.6 }} animate={{ opacity: 1, scale: 1 }} className='absolute top-4 right-6 flex gap-3 max-sm:hidden'>
+			<motion.div variants={scaleIn} initial="initial" animate="animate" className='absolute top-4 right-6 flex gap-3 max-sm:hidden'>
 				{isEditMode ? (
 					<>
 						<motion.button

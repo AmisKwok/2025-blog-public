@@ -9,6 +9,7 @@ import type { ReactNode } from 'react'
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { AnimatePresence, motion } from 'motion/react'
+import { scaleIn } from '@/lib/animations'
 
 /**
  * 选择选项接口
@@ -161,10 +162,10 @@ export function Select({ value, onChange, options, className, disabled }: Select
 						{open && (
 							<motion.div
 								ref={dropdownRef}
-								initial={{ opacity: 0, y: -8, scale: 0.95 }}
-								animate={{ opacity: 1, y: 0, scale: 1 }}
-								exit={{ opacity: 0, y: -8, scale: 0.95 }}
-								transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
+								variants={scaleIn}
+								initial="initial"
+								animate="animate"
+								exit="initial"
 								className='bg-card/95 fixed z-50 rounded-xl border backdrop-blur-xl'
 								style={{
 									top: `${position.top}px`,

@@ -5,6 +5,7 @@ import { motion } from 'motion/react'
 import { cn } from '@/lib/utils'
 import LanguageSelector from './language-selector'
 import { useSize } from '@/hooks/use-size'
+import { scaleIn } from '@/lib/animations'
 
 type MobileLanguageButtonProps = {
 	className?: string
@@ -157,11 +158,12 @@ export function MobileLanguageButton({ className, delay }: MobileLanguageButtonP
 
 	return (
 		<motion.div
-			initial={{ opacity: 0, scale: 0.4 }}
+			variants={scaleIn}
+			initial="initial"
 			animate={{ 
 				opacity: active ? 1 : 0, 
 				scale: active ? 1 : 0.8,
-				transition: { duration: 0.5 } // 0.5秒渐变效果
+				transition: { duration: 0.5 }
 			}}
 			className={cn('z-50', className)}
 			onMouseEnter={() => setIsInteracting(true)}

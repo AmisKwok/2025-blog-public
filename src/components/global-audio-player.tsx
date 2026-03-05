@@ -7,6 +7,7 @@ import { Play, Pause, SkipBack, SkipForward, ChevronDown } from 'lucide-react'
 import { useAudioStore } from '../app/(home)/stores/audio-store'
 import { useLanguage } from '@/i18n/context'
 import { useSize } from '@/hooks/use-size'
+import { scaleIn, fadeIn } from '@/lib/animations'
 
 export default function GlobalAudioPlayer() {
   const pathname = usePathname()
@@ -116,9 +117,10 @@ export default function GlobalAudioPlayer() {
         </motion.div>
       ) : (
         <motion.button
-          initial={{ scale: 0, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          exit={{ scale: 0, opacity: 0 }}
+          variants={scaleIn}
+          initial="initial"
+          animate="animate"
+          exit="initial"
           whileTap={{ scale: 0.9 }}
           onClick={toggleExpanded}
           className="fixed bottom-4 right-4 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-brand text-white shadow-lg transition-all hover:bg-brand/80"

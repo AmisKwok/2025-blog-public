@@ -26,6 +26,7 @@ import { Check } from 'lucide-react'
 import { CategoryModal } from './components/category-modal'
 import { useLanguage } from '@/i18n/context'
 import { useLocalAuthStore } from '@/hooks/use-local-auth'
+import { fadeInUp, scaleIn, staggerContainer, staggerItem } from '@/lib/animations'
 
 type DisplayMode = 'day' | 'week' | 'month' | 'year' | 'category'
 
@@ -365,8 +366,9 @@ export default function BlogPage() {
 			<div className='flex flex-col items-center justify-center gap-6 px-6 pt-24 max-sm:pt-24'>
 				{items.length > 0 && (
 					<motion.div
-						initial={{ opacity: 0, scale: 0.6 }}
-						animate={{ opacity: 1, scale: 1 }}
+						variants={scaleIn}
+						initial="initial"
+						animate="animate"
 						className='card btn-rounded relative mx-auto flex items-center gap-1 p-1 max-sm:hidden'>
 						{[{
 									value: 'day', label: t('blog.day') },
@@ -397,9 +399,10 @@ export default function BlogPage() {
 					return (
 						<motion.div
 							key={groupKey}
-							initial={{ opacity: 0, scale: 0.95 }}
-							whileInView={{ opacity: 1, scale: 1 }}
-							transition={{ delay: INIT_DELAY / 2 }}
+							variants={fadeInUp}
+							initial="initial"
+							whileInView="animate"
+							viewport={{ once: true, margin: '-50px' }}
 							className='card relative w-full max-w-[840px] space-y-6'>
 							<div className='mb-3 flex items-center justify-between gap-3 text-base'>
 									<div className='flex items-center gap-3'>
@@ -486,8 +489,9 @@ export default function BlogPage() {
 					<div className='text-center'>
 						{hasMoreItems && (
 							<motion.button
-								initial={{ opacity: 0, scale: 0.6 }}
-								animate={{ opacity: 1, scale: 1 }}
+								variants={scaleIn}
+								initial="initial"
+								animate="animate"
 								whileHover={{ scale: 1.05 }}
 								whileTap={{ scale: 0.95 }}
 								onClick={loadMore}
@@ -506,8 +510,9 @@ export default function BlogPage() {
 								</div>
 
 			<motion.div
-				initial={{ opacity: 0, scale: 0.6 }}
-				animate={{ opacity: 1, scale: 1 }}
+				variants={scaleIn}
+				initial="initial"
+				animate="animate"
 				className='absolute top-4 right-6 flex items-center gap-3 max-sm:hidden'>
 				{editMode ? (
 					<>

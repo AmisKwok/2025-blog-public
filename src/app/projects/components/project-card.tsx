@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import { useSize } from '@/hooks/use-size'
 import ImageUploadDialog, { type ImageItem } from './image-upload-dialog'
+import { scaleIn } from '@/lib/animations'
 
 export interface Project {
 	name: string
@@ -64,8 +65,9 @@ export function ProjectCard({ project, isEditMode = false, onUpdate, onDelete }:
 
 	return (
 		<motion.div
-			initial={{ opacity: 0, scale: 0.9 }}
-			{...(maxSM ? { animate: { opacity: 1, scale: 1 } } : { whileInView: { opacity: 1, scale: 1 } })}
+			variants={scaleIn}
+			initial="initial"
+			{...(maxSM ? { animate: "animate" } : { whileInView: "animate", viewport: { once: true, margin: '-50px' } })}
 			className='card relative flex flex-col gap-4'>
 			{isEditMode && (
 				<div className='absolute top-3 right-3 z-10 flex gap-2'>

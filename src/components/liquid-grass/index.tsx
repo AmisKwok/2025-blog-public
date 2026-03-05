@@ -6,6 +6,10 @@ import displacement1 from './displacement-1.png'
 import displacement2 from './displacement-2.png'
 import borderImg from './border.png'
 import { useEffect, useRef, useState } from 'react'
+import { fadeIn } from '@/lib/animations'
+
+
+
 
 const width = 210
 const height = 150
@@ -32,8 +36,9 @@ export default function LiquidGrass() {
 
 	return createPortal(
 		<motion.div
-			initial={{ opacity: 0 }}
-			animate={{ opacity: 1 }}
+			variants={fadeIn}
+			initial="initial"
+			animate="animate"
 			drag
 			dragConstraints={bodyRef}
 			style={{ width, height }}

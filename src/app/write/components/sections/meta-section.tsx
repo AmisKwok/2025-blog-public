@@ -4,6 +4,7 @@ import { TagInput } from '../ui/tag-input'
 import { useCategories } from '@/hooks/use-categories'
 import { useConfigStore } from '@/app/(home)/stores/config-store'
 import { Select } from '@/components/select'
+import { scaleIn } from '@/lib/animations'
 
 type MetaSectionProps = {
 	delay?: number
@@ -20,7 +21,7 @@ export function MetaSection({ delay = 0 }: MetaSectionProps) {
 	const categoryOptions = [{ value: '', label: '未分类' }, ...categories.map(cat => ({ value: cat, label: cat }))]
 
 	return (
-		<motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay }} className='card relative'>
+		<motion.div variants={scaleIn} initial="initial" animate="animate" className='card relative'>
 			<h2 className='text-sm'>元信息</h2>
 
 			<div className='mt-3 space-y-2'>

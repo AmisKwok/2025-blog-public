@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils'
 import EditableStarRating from '@/components/editable-star-rating'
 import { useState } from 'react'
 import LogoUploadDialog, { type LogoItem } from './logo-upload-dialog'
+import { scaleIn } from '@/lib/animations'
 
 export interface Share {
 	name: string
@@ -64,8 +65,9 @@ export function ShareCard({ share, isEditMode = false, onUpdate, onDelete }: Sha
 
 	return (
 		<motion.div
-			initial={{ opacity: 0, scale: 0.6 }}
-			{...(maxSM ? { animate: { opacity: 1, scale: 1 } } : { whileInView: { opacity: 1, scale: 1 } })}
+			variants={scaleIn}
+			initial="initial"
+			{...(maxSM ? { animate: "animate" } : { whileInView: "animate", viewport: { once: true, margin: '-50px' } })}
 			className='card relative block overflow-hidden'>
 			{isEditMode && (
 				<div className='absolute top-3 right-3 z-10 flex gap-2'>

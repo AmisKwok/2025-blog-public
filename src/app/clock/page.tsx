@@ -5,6 +5,7 @@ import { motion } from 'motion/react'
 import { Play, Pause, RotateCcw } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useLanguage } from '@/i18n/context'
+import { scaleIn } from '@/lib/animations'
 
 type TimerMode = 'stopwatch' | 'timer'
 
@@ -136,7 +137,7 @@ export default function ClockPage() {
 
 	return (
 		<div className='flex flex-col items-center px-6 pt-32 pb-12'>
-			<motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className='w-full max-w-[600px] space-y-8'>
+			<motion.div variants={scaleIn} initial="initial" animate="animate" className='w-full max-w-[600px] space-y-8'>
 				{/* Mode Selector */}
 				<div className='card relative flex gap-4 rounded-xl p-2'>
 					<motion.button
@@ -177,7 +178,7 @@ export default function ClockPage() {
 					</motion.button>
 				</div>
 
-				<motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className='card relative p-4'>
+				<motion.div variants={scaleIn} initial="initial" animate="animate" className='card relative p-4'>
 					<div className='bg-secondary/20 flex items-center justify-center rounded-4xl p-8'>
 						<TimeDisplay time={displayTime} key={mode} />
 					</div>
@@ -185,7 +186,7 @@ export default function ClockPage() {
 
 				{/* Timer Input (only for timer mode when not running) */}
 				{mode === 'timer' && !isRunning && timerTime === 0 && (
-					<motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} className='card relative space-y-4'>
+					<motion.div variants={scaleIn} initial="initial" animate="animate" className='card relative space-y-4'>
 						<div className='flex items-center justify-center gap-4'>
 							<div className='flex flex-col items-center gap-2'>
 								<label className='text-secondary text-xs'>时</label>
@@ -263,8 +264,9 @@ export default function ClockPage() {
 						{laps.map((lap, index) => (
 							<motion.div
 								layout
-								initial={{ opacity: 0, scale: 0.6 }}
-								animate={{ opacity: 1, scale: 1 }}
+								variants={scaleIn}
+								initial="initial"
+								animate="animate"
 								key={lap}
 								className='bg-card flex items-center justify-center rounded-2xl px-6 py-4'>
 								<span className='font-mono text-sm font-medium'>

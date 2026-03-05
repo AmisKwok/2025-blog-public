@@ -25,6 +25,7 @@ import { useSize } from '@/hooks/use-size'
 import { HomeDraggableLayer } from './home-draggable-layer'
 import { createPortal } from 'react-dom'
 import { useLanguage } from '@/i18n/context'
+import { scaleIn, fadeIn } from '@/lib/animations'
 
 // 社交按钮类型定义
 type SocialButtonType =
@@ -153,8 +154,9 @@ export default function SocialButtons() {
 
 		// 通用动画属性
 		const commonProps = {
-			initial: { opacity: 0, scale: 0.6 } as const,
-			animate: { opacity: 1, scale: 1 } as const,
+			variants: scaleIn,
+			initial: "initial" as const,
+			animate: "animate" as const,
 			whileHover: { scale: 1.05 } as const,
 			whileTap: { scale: 0.95 } as const
 		}
@@ -218,9 +220,10 @@ export default function SocialButtons() {
 										<>
 											{/* 点击外部关闭的遮罩层 */}
 											<motion.div
-												initial={{ opacity: 0 }}
-												animate={{ opacity: 1 }}
-												exit={{ opacity: 0 }}
+												variants={fadeIn}
+												initial="initial"
+												animate="animate"
+												exit="initial"
 												onClick={() => setOpenDropdowns(prev => ({ ...prev, [button.id]: false }))}
 												className='fixed inset-0 z-40'
 											/>
@@ -229,10 +232,10 @@ export default function SocialButtons() {
 												ref={el => {
 													dropdownRefs.current[button.id] = el
 												}}
-												initial={{ opacity: 0, y: -8, scale: 0.95 }}
-												animate={{ opacity: 1, y: 0, scale: 1 }}
-												exit={{ opacity: 0, y: -8, scale: 0.95 }}
-												transition={{ duration: 0.2 }}
+												variants={scaleIn}
+												initial="initial"
+												animate="animate"
+												exit="initial"
 												className='bg-card fixed z-50 rounded-2xl border p-4 backdrop-blur-xl'
 												style={{
 													top: buttonRefs.current[button.id] ? `${buttonRefs.current[button.id]!.getBoundingClientRect().bottom + 8}px` : '0px',

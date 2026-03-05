@@ -10,6 +10,7 @@ import { useMarkdownRender } from '@/hooks/use-markdown-render'
 import { useSize } from '@/hooks/use-size'
 import { BlogSidebar } from '@/components/blog-sidebar'
 import { useConfigStore } from '@/app/(home)/stores/config-store'
+import { fadeIn } from '@/lib/animations'
 
 /**
  * 博客预览属性接口
@@ -48,8 +49,9 @@ export function BlogPreview({ markdown, title, tags, date, summary, cover, slug 
 	return (
 		<div className='mx-auto flex max-w-[1140px] justify-center gap-6 px-6 pt-28 pb-12 max-sm:px-0'>
 			<motion.article
-				initial={{ opacity: 0 }}
-				animate={{ opacity: 1 }}
+				variants={fadeIn}
+				initial="initial"
+				animate="animate"
 				transition={{ delay: INIT_DELAY }}
 				className='card bg-article static flex-1 overflow-auto rounded-xl p-8'>
 				<div>

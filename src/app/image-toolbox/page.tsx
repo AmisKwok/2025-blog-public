@@ -5,6 +5,7 @@ import { motion } from 'motion/react'
 import { ANIMATION_DELAY, INIT_DELAY } from '@/consts'
 import { DialogModal } from '@/components/dialog-modal'
 import { useLanguage } from '@/i18n/context'
+import { fadeInUp, scaleIn } from '@/lib/animations'
 
 type ConvertedMeta = {
 	url: string
@@ -300,8 +301,9 @@ export default function Page() {
 		<div className='relative px-6 pt-32 pb-12 text-sm max-sm:pt-28'>
 			<div className='mx-auto flex max-w-3xl flex-col gap-6'>
 				<motion.div
-					initial={{ opacity: 0, scale: 0.9 }}
-					animate={{ opacity: 1, scale: 1 }}
+					variants={scaleIn}
+					initial="initial"
+					animate="animate"
 					transition={{ delay: INIT_DELAY }}
 					className='space-y-2 text-center'>
 					<p className='text-secondary text-xs tracking-[0.2em] uppercase'>Image Toolbox</p>
@@ -310,8 +312,9 @@ export default function Page() {
 				</motion.div>
 
 				<motion.label
-					initial={{ opacity: 0, scale: 0.9 }}
-					animate={{ opacity: 1, scale: 1 }}
+					variants={scaleIn}
+					initial="initial"
+					animate="animate"
 					transition={{ delay: INIT_DELAY + ANIMATION_DELAY }}
 					onDragEnter={handleDragEnter}
 					onDragOver={handleDragOver}
@@ -331,9 +334,9 @@ export default function Page() {
 				</motion.label>
 
 				{hasImages && (
-					<motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className='card relative'>
+					<motion.div variants={scaleIn} initial="initial" animate="animate" className='card relative'>
 						<div className='text-secondary flex items-center justify-between border-b border-slate-200 pb-3 text-xs tracking-[0.2em] uppercase'>
-								<span>{t('imageToolbox.selectedImages', { count: images.length })}</span>
+								<span>{t('imageToolbox.selectedImages', { count: String(images.length) })}</span>
 								<span>{totalSize}</span>
 							</div>
 						<ul className='divide-y divide-slate-200'>
@@ -386,9 +389,9 @@ export default function Page() {
 				)}
 
 				<motion.div
-					initial={{ opacity: 0, scale: 0.9 }}
-					animate={{ opacity: 1, scale: 1 }}
-					transition={{ delay: INIT_DELAY + 2 * ANIMATION_DELAY }}
+					variants={scaleIn}
+					initial="initial"
+					animate="animate"
 					className='card relative'>
 					<div className='flex flex-wrap items-center gap-4'>
 						<div className='flex-1 space-y-4'>

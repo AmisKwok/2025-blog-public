@@ -3,6 +3,7 @@
 import clsx from 'clsx'
 import { motion } from 'motion/react'
 import { useEffect, useMemo, useState } from 'react'
+import { scaleIn } from '@/lib/animations'
 
 type TocItem = {
 	id: string
@@ -60,8 +61,9 @@ export function BlogToc({ toc, delay = 0 }: BlogTocProps) {
 
 	return (
 		<motion.div
-			initial={{ opacity: 0, scale: 0.8 }}
-			animate={{ opacity: 1, scale: 1 }}
+			variants={scaleIn}
+			initial="initial"
+			animate="animate"
 			transition={{ delay }}
 			className='bg-card w-full rounded-xl border p-3 text-sm'>
 			<h2 className='text-secondary mb-2 font-medium'>目录</h2>

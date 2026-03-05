@@ -4,6 +4,7 @@ import { useEffect, useState, type ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 import { AnimatePresence, motion } from 'motion/react'
 import { cn } from '@/lib/utils'
+import { fadeIn, scaleIn } from '@/lib/animations'
 
 interface DialogModalProps {
 	open: boolean
@@ -51,15 +52,17 @@ export function DialogModal({ open, onClose, children, className, overlayClassNa
 		<AnimatePresence>
 			{open && (
 				<motion.div
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
-					exit={{ opacity: 0 }}
+					variants={fadeIn}
+					initial="initial"
+					animate="animate"
+					exit="initial"
 					className={cn('fixed inset-0 z-50 flex items-center justify-center p-4', overlayClassName || 'bg-card backdrop-blur-xl')}
 					onClick={disableCloseOnOverlay ? undefined : onClose}>
 					<motion.div
-						initial={{ opacity: 0, scale: 0.8, y: 20 }}
-						animate={{ opacity: 1, scale: 1, y: 0 }}
-						exit={{ opacity: 0, scale: 0.8, y: 20 }}
+						variants={scaleIn}
+						initial="initial"
+						animate="animate"
+						exit="initial"
 						className={cn('static', className)}
 						onClick={e => e.stopPropagation()}>
 						{children}

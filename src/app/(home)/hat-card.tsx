@@ -5,6 +5,9 @@ import { useConfigStore } from './stores/config-store'
 import { useCenterStore } from '@/hooks/use-center'
 import { useSize } from '@/hooks/use-size'
 import { HomeDraggableLayer } from './home-draggable-layer'
+import { scaleIn } from '@/lib/animations'
+
+
 
 export default function HatCard() {
 	const center = useCenterStore()
@@ -32,7 +35,8 @@ export default function HatCard() {
 	return (
 		<HomeDraggableLayer cardKey='hatCard' x={x} y={y} width={styles.width} height={styles.height}>
 			<motion.div
-				initial={{ opacity: 0, scale: 0.6, left: x, top: y, width: styles.width, height: styles.height }}
+				variants={scaleIn}
+				initial="initial"
 				animate={{ opacity: 1, scale: 1, left: x, top: y, width: styles.width, height: styles.height }}
 				whileHover={{ scale: 1.05 }}
 				whileTap={{ scale: 0.95 }}
