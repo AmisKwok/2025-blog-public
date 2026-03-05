@@ -59,7 +59,7 @@ const list = [
   {
     icon: trainLottie,
     iconActive: trainLottie,
-    key: 'nav.links',
+    key: 'nav.travelling',
     href: 'https://www.travellings.cn/train.html',
     isExternal: true
   },
