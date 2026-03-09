@@ -1,5 +1,19 @@
 [
   {
+    "slug": "03-10",
+    "title": "记录在app中添加just_audio_background的卡点和坑",
+    "tags": [
+      "笔记记录",
+      "flutter开发",
+      "踩过的坑"
+    ],
+    "date": "2026-03-10T00:30",
+    "summary": "在用flutter开发app时候想添加碎屏组件使用just_audio_background踩的坑，归档笔记记录",
+    "cover": "/blogs/03-10/ac9881f8db9513c5.png",
+    "hidden": false,
+    "category": "代码实现"
+  },
+  {
     "slug": "02-28",
     "title": "关于bolg的demo需求说明",
     "tags": [
