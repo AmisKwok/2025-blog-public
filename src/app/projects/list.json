@@ -21,5 +21,17 @@
 			"SpringBoot"
 		],
 		"github": "https://github.com/AmisKwok/vibe-music-server"
+	},
+	{
+		"name": "Amis's Homepage",
+		"year": 2027,
+		"image": "blob:https://amisblog.cn/9f7bbb18-1f34-4fc5-915a-129043ef7a9d",
+		"url": "https://www.amisweb.cn/",
+		"description": "一个简单的个人主页",
+		"tags": [
+			"React",
+			"Next.js"
+		],
+		"github": "https://github.com/AmisKwok/AmisHomepage"
 	}
 ]
