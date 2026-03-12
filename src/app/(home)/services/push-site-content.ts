@@ -149,13 +149,18 @@ export async function pushSiteContent(
 		for (const [buttonId, item] of Object.entries(socialButtonImageUploads)) {
 			if (item.type !== 'file') continue
 
-			const button = siteContent.socialButtons?.find(btn => btn.id === buttonId)
+			// Check if this is an icon upload (key starts with 'icon-')
+			const isIconUpload = buttonId.startsWith('icon-')
+			const actualButtonId = isIconUpload ? buttonId.replace('icon-', '') : buttonId
+
+			const button = siteContent.socialButtons?.find(btn => btn.id === actualButtonId)
 			if (!button) continue
 
-			// Only upload if URL starts with /images/social-buttons/ (local file)
-			if (!button.value.startsWith('/images/social-buttons/')) continue
+			// For icon uploads, check button.icon; for regular uploads, check button.value
+			const uploadPath = isIconUpload ? button.icon : button.value
+			if (!uploadPath || !uploadPath.startsWith('/images/social-buttons/')) continue
 
-			const normalizedUrlPath = button.value.startsWith('/') ? button.value : `/${button.value}`
+			const normalizedUrlPath = uploadPath.startsWith('/') ? uploadPath : `/${uploadPath}`
 			const path = `public${normalizedUrlPath}`
 			if (!path) continue
 
