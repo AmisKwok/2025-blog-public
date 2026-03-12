@@ -361,55 +361,13 @@ export function SocialButtonsSection({ formData, setFormData, socialButtonImageU
 								</div>
 							</div>
 						) : button.type === 'homepage' ? (
-							<div className='flex flex-1 flex-col gap-2'>
-								<div className='flex items-center gap-2'>
-									<input
-										type='url'
-										value={button.value}
-										onChange={e => handleUpdateButton(button.id, { value: e.target.value })}
-										placeholder={t('siteSettings.socialButtons.urlPlaceholder')}
-										className='bg-secondary/10 flex-1 rounded-lg border px-3 py-1.5 text-xs'
-									/>
-								</div>
-								<div className='flex items-center gap-2'>
-									<span className='text-xs text-gray-500'>{t('siteSettings.socialButtons.customIcon')}</span>
-									{button.icon ? (
-										<div className='flex items-center gap-2'>
-											<img 
-												src={socialButtonImageUploads[`icon-${button.id}`]?.type === 'file' 
-													? (socialButtonImageUploads[`icon-${button.id}`] as { type: 'file'; previewUrl: string }).previewUrl 
-													: button.icon} 
-												alt='icon' 
-												className='h-8 w-8 rounded object-cover' 
-											/>
-											<button
-												type='button'
-												onClick={() => handleRemoveIcon(button.id)}
-												className='text-xs text-red-500 hover:text-red-600'>
-												{t('siteSettings.socialButtons.deleteImage')}
-											</button>
-										</div>
-									) : (
-										<>
-											<input
-												ref={el => {
-													imageInputRefs.current[`icon-${button.id}`] = el
-												}}
-												type='file'
-												accept='image/*'
-												className='hidden'
-												onChange={e => handleIconSelect(button.id, e)}
-											/>
-											<button
-												type='button'
-												onClick={() => imageInputRefs.current[`icon-${button.id}`]?.click()}
-												className='bg-card rounded-lg border px-3 py-1.5 text-xs font-medium'>
-												{t('siteSettings.socialButtons.uploadIcon')}
-											</button>
-										</>
-									)}
-								</div>
-							</div>
+							<input
+								type='url'
+								value={button.value}
+								onChange={e => handleUpdateButton(button.id, { value: e.target.value })}
+								placeholder={t('siteSettings.socialButtons.urlPlaceholder')}
+								className='bg-secondary/10 flex-1 rounded-lg border px-3 py-1.5 text-xs'
+							/>
 						) : (
 							<input
 								type={button.type === 'email' ? 'email' : 'url'}

@@ -5,6 +5,7 @@ import { useConfigStore } from './stores/config-store'
 import JuejinSVG from '@/svgs/juejin.svg'
 import EmailSVG from '@/svgs/email.svg'
 import WebsiteSVG from '@/svgs/website-filled.svg'
+import HomepageSVG from '@/svgs/hompage-com-web.svg'
 import XSVG from '@/svgs/x.svg'
 import TgSVG from '@/svgs/tg.svg'
 import WechatSVG from '@/svgs/wechat.svg'
@@ -135,7 +136,7 @@ export default function SocialButtons() {
 			github: GithubSVG,
 			juejin: JuejinSVG,
 			email: EmailSVG,
-			homepage: WebsiteSVG,
+			homepage: HomepageSVG,
 			wechat: WechatSVG,
 			x: XSVG,
 			tg: TgSVG,
@@ -201,9 +202,8 @@ export default function SocialButtons() {
 			)
 		}
 
-		// 主页按钮：跳转个人主页，支持自定义图标
+		// 主页按钮：跳转个人主页
 		if (button.type === 'homepage') {
-			const customIcon = button.icon
 			return (
 				<motion.a
 					key={button.id}
@@ -211,11 +211,7 @@ export default function SocialButtons() {
 					target='_blank'
 					{...commonProps}
 					className={`card relative rounded-xl font-medium whitespace-nowrap ${hasLabel ? 'flex items-center gap-2 px-3 py-2.5' : 'p-1.5'}`}>
-					{customIcon ? (
-						<img src={customIcon} alt='icon' className={iconSize} />
-					) : (
-						<Icon className={iconSize} />
-					)}
+					<Icon className={iconSize} />
 					{hasLabel && button.label}
 				</motion.a>
 			)

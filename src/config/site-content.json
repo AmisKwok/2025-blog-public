@@ -90,8 +90,7 @@
 			"type": "homepage",
 			"value": "https://www.amisweb.cn",
 			"label": "",
-			"order": 5,
-			"icon": "/images/social-buttons/4497f4cfd65cd9cf.png"
+			"order": 5
 		}
 	],
 	"clockShowSeconds": false,
