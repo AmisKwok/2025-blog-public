@@ -4,6 +4,7 @@ import { ANIMATION_DELAY, CARD_SPACING } from '@/consts'
 import { useConfigStore } from './stores/config-store'
 import JuejinSVG from '@/svgs/juejin.svg'
 import EmailSVG from '@/svgs/email.svg'
+import WebsiteSVG from '@/svgs/website-filled.svg'
 import XSVG from '@/svgs/x.svg'
 import TgSVG from '@/svgs/tg.svg'
 import WechatSVG from '@/svgs/wechat.svg'
@@ -33,6 +34,7 @@ type SocialButtonType =
 	| 'juejin'
 	| 'email'
 	| 'link'
+	| 'homepage'
 	| 'x'
 	| 'tg'
 	| 'wechat'
@@ -53,6 +55,7 @@ interface SocialButtonConfig {
 	type: SocialButtonType
 	value: string
 	label?: string
+	icon?: string
 	order: number
 }
 
@@ -132,6 +135,7 @@ export default function SocialButtons() {
 			github: GithubSVG,
 			juejin: JuejinSVG,
 			email: EmailSVG,
+			homepage: WebsiteSVG,
 			wechat: WechatSVG,
 			x: XSVG,
 			tg: TgSVG,
@@ -181,11 +185,46 @@ export default function SocialButtons() {
 			)
 		}
 
-		// 邮箱、微信、QQ、QQ群按钮
-		if (button.type === 'email' || button.type === 'wechat' || button.type === 'qq' || button.type === 'qqGroup') {
+		// 邮箱按钮：使用 mailto: 链接，只显示图标和可选标签
+		if (button.type === 'email') {
+			const emailValue = button.value || ''
+			const mailtoHref = emailValue.startsWith('mailto:') ? emailValue : `mailto:${emailValue}`
+			return (
+				<motion.a
+					key={button.id}
+					href={mailtoHref}
+					{...commonProps}
+					className={`card relative rounded-xl font-medium whitespace-nowrap ${hasLabel ? 'flex items-center gap-2 px-3 py-2.5' : 'p-1.5'}`}>
+					<Icon className={iconSize} />
+					{hasLabel && button.label}
+				</motion.a>
+			)
+		}
+
+		// 主页按钮：跳转个人主页，支持自定义图标
+		if (button.type === 'homepage') {
+			const customIcon = button.icon
+			return (
+				<motion.a
+					key={button.id}
+					href={button.value}
+					target='_blank'
+					{...commonProps}
+					className={`card relative rounded-xl font-medium whitespace-nowrap ${hasLabel ? 'flex items-center gap-2 px-3 py-2.5' : 'p-1.5'}`}>
+					{customIcon ? (
+						<img src={customIcon} alt='icon' className={iconSize} />
+					) : (
+						<Icon className={iconSize} />
+					)}
+					{hasLabel && button.label}
+				</motion.a>
+			)
+		}
+
+		// 微信、QQ、QQ群按钮
+		if (button.type === 'wechat' || button.type === 'qq' || button.type === 'qqGroup') {
 			// 复制成功消息映射
-			const messageMap: Record<'email' | 'wechat' | 'qq' | 'qqGroup', string> = {
-				email: t('siteSettings.socialButtons.copied.email'),
+			const messageMap: Record<'wechat' | 'qq' | 'qqGroup', string> = {
 				wechat: t('siteSettings.socialButtons.copied.wechat'),
 				qq: t('siteSettings.socialButtons.copied.qq'),
 				qqGroup: t('siteSettings.socialButtons.copied.qqGroup')
@@ -277,7 +316,7 @@ export default function SocialButtons() {
 					key={button.id}
 					onClick={() => {
 						navigator.clipboard.writeText(safeValue).then(() => {
-							toast.success(messageMap[button.type as 'email' | 'wechat' | 'qq' | 'qqGroup'])
+							toast.success(messageMap[button.type as 'wechat' | 'qq' | 'qqGroup'])
 						})
 					}}
 					{...commonProps}

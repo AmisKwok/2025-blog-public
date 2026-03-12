@@ -13,6 +13,7 @@ type SocialButtonType =
 	| 'juejin'
 	| 'email'
 	| 'link'
+	| 'homepage'
 	| 'x'
 	| 'tg'
 	| 'wechat'
@@ -32,6 +33,7 @@ interface SocialButtonConfig {
 	type: SocialButtonType
 	value: string
 	label?: string
+	icon?: string
 	order: number
 }
 
@@ -143,6 +145,51 @@ export function SocialButtonsSection({ formData, setFormData, socialButtonImageU
 		}))
 	}
 
+	const handleIconSelect = async (buttonId: string, e: React.ChangeEvent<HTMLInputElement>) => {
+		const file = e.target.files?.[0]
+		if (!file) return
+
+		if (!file.type.startsWith('image/')) {
+			toast.error(t('toast.pleaseSelectImage'))
+			return
+		}
+
+		const hash = await hashFileSHA256(file)
+		const ext = file.name.split('.').pop() || 'png'
+		const targetPath = `/images/social-buttons/${hash}.${ext}`
+		const previewUrl = URL.createObjectURL(file)
+
+		setSocialButtonImageUploads(prev => ({
+			...prev,
+			[`icon-${buttonId}`]: { type: 'file', file, previewUrl, hash }
+		}))
+
+		setFormData(prev => ({
+			...prev,
+			socialButtons: (prev.socialButtons || []).map(btn => (btn.id === buttonId ? { ...btn, icon: targetPath } : btn))
+		}))
+
+		if (e.currentTarget) e.currentTarget.value = ''
+	}
+
+	const handleRemoveIcon = (buttonId: string) => {
+		const uploadItem = socialButtonImageUploads[`icon-${buttonId}`]
+		if (uploadItem?.type === 'file') {
+			URL.revokeObjectURL(uploadItem.previewUrl)
+		}
+
+		setSocialButtonImageUploads(prev => {
+			const next = { ...prev }
+			delete next[`icon-${buttonId}`]
+			return next
+		})
+
+		setFormData(prev => ({
+			...prev,
+			socialButtons: (prev.socialButtons || []).map(btn => (btn.id === buttonId ? { ...btn, icon: '' } : btn))
+		}))
+	}
+
 	const sortedButtons = [...buttons].sort((a, b) => a.order - b.order)
 
 	return (
@@ -161,6 +208,7 @@ export function SocialButtonsSection({ formData, setFormData, socialButtonImageU
 								{ value: 'gitee', label: t('siteSettings.socialButtons.types.gitee') },
 								{ value: 'juejin', label: t('siteSettings.socialButtons.types.juejin') },
 								{ value: 'email', label: t('siteSettings.socialButtons.types.email') },
+								{ value: 'homepage', label: t('siteSettings.socialButtons.types.homepage') },
 								{ value: 'x', label: t('siteSettings.socialButtons.types.x') },
 								{ value: 'tg', label: t('siteSettings.socialButtons.types.tg') },
 								{ value: 'wechat', label: t('siteSettings.socialButtons.types.wechat') },
@@ -312,6 +360,56 @@ export function SocialButtonsSection({ formData, setFormData, socialButtonImageU
 									})()}
 								</div>
 							</div>
+						) : button.type === 'homepage' ? (
+							<div className='flex flex-1 flex-col gap-2'>
+								<div className='flex items-center gap-2'>
+									<input
+										type='url'
+										value={button.value}
+										onChange={e => handleUpdateButton(button.id, { value: e.target.value })}
+										placeholder={t('siteSettings.socialButtons.urlPlaceholder')}
+										className='bg-secondary/10 flex-1 rounded-lg border px-3 py-1.5 text-xs'
+									/>
+								</div>
+								<div className='flex items-center gap-2'>
+									<span className='text-xs text-gray-500'>{t('siteSettings.socialButtons.customIcon')}</span>
+									{button.icon ? (
+										<div className='flex items-center gap-2'>
+											<img 
+												src={socialButtonImageUploads[`icon-${button.id}`]?.type === 'file' 
+													? (socialButtonImageUploads[`icon-${button.id}`] as { type: 'file'; previewUrl: string }).previewUrl 
+													: button.icon} 
+												alt='icon' 
+												className='h-8 w-8 rounded object-cover' 
+											/>
+											<button
+												type='button'
+												onClick={() => handleRemoveIcon(button.id)}
+												className='text-xs text-red-500 hover:text-red-600'>
+												{t('siteSettings.socialButtons.deleteImage')}
+											</button>
+										</div>
+									) : (
+										<>
+											<input
+												ref={el => {
+													imageInputRefs.current[`icon-${button.id}`] = el
+												}}
+												type='file'
+												accept='image/*'
+												className='hidden'
+												onChange={e => handleIconSelect(button.id, e)}
+											/>
+											<button
+												type='button'
+												onClick={() => imageInputRefs.current[`icon-${button.id}`]?.click()}
+												className='bg-card rounded-lg border px-3 py-1.5 text-xs font-medium'>
+												{t('siteSettings.socialButtons.uploadIcon')}
+											</button>
+										</>
+									)}
+								</div>
+							</div>
 						) : (
 							<input
 								type={button.type === 'email' ? 'email' : 'url'}
@@ -321,7 +419,7 @@ export function SocialButtonsSection({ formData, setFormData, socialButtonImageU
 								className='bg-secondary/10 flex-1 rounded-lg border px-3 py-1.5 text-xs'
 							/>
 						)}
-						{button.type !== 'email' && button.type !== 'wechat' && button.type !== 'qq' && (
+						{button.type !== 'wechat' && button.type !== 'qq' && button.type !== 'qqGroup' && (
 							<input
 								type='text'
 								value={button.label || ''}
