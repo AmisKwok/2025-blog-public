@@ -1,9 +1,12 @@
 import Script from 'next/script'
+import seoConfig from '@/config/seo.json'
 
 export default function Head() {
 	return (
 		<head>
 			<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
+			<meta name='google-site-verification' content={seoConfig.verification.google} />
+			<meta name='baidu-site-verification' content={seoConfig.verification.baidu} />
 			<link rel='manifest' href='/manifest.json' />
 
 			<link rel='icon' href='/favicon.png' />
