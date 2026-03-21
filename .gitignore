@@ -48,3 +48,5 @@ next-env.d.ts
 .history/
 
 .trae/
+
+.markdown/
