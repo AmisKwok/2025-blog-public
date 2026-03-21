@@ -13,6 +13,19 @@
     "category": "总结"
   },
   {
+    "slug": "03-22",
+    "title": "Feign 学习笔记",
+    "tags": [
+      "Feign",
+      "Java"
+    ],
+    "date": "2026-03-22T04:36",
+    "summary": "Feign 学习笔记",
+    "cover": "/blogs/03-22/37888e410480dd38.png",
+    "hidden": false,
+    "category": "总结"
+  },
+  {
     "slug": "03-19",
     "title": "Amis's Homepage部署教程",
     "tags": [
