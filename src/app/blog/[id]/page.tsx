@@ -1,148 +1,152 @@
 /**
- * 博客文章详情页
- * 显示博客文章的详细内容，包括标题、日期、标签、内容等
+ * 博客详情页 - 服务端组件
+ * 负责生成静态页面和动态元数据，优化 SEO
  */
-'use client'
+import { Metadata } from 'next'
+import { notFound } from 'next/navigation'
+import { loadBlogServer, getAllBlogSlugs } from '@/lib/load-blog-server'
+import BlogDetailClient from './client'
+import siteContent from '@/config/site-content.json'
 
-import { useEffect, useMemo, useState } from 'react'
-import { useParams, useRouter } from 'next/navigation'
-import dayjs from 'dayjs'
-import { motion } from 'motion/react'
-import { BlogPreview } from '@/components/blog-preview'
-import { loadBlog, type BlogConfig } from '@/lib/load-blog'
-import { useReadArticles } from '@/hooks/use-read-articles'
-import LiquidGrass from '@/components/liquid-grass'
-import { useLanguage } from '@/i18n/context'
-import { useLocalAuthStore } from '@/hooks/use-local-auth'
-import WalineComments from '@/components/WalineComments'
-import { scaleIn } from '@/lib/animations'
+// 网站基础 URL
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.amisblog.cn'
 
-
-
-// 获取当前域名
-const origin = typeof window !== 'undefined' ? window.location.origin : ''
+type Props = {
+	params: Promise<{ id: string }>
+}
 
 /**
- * 博客文章详情页组件
+ * 生成静态路径参数
+ * 在构建时预生成所有博客页面，提升性能和 SEO
  */
-export default function Page() {
-	// 获取 URL 参数
-	const params = useParams() as { id?: string | string[] }
-	// 提取博客 slug
-	const slug = Array.isArray(params?.id) ? params.id[0] : params?.id || ''
-	const router = useRouter()
-	const { markAsRead } = useReadArticles() // 标记文章为已读
-	const { t } = useLanguage() // 国际化翻译
-	const { isLoggedIn, checkExpiration } = useLocalAuthStore() // 本地认证状态
+export async function generateStaticParams() {
+	const slugs = getAllBlogSlugs()
+	return slugs.map(slug => ({
+		id: slug
+	}))
+}
 
-	// 检查登录过期状态
-	useEffect(() => {
-		checkExpiration()
-	}, [checkExpiration])
+/**
+ * 生成动态元数据
+ * 为每篇博客生成独立的 title、description、og:image 等
+ */
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+	const { id } = await params
+	
+	try {
+		const blog = loadBlogServer(id)
+		const title = blog.config.title || id
+		const description = blog.config.summary || `${title} - 博客文章`
+		const siteTitle = siteContent.meta?.title || 'Amis\'s Blog'
+		
+		// 处理封面图片 URL
+		const ogImage = blog.cover 
+			? (blog.cover.startsWith('http') ? blog.cover : `${SITE_URL}${blog.cover}`)
+			: undefined
 
-	// 博客数据状态
-	const [blog, setBlog] = useState<{ config: BlogConfig; markdown: string; cover?: string } | null>(null)
-	const [error, setError] = useState<string | null>(null)
-	const [loading, setLoading] = useState<boolean>(true)
-
-	// 加载博客数据
-	useEffect(() => {
-		let cancelled = false
-
-		async function run() {
-			if (!slug) return
-			try {
-				setLoading(true)
-				// 加载博客数据
-				const blogData = await loadBlog(slug)
-
-				if (!cancelled) {
-					setBlog(blogData)
-					setError(null)
-					// 标记文章为已读
-					markAsRead(slug)
-				}
-			} catch (e: any) {
-				if (!cancelled) setError(e?.message || '加载失败')
-			} finally {
-				if (!cancelled) setLoading(false)
-			}
+		return {
+			title,
+			description,
+			alternates: {
+				canonical: `/blog/${id}`,
+			},
+			openGraph: {
+				title,
+				description,
+				type: 'article',
+				url: `${SITE_URL}/blog/${id}`,
+				publishedTime: blog.config.date,
+				authors: ['Amis'],
+				tags: blog.config.tags,
+				images: ogImage ? [{ url: ogImage }] : undefined,
+			},
+			twitter: {
+				card: ogImage ? 'summary_large_image' : 'summary',
+				title,
+				description,
+				images: ogImage ? [ogImage] : undefined,
+			},
 		}
-
-		run()
-
-		// 清理函数
-		return () => {
-			cancelled = true
+	} catch {
+		return {
+			title: '文章未找到',
 		}
-	}, [slug, markAsRead])
+	}
+}
 
-	// 计算博客标题、日期和标签
-	const title = useMemo(() => (blog?.config.title ? blog.config.title : slug), [blog?.config.title, slug])
-	const date = useMemo(() => dayjs(blog?.config.date).format('YYYY年 M月 D日'), [blog?.config.date])
-	const tags = blog?.config.tags || []
+/**
+ * 生成 JSON-LD 结构化数据
+ * 帮助搜索引擎更好地理解文章内容
+ */
+function generateArticleJsonLd(blog: { slug: string; config: any; cover?: string }) {
+	const title = blog.config.title || blog.slug
+	const description = blog.config.summary || ''
+	const datePublished = blog.config.date ? new Date(blog.config.date).toISOString() : new Date().toISOString()
+	const coverUrl = blog.cover 
+		? (blog.cover.startsWith('http') ? blog.cover : `${SITE_URL}${blog.cover}`)
+		: undefined
 
-	/**
-	 * 处理编辑按钮点击
-	 */
-	const handleEdit = () => {
-		router.push(`/write/${slug}`)
+	return {
+		'@context': 'https://schema.org',
+		'@type': 'BlogPosting',
+		headline: title,
+		description,
+		datePublished,
+		author: {
+			'@type': 'Person',
+			name: 'Amis',
+			url: SITE_URL,
+		},
+		publisher: {
+			'@type': 'Organization',
+			name: siteContent.meta?.title || 'Amis\'s Blog',
+			url: SITE_URL,
+		},
+		mainEntityOfPage: {
+			'@type': 'WebPage',
+			'@id': `${SITE_URL}/blog/${blog.slug}`,
+		},
+		...(coverUrl && { image: coverUrl }),
+		...(blog.config.tags && { keywords: blog.config.tags.join(', ') }),
+	}
+}
+
+/**
+ * 博客详情页组件
+ * 服务端渲染博客内容，传递给客户端组件
+ */
+export default async function BlogDetailPage({ params }: Props) {
+	const { id } = await params
+	
+	let blog
+	try {
+		blog = loadBlogServer(id)
+	} catch {
+		notFound()
 	}
 
-	// 错误处理和加载状态
-	if (!slug) {
-		return <div className='text-secondary flex h-full items-center justify-center text-sm'>{t('blog.invalidLink')}</div>
+	// 隐藏的文章返回 404
+	if (blog.config.hidden) {
+		notFound()
 	}
 
-	if (loading) {
-		return <div className='text-secondary flex h-full items-center justify-center text-sm'>{t('blog.loading')}</div>
-	}
-
-	if (error) {
-		return <div className='flex h-full items-center justify-center text-sm text-red-500'>{error}</div>
-	}
-
-	if (!blog) {
-		return <div className='text-secondary flex h-full items-center justify-center text-sm'>{t('blog.articleNotFound')}</div>
-	}
+	// 生成结构化数据
+	const jsonLd = generateArticleJsonLd(blog)
 
 	return (
 		<>
-			{/* 博客内容预览 */}
-			<BlogPreview
-				markdown={blog.markdown}
-				title={title}
-				tags={tags}
-				date={date}
-				summary={blog.config.summary}
-				cover={blog.cover ? (blog.cover.startsWith('http') ? blog.cover : `${origin}${blog.cover}`) : undefined}
-				slug={slug}
+			{/* JSON-LD 结构化数据 */}
+			<script
+				type="application/ld+json"
+				dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
 			/>
-
-			{/* 编辑按钮（仅登录后可见） */}
-			{isLoggedIn && (
-				<motion.button
-					variants={scaleIn}
-					initial="initial"
-					animate="animate"
-					whileHover={{ scale: 1.05 }}
-					whileTap={{ scale: 0.95 }}
-					onClick={handleEdit}
-					className='absolute top-4 right-6 rounded-xl border bg-white/60 px-6 py-2 text-sm backdrop-blur-sm transition-colors hover:bg-white/80 max-sm:hidden'>
-					{t('about.edit')}
-				</motion.button>
-			)}
-
-			{/* 特殊效果：液体草动画（仅特定文章） */}
-			{slug === 'liquid-grass' && <LiquidGrass />}
-
-			{/* 文章评论区 */}
-			<div className="mx-auto flex max-w-[1140px] justify-center gap-6 px-6 pt-12 pb-12 max-sm:px-0">
-				<div className="card bg-article static flex-1 overflow-auto rounded-xl p-8">
-					<WalineComments path={`/blog/${slug}`} />
-				</div>
-			</div>
-
+			
+			<BlogDetailClient
+				slug={id}
+				config={blog.config}
+				markdown={blog.markdown}
+				cover={blog.cover}
+			/>
 		</>
 	)
 }

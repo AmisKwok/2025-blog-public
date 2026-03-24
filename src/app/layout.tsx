@@ -12,6 +12,9 @@ import { LanguageProvider } from '@/i18n/context'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 
+// 网站基础 URL
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.amisblog.cn'
+
 // 从站点配置中获取元数据和主题设置
 const {
 	meta: { title, description },
@@ -25,19 +28,98 @@ const descriptionText = typeof description === 'string'
 
 /**
  * 应用元数据配置
- * 包含页面标题、描述和社交媒体分享信息
+ * 包含页面标题、描述、社交媒体分享信息、SEO 相关配置
  */
 export const metadata: Metadata = {
-	title,
+	// 基础元数据
+	title: {
+		default: title,
+		template: `%s | ${title}`,
+	},
 	description: descriptionText,
+	
+	// 网站 URL
+	metadataBase: new URL(SITE_URL),
+	alternates: {
+		canonical: '/',
+	},
+	
+	// Open Graph 配置（社交媒体分享）
 	openGraph: {
 		title,
-		description: descriptionText
+		description: descriptionText,
+		url: SITE_URL,
+		siteName: title,
+		locale: 'zh_CN',
+		type: 'website',
 	},
+	
+	// Twitter 卡片配置
 	twitter: {
+		card: 'summary_large_image',
 		title,
-		description: descriptionText
-	}
+		description: descriptionText,
+	},
+	
+	// 机器人爬虫配置
+	robots: {
+		index: true,
+		follow: true,
+		googleBot: {
+			index: true,
+			follow: true,
+			'max-video-preview': -1,
+			'max-image-preview': 'large',
+			'max-snippet': -1,
+		},
+	},
+	
+	// 作者和关键词
+	authors: [{ name: 'Amis' }],
+	keywords: ['博客', 'Blog', '技术', '开发', 'Amis', '个人博客'],
+	
+	// 其他元数据
+	formatDetection: {
+		email: false,
+		address: false,
+		telephone: false,
+	},
+}
+
+/**
+ * 网站结构化数据（JSON-LD）
+ * 帮助搜索引擎理解网站结构
+ */
+const websiteJsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'WebSite',
+	name: title,
+	description: descriptionText,
+	url: SITE_URL,
+	author: {
+		'@type': 'Person',
+		name: 'Amis',
+		url: SITE_URL,
+	},
+	potentialAction: {
+		'@type': 'SearchAction',
+		target: `${SITE_URL}/blog?q={search_term_string}`,
+		'query-input': 'required name=search_term_string',
+	},
+}
+
+/**
+ * 个人资料结构化数据（JSON-LD）
+ */
+const personJsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'Person',
+	name: 'Amis',
+	url: SITE_URL,
+	sameAs: [
+		'https://github.com/AmisKwok',
+		'https://gitee.com/AmisKwok',
+	],
 }
 
 /**
@@ -63,10 +145,21 @@ const htmlStyle = {
  */
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
 	return (
-		<html lang='en' suppressHydrationWarning style={htmlStyle}>
+		<html lang='zh-CN' suppressHydrationWarning style={htmlStyle}>
 			<Head />
 
 			<body>
+				{/* 网站结构化数据 */}
+				<script
+					type="application/ld+json"
+					dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+				/>
+				{/* 个人资料结构化数据 */}
+				<script
+					type="application/ld+json"
+					dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+				/>
+
 				{/* 安全防护脚本 */}
 				<script src="/scripts/security.js" />
 
