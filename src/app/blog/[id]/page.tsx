@@ -1,10 +1,11 @@
 /**
- * 博客详情页 - 服务端组件
+ * 文章详情页 - 服务端组件
  * 负责生成静态页面和动态元数据，优化 SEO
  */
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { loadBlogServer, getAllBlogSlugs } from '@/lib/load-blog-server'
+import { getTranslation, detectLanguage } from '@/lib/i18n-server'
 import BlogDetailClient from './client'
 import siteContent from '@/config/site-content.json'
 
@@ -17,7 +18,7 @@ type Props = {
 
 /**
  * 生成静态路径参数
- * 在构建时预生成所有博客页面，提升性能和 SEO
+ * 在构建时预生成所有文章页面，提升性能和 SEO
  */
 export async function generateStaticParams() {
 	const slugs = getAllBlogSlugs()
@@ -28,16 +29,17 @@ export async function generateStaticParams() {
 
 /**
  * 生成动态元数据
- * 为每篇博客生成独立的 title、description、og:image 等
+ * 为每篇文章生成独立的 title、description、og:image 等
+ * 注意：只返回文章标题，根布局会自动拼接站点名
  */
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	const { id } = await params
+	const lang = await detectLanguage()
 	
 	try {
 		const blog = loadBlogServer(id)
 		const title = blog.config.title || id
-		const description = blog.config.summary || `${title} - 博客文章`
-		const siteTitle = siteContent.meta?.title || 'Amis\'s Blog'
+		const description = blog.config.summary || `${title} - ${getTranslation(lang, 'blog.articles')}`
 		
 		// 处理封面图片 URL
 		const ogImage = blog.cover 
@@ -69,7 +71,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 		}
 	} catch {
 		return {
-			title: '文章未找到',
+			title: getTranslation(lang, 'blog.articleNotFound'),
 		}
 	}
 }
@@ -112,8 +114,8 @@ function generateArticleJsonLd(blog: { slug: string; config: any; cover?: string
 }
 
 /**
- * 博客详情页组件
- * 服务端渲染博客内容，传递给客户端组件
+ * 文章详情页组件
+ * 服务端渲染文章内容，传递给客户端组件
  */
 export default async function BlogDetailPage({ params }: Props) {
 	const { id } = await params
