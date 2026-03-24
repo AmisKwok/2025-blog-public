@@ -1,5 +1,18 @@
 [
   {
+    "slug": "03-25",
+    "title": "Sentinel 集群限流学习笔记",
+    "tags": [
+      "Sentinel",
+      "Java"
+    ],
+    "date": "2026-03-25T00:01",
+    "summary": "Sentinel 集群限流学习笔记",
+    "cover": "/blogs/03-25/37888e410480dd38.png",
+    "hidden": false,
+    "category": "总结"
+  },
+  {
     "slug": "03-24",
     "title": "接口幂等性学习笔记",
     "tags": [
