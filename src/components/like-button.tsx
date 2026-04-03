@@ -66,20 +66,20 @@ export default function LikeButton({ slug = 'amis', className, isInArticlePage =
 
 	// 电脑端气泡延时消失效果
 	useEffect(() => {
-		// 只在非文章页面且非移动端时应用消失效果
-		if (isInArticlePage || maxSM) return
+		// 移动端不应用此效果
+		if (maxSM) return
 		
 		const timer = setTimeout(() => {
 			setShowBubble(false)
 		}, BUBBLE_FADEOUT_DELAY_DESKTOP)
 		
 		return () => clearTimeout(timer)
-	}, [isInArticlePage, maxSM])
+	}, [maxSM])
 
 	// 移动端气泡消失效果：用户看到气泡后 3 秒消失
 	useEffect(() => {
-		// 只在非文章页面且移动端时应用
-		if (isInArticlePage || !maxSM) return
+		// 只在移动端时应用
+		if (!maxSM) return
 		
 		const container = containerRef.current
 		if (!container) return
@@ -106,7 +106,7 @@ export default function LikeButton({ slug = 'amis', className, isInArticlePage =
 		observer.observe(container)
 		
 		return () => observer.disconnect()
-	}, [isInArticlePage, maxSM])
+	}, [maxSM])
 
 	useEffect(() => {
 		if (justLiked) {
@@ -274,34 +274,26 @@ export default function LikeButton({ slug = 'amis', className, isInArticlePage =
 
 	return (
 		<div className='relative inline-block' ref={containerRef}>
-			{/* 聊天气泡提示 - 不在文章页面内才显示 */}
-			{!isInArticlePage && (
-				<AnimatePresence>
-					{showBubble && (
-						<motion.div
-							className='absolute top-[-64px] left-1/2 transform -translate-x-1/2 z-0 max-w-md w-auto min-w-40 px-4 py-2 rounded-[40px] bg-card border pointer-events-none'
-							style={{ boxShadow: '0 40px 50px -32px rgba(0, 0, 0, 0.05)', backdropFilter: 'blur(4px)' }}
-							initial={{ opacity: 0, y: 10, scale: 0.8 }}
-							animate={{ opacity: 1, y: 0, scale: 1 }}
-							exit={{ opacity: 0, y: -10, scale: 0.8 }}
-							transition={{ delay: 1, duration: 0.5 }}
-						>
-							<div className='text-sm font-medium text-gray-800 text-center'>
-								{t('siteSettings.like.bubble')}
-							</div>
-							{/* 气泡尾巴 - 暂时注释掉
-							<div className='absolute -bottom-2 left-1/2 transform -translate-x-1/2'>
-								<div className='h-4 w-4 bg-transparent'>
-									<div className='relative h-full w-full'>
-										<div className='absolute bottom-0 left-1/2 transform -translate-x-1/2 rotate-45 h-3 w-3 bg-card border-t border-l rounded-sm'></div>
-									</div>
-								</div>
-							</div>
-							*/}
-						</motion.div>
-					)}
-				</AnimatePresence>
-			)}
+			{/* 聊天气泡提示 */}
+			<AnimatePresence>
+				{showBubble && (
+					<motion.div
+						className={clsx(
+							'absolute left-1/2 transform -translate-x-1/2 z-0 max-w-md w-auto min-w-40 px-4 py-2 rounded-[40px] bg-card border pointer-events-none',
+							isInArticlePage ? 'bottom-[-64px]' : 'top-[-64px]'
+						)}
+						style={{ boxShadow: '0 40px 50px -32px rgba(0, 0, 0, 0.05)', backdropFilter: 'blur(4px)' }}
+						initial={{ opacity: 0, y: isInArticlePage ? -10 : 10, scale: 0.8 }}
+						animate={{ opacity: 1, y: 0, scale: 1 }}
+						exit={{ opacity: 0, y: isInArticlePage ? 10 : -10, scale: 0.8 }}
+						transition={{ delay: 1, duration: 0.5 }}
+					>
+						<div className='text-sm font-medium text-gray-800 text-center'>
+							{t('siteSettings.like.bubble')}
+						</div>
+					</motion.div>
+				)}
+			</AnimatePresence>
 			
 			<motion.button
 				variants={scaleIn}
