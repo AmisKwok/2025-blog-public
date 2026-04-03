@@ -87,18 +87,23 @@
 .prose ol {
 	list-style-type: none;
 	counter-reset: roman-counter;
+	padding-left: 2em;
 }
 .prose li {
 	margin: 0.35em 0;
 }
 .prose ol > li {
 	counter-increment: roman-counter;
-	position: relative;
+	list-style-type: none;
+}
+.prose ol > li::marker {
+	content: none;
 }
 .prose ol > li::before {
 	content: counter(roman-counter, lower-roman) ". ";
-	position: absolute;
-	left: -1.5em;
+	margin-left: -2em;
+	margin-right: 0.5em;
+	display: inline-block;
 }
 
 /* Task Lists */
