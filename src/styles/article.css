@@ -85,10 +85,20 @@
 	list-style-type: square;
 }
 .prose ol {
-	list-style-type: lower-roman;
+	list-style-type: none;
+	counter-reset: roman-counter;
 }
 .prose li {
 	margin: 0.35em 0;
+}
+.prose ol > li {
+	counter-increment: roman-counter;
+	position: relative;
+}
+.prose ol > li::before {
+	content: counter(roman-counter, lower-roman) ". ";
+	position: absolute;
+	left: -1.5em;
 }
 
 /* Task Lists */
