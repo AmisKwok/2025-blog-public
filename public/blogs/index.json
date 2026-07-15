@@ -1,5 +1,18 @@
 [
   {
+    "slug": "07-16",
+    "title": "Zero Inspector Kit - 一款强大的 Flutter 应用内开发者控制台插件",
+    "tags": [
+      "Flutter",
+      "插件"
+    ],
+    "date": "2026-07-16T07:15",
+    "summary": "一款强大的 Flutter 应用内开发者控制台插件",
+    "cover": "/blogs/07-16/37888e410480dd38.png",
+    "hidden": false,
+    "category": "开源"
+  },
+  {
     "slug": "2025-05-07",
     "title": "博客、个人主页及开源项目更新说明",
     "tags": [
