@@ -17,6 +17,8 @@
   },
   "dependencies": {
     "@opennextjs/cloudflare": "^1.14.4",
+    "@shikijs/langs": "3.15.0",
+    "@shikijs/themes": "3.15.0",
     "@types/jsrsasign": "^10.5.15",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",

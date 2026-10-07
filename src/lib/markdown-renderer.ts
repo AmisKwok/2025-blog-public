@@ -32,46 +32,53 @@ export function slugify(text: string): string {
 }
 
 /**
- * 只注册站点实际会用到的语言。
- * shiki 全量语言包体积极大，按需注册能显著缩短首次高亮耗时。
+ * 按需加载的语法：只包含站点实际会用到的语言。
+ *
+ * 直接 `import('shiki')` 会解析到 `dist/bundle-full.mjs`，它把 @shikijs/langs 里
+ * 全部 343 种语法（约 7.6MB）和所有主题都静态引入，即使只注册几种也要整体编译/打包。
+ * 这里改用 `shiki/core` + 逐语言动态引入，编译量和产物体积都大幅下降。
  */
-const SUPPORTED_LANGS = [
-	'text',
-	'bash',
-	'json',
-	'html',
-	'css',
-	'javascript',
-	'typescript',
-	'tsx',
-	'jsx',
-	'markdown',
-	'yaml',
-	'python',
-	'java',
-	'go',
-	'rust',
-	'sql',
-	'c',
-	'cpp',
-	'csharp',
-	'php',
-	'xml',
-	'diff'
-]
+const LANG_LOADERS: Record<string, () => Promise<{ default: any }>> = {
+	bash: () => import('@shikijs/langs/bash'),
+	c: () => import('@shikijs/langs/c'),
+	cpp: () => import('@shikijs/langs/cpp'),
+	css: () => import('@shikijs/langs/css'),
+	dart: () => import('@shikijs/langs/dart'),
+	diff: () => import('@shikijs/langs/diff'),
+	go: () => import('@shikijs/langs/go'),
+	html: () => import('@shikijs/langs/html'),
+	ini: () => import('@shikijs/langs/ini'),
+	java: () => import('@shikijs/langs/java'),
+	javascript: () => import('@shikijs/langs/javascript'),
+	json: () => import('@shikijs/langs/json'),
+	jsx: () => import('@shikijs/langs/jsx'),
+	markdown: () => import('@shikijs/langs/markdown'),
+	nginx: () => import('@shikijs/langs/nginx'),
+	properties: () => import('@shikijs/langs/properties'),
+	python: () => import('@shikijs/langs/python'),
+	shell: () => import('@shikijs/langs/shell'),
+	sql: () => import('@shikijs/langs/sql'),
+	toml: () => import('@shikijs/langs/toml'),
+	tsx: () => import('@shikijs/langs/tsx'),
+	typescript: () => import('@shikijs/langs/typescript'),
+	xml: () => import('@shikijs/langs/xml'),
+	yaml: () => import('@shikijs/langs/yaml')
+}
+
+const SUPPORTED_LANGS = Object.keys(LANG_LOADERS)
 
 /** 常见别名映射到受支持的语言 */
 const LANG_ALIASES: Record<string, string> = {
 	sh: 'bash',
-	shell: 'bash',
 	zsh: 'bash',
+	console: 'bash',
 	js: 'javascript',
 	ts: 'typescript',
 	yml: 'yaml',
 	md: 'markdown',
 	py: 'python',
-	'c++': 'cpp',
-	'c#': 'csharp'
+	golang: 'go',
+	'c++': 'cpp'
 }
 
 type HighlighterLike = { codeToHtml: (code: string, options: { lang: string; theme: string }) => string }
@@ -85,11 +92,18 @@ async function loadHighlighter() {
 	if (!highlighterPromise) {
 		highlighterPromise = (async () => {
 			try {
-				const shiki = await import('shiki')
-				return (await shiki.createHighlighter({
-					themes: ['one-light'],
-					langs: SUPPORTED_LANGS
-				})) as unknown as HighlighterLike
+				const core = await import('shiki/core')
+				const engineModule = await import('shiki/engine/oniguruma')
+				const themeModule = await import('@shikijs/themes/one-light')
+				const langModules = await Promise.all(SUPPORTED_LANGS.map(name => LANG_LOADERS[name]()))
+
+				const highlighter = await core.createHighlighterCore({
+					themes: [themeModule.default],
+					langs: langModules.map(m => m.default),
+					engine: engineModule.createOnigurumaEngine(import('shiki/wasm'))
+				})
+
+				return highlighter as unknown as HighlighterLike
 			} catch (error) {
 				console.warn('Failed to load shiki module:', error)
 				return null
@@ -107,8 +121,9 @@ const highlightCache = new Map<string, string>()
  */
 function normalizeLang(lang?: string) {
 	const l = (lang || '').trim().toLowerCase()
-	if (SUPPORTED_LANGS.includes(l)) return l
-	return LANG_ALIASES[l] ?? 'text'
+	if (LANG_LOADERS[l]) return l
+	const aliased = LANG_ALIASES[l]
+	return aliased && LANG_LOADERS[aliased] ? aliased : 'text'
 }
 
 // 延迟加载 katex 以处理不可用的环境（如 Cloudflare Workers）

@@ -27,6 +27,8 @@ import { useEffect, useState } from 'react'
 import SnowfallBackground from '@/layout/backgrounds/snowfall'
 import FirefliesBackground from '@/layout/backgrounds/fireflies'
 import CherryBlossomBackground from '@/layout/backgrounds/cherry-blossom'
+import MapleLeafBackground from '@/layout/backgrounds/maple-leaf'
+import { getSeason, getSeasonEffect, resolveHemisphere, type BackgroundEffectName } from '@/lib/season'
 import { useLanguage } from '@/i18n/context'
 import { LoginModal } from '@/components/login-modal'
 import { useLocalAuthStore } from '@/hooks/use-local-auth'
@@ -104,20 +106,41 @@ export default function Home() {
 	}, [setConfigDialogOpen, isLoggedIn, logout, setLoginModalOpen, checkExpiration])
 
 	// 渲染背景效果（注意：只能渲染一次，重复渲染会让粒子数量翻倍）
+	// 想调密度直接改这里的数量即可
 	const renderBackgroundEffect = (zIndex: number) => {
-		const count = !maxSM ? 90 : 20
-		const firefliesCount = !maxSM ? 24 : 12
-		const cherryBlossomCount = !maxSM ? 28 : 14
+		const snowCount = !maxSM ? 110 : 24 // 雪
+		const firefliesCount = !maxSM ? 30 : 12 // 萤火虫（带光晕，成本最高，数量保守）
+		const cherryBlossomCount = !maxSM ? 60 : 20 // 樱花
+		const mapleLeafCount = !maxSM ? 40 : 16 // 枫叶
 
-		if (siteContent.enableSnow) {
-			return <SnowfallBackground zIndex={zIndex} count={count} />
+		/**
+		 * 按效果名称渲染
+		 */
+		const renderByName = (name: BackgroundEffectName) => {
+			switch (name) {
+				case 'snow':
+					return <SnowfallBackground zIndex={zIndex} count={snowCount} />
+				case 'fireflies':
+					return <FirefliesBackground zIndex={zIndex} count={firefliesCount} />
+				case 'cherry-blossom':
+					return <CherryBlossomBackground zIndex={zIndex} count={cherryBlossomCount} />
+				case 'maple-leaf':
+					return <MapleLeafBackground zIndex={zIndex} count={mapleLeafCount} />
+				default:
+					return null
+			}
 		}
-		if (siteContent.enableFireflies) {
-			return <FirefliesBackground zIndex={zIndex} count={firefliesCount} />
+
+		// 季节自动切换优先级最高（半球默认自动识别，可在配置里强制指定）
+		if (siteContent.enableSeasonalEffect) {
+			const season = getSeason(new Date(), resolveHemisphere(siteContent.hemisphere))
+			return renderByName(getSeasonEffect(siteContent.seasonEffects, season))
 		}
-		if (siteContent.enableCherryBlossom) {
-			return <CherryBlossomBackground zIndex={zIndex} count={cherryBlossomCount} />
-		}
+
+		if (siteContent.enableSnow) return renderByName('snow')
+		if (siteContent.enableFireflies) return renderByName('fireflies')
+		if (siteContent.enableCherryBlossom) return renderByName('cherry-blossom')
+		if (siteContent.enableMapleLeaf) return renderByName('maple-leaf')
 		return null
 	}
 

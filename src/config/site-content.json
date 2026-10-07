@@ -103,7 +103,16 @@
 	"enableChristmas": false,
 	"enableSnow": false,
 	"enableFireflies": false,
-	"enableCherryBlossom": true,
+	"enableCherryBlossom": false,
+	"enableMapleLeaf": false,
+	"enableSeasonalEffect": true,
+	"hemisphere": "auto",
+	"seasonEffects": {
+		"spring": "cherry-blossom",
+		"summer": "fireflies",
+		"autumn": "maple-leaf",
+		"winter": "snow"
+	},
 	"enableBackgroundBlur": false,
 	"beian": {
 		"text": "",

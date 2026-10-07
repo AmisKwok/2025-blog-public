@@ -79,7 +79,8 @@ const CherryBlossomBackground = memo(function CherryBlossomBackground({
 			for (let i = 0; i < count; i++) {
 				const size = Math.random() * 15 + 15
 				const duration = Math.random() * 15 + 15
-				const delay = Math.random() * 30
+				// 入场延迟收窄到 15s：原先 30s 会让前几十秒屏幕明显偏空
+				const delay = Math.random() * 15
 				const left = Math.random() * 110 - 5
 				const rotate = Math.random() * 360
 				const swayAmount = Math.random() * 2 + 1

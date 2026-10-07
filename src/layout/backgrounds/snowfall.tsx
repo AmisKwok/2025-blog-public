@@ -1,7 +1,6 @@
 'use client'
 import { useEffect, useState, memo } from 'react'
 import { motion } from 'motion/react'
-import Image from 'next/image'
 
 interface Snowflake {
 	id: number
@@ -12,6 +11,7 @@ interface Snowflake {
 	delay: number
 	left: number
 	rotate: number
+	drift: number
 }
 
 const SNOWFLAKE_IMAGES = ['/images/christmas/snowflake/1.webp', '/images/christmas/snowflake/2.webp', '/images/christmas/snowflake/3.webp']
@@ -20,7 +20,7 @@ const DOT_RATIO = 0.8
 const SnowflakeItem = memo(function SnowflakeItem({ snowflake }: { snowflake: Snowflake }) {
 	return (
 		<motion.div
-			className='absolute will-change-transform'
+			className='absolute'
 			style={{
 				top: -200,
 				left: `${snowflake.left}%`,
@@ -30,7 +30,8 @@ const SnowflakeItem = memo(function SnowflakeItem({ snowflake }: { snowflake: Sn
 			initial={{ y: 0, x: 0 }}
 			animate={{
 				y: typeof window !== 'undefined' ? window.innerHeight + 200 : 1000,
-				x: `-${(Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000)) / 5}px`,
+				// drift 预先算好：原来在 animate 里调 Math.random()，每次重渲染都会换一个目标值
+				x: `${snowflake.drift}px`,
 				rotate: snowflake.type === 'image' ? snowflake.rotate : 0
 			}}
 			transition={{
@@ -42,7 +43,8 @@ const SnowflakeItem = memo(function SnowflakeItem({ snowflake }: { snowflake: Sn
 			{snowflake.type === 'dot' ? (
 				<div className='h-full w-full rounded-full bg-white' />
 			) : (
-				<Image
+				// 原生 img：只有 3 个 URL 且会被浏览器缓存，避免 N 个 next/image 实例各自挂懒加载观察器
+				<img
 					src={SNOWFLAKE_IMAGES[snowflake.imageIndex!]}
 					alt=''
 					width={snowflake.size}
@@ -65,7 +67,8 @@ const SnowfallBackground = memo(function SnowfallBackground({ zIndex, count = 12
 				const isDot = Math.random() < DOT_RATIO
 				const size = isDot ? Math.random() * 10 + 5 : Math.random() * 40 + 20
 				const duration = Math.random() * 20 + 20
-				const delay = Math.random() * 40
+				// 入场延迟收窄到 20s：原先 40s 会让前几十秒屏幕明显偏空
+				const delay = Math.random() * 20
 				const left = Math.random() * 120
 				const imageIndex = isDot ? undefined : Math.floor(Math.random() * SNOWFLAKE_IMAGES.length)
 				const rotate = Math.random() * 360 + 180
@@ -78,7 +81,8 @@ const SnowfallBackground = memo(function SnowfallBackground({ zIndex, count = 12
 					duration,
 					delay,
 					left,
-					rotate
+					rotate,
+					drift: -(Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000)) / 5
 				})
 			}
 			setSnowflakes(newSnowflakes)
