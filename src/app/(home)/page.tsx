@@ -103,11 +103,11 @@ export default function Home() {
 		}
 	}, [setConfigDialogOpen, isLoggedIn, logout, setLoginModalOpen, checkExpiration])
 
-	// 渲染背景效果
+	// 渲染背景效果（注意：只能渲染一次，重复渲染会让粒子数量翻倍）
 	const renderBackgroundEffect = (zIndex: number) => {
-		const count = !maxSM ? 125 : 20
-		const firefliesCount = !maxSM ? 40 : 15
-		const cherryBlossomCount = !maxSM ? 50 : 20
+		const count = !maxSM ? 90 : 20
+		const firefliesCount = !maxSM ? 24 : 12
+		const cherryBlossomCount = !maxSM ? 28 : 14
 
 		if (siteContent.enableSnow) {
 			return <SnowfallBackground zIndex={zIndex} count={count} />
@@ -175,8 +175,7 @@ export default function Home() {
 			
 			</div>
 
-			{renderBackgroundEffect(2)}
-			<ConfigDialog open={configDialogOpen} onClose={() => setConfigDialogOpen(false)} />
+				<ConfigDialog open={configDialogOpen} onClose={() => setConfigDialogOpen(false)} />
 			<LoginModal
 				open={loginModalOpen}
 				onClose={() => setLoginModalOpen(false)}

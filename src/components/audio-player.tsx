@@ -21,22 +21,19 @@ interface AudioPlayerProps {
 
 export default function AudioPlayer({ className, onDisableCardTapChange }: AudioPlayerProps) {
   const { t } = useLanguage()
-  const {
-    musicFiles,
-    isPlaying,
-    loopMode,
-    currentIndex,
-    progress,
-    showPlaylist,
-    fetchMusicFiles,
-    togglePlayPause,
-    toggleLoopMode,
-    togglePlaylist,
-    playPrevious,
-    playNext,
-    playSong,
-    setProgress
-  } = useAudioStore()
+  // 逐字段订阅，避免播放进度（每秒约 4 次）触发整组件重渲染
+  const musicFiles = useAudioStore(s => s.musicFiles)
+  const isPlaying = useAudioStore(s => s.isPlaying)
+  const loopMode = useAudioStore(s => s.loopMode)
+  const currentIndex = useAudioStore(s => s.currentIndex)
+  const showPlaylist = useAudioStore(s => s.showPlaylist)
+  const fetchMusicFiles = useAudioStore(s => s.fetchMusicFiles)
+  const togglePlayPause = useAudioStore(s => s.togglePlayPause)
+  const toggleLoopMode = useAudioStore(s => s.toggleLoopMode)
+  const togglePlaylist = useAudioStore(s => s.togglePlaylist)
+  const playPrevious = useAudioStore(s => s.playPrevious)
+  const playNext = useAudioStore(s => s.playNext)
+  const playSong = useAudioStore(s => s.playSong)
   
   const setDisableCardTap = (disable: boolean) => {
     if (onDisableCardTapChange) {

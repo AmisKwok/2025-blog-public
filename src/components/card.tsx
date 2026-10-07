@@ -41,7 +41,9 @@ interface Props {
  * @returns 动画卡片组件
  */
 export default function Card({ children, order, width, height, x, y, className, onClick, disableHover, disableTap }: Props) {
-	const { maxSM, init } = useSize()
+	// 只订阅需要的字段，避免任意尺寸字段变化都触发重渲染
+	const maxSM = useSize(s => s.maxSM)
+	const init = useSize(s => s.init)
 	let [show, setShow] = useState(false)
 	// 在小屏幕上重置动画顺序
 	if (maxSM && init) order = 0
@@ -62,8 +64,10 @@ export default function Card({ children, order, width, height, x, y, className, 
 		return (
 			<motion.div
 			className={cn('card squircle', className)}
-			initial={{ opacity: 0, scale: 0.6, left: x, top: y, width, height }} // 初始状态
-			animate={{ opacity: 1, scale: 1, left: x, top: y, width, height }} // 动画状态
+			// 位置与尺寸是静态值，直接写在 style 里；交给动画的只有 opacity/transform
+			style={{ left: x, top: y, width, height }}
+			initial={{ opacity: 0, scale: 0.6 }} // 初始状态
+			animate={{ opacity: 1, scale: 1 }} // 动画状态
 			whileHover={disableHover ? {} : { scale: 1.05 }} // 悬停效果
 			whileTap={disableTap ? {} : { scale: 0.95 }} // 点击效果
 			onClick={onClick}>

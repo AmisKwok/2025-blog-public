@@ -25,8 +25,22 @@ export default function Layout({ children }: PropsWithChildren) {
 	// 过场动画状态控制
 	const [isLoading, setIsLoading] = useState(true)
 
-	// 初始化过场动画逻辑 - 每次打开博客都显示
+	// 过场动画逻辑 - 同一会话内只展示一次，避免每次刷新都被全屏遮罩挡 3 秒
 	useEffect(() => {
+		const INTRO_KEY = 'introShown'
+		let alreadyShown = false
+		try {
+			alreadyShown = sessionStorage.getItem(INTRO_KEY) === '1'
+			if (!alreadyShown) sessionStorage.setItem(INTRO_KEY, '1')
+		} catch {
+			// 隐私模式下 sessionStorage 不可用，按首次访问处理
+		}
+
+		if (alreadyShown) {
+			setIsLoading(false)
+			return
+		}
+
 		const timer = setTimeout(() => {
 			setIsLoading(false)
 		}, 3000) // 显示3秒

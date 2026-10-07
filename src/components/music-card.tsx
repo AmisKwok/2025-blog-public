@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { memo, useMemo, useState } from 'react'
 import Card from '@/components/card'
 import { useCenterStore } from '@/hooks/use-center'
 import { useConfigStore } from '../app/(home)/stores/config-store'
@@ -14,11 +14,29 @@ import { useAudioStore } from '../app/(home)/stores/audio-store'
 import { ChevronDown, ChevronUp } from 'lucide-react'
 import { List as VirtualList } from 'react-window'
 
+/**
+ * 播放进度条
+ * 单独抽成叶子组件：进度每秒更新约 4 次，只让它自己重渲染
+ */
+const MusicProgressBar = memo(function MusicProgressBar() {
+	const progress = useAudioStore(s => s.progress)
+	return (
+		<div className='mt-1 h-2 rounded-full bg-white/60'>
+			<div className='bg-linear h-full rounded-full transition-all duration-300' style={{ width: `${progress}%` }} />
+		</div>
+	)
+})
+
 export default function MusicCard() {
 	const pathname = usePathname()
 	const center = useCenterStore()
 	const { cardStyles, siteContent } = useConfigStore()
-	const { musicFiles, currentIndex, progress, showPlaylist, togglePlaylist, playSong } = useAudioStore()
+	// 逐字段订阅，进度更新不再牵连整个音乐卡片
+	const musicFiles = useAudioStore(s => s.musicFiles)
+	const currentIndex = useAudioStore(s => s.currentIndex)
+	const showPlaylist = useAudioStore(s => s.showPlaylist)
+	const togglePlaylist = useAudioStore(s => s.togglePlaylist)
+	const playSong = useAudioStore(s => s.playSong)
 	const [disableCardTap, setDisableCardTap] = useState(false)
 	const styles = cardStyles.musicCard
 	const hiCardStyles = cardStyles.hiCard
@@ -79,9 +97,7 @@ export default function MusicCard() {
 					<div className='flex-1'>
 					<div className='text-secondary text-sm'>{musicFiles.length > 0 && currentIndex >= 0 && currentIndex < musicFiles.length ? musicFiles[currentIndex].title : 'Loading...'}</div>
 
-					<div className='mt-1 h-2 rounded-full bg-white/60'>
-						<div className='bg-linear h-full rounded-full transition-all duration-300' style={{ width: `${progress}%` }} />
-					</div>
+					<MusicProgressBar />
 				</div>
 
 					<AudioPlayer onDisableCardTapChange={setDisableCardTap} />

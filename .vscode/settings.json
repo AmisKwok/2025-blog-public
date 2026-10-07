@@ -1,3 +1,7 @@
 {
-  "svg.preview.background": "transparent"
+  "svg.preview.background": "transparent",
+  // Tailwind v4 使用 @plugin / @utility / @apply，VS Code 内置 CSS 校验器不认识，会刷一堆误报
+  "css.lint.unknownAtRules": "ignore",
+  "scss.lint.unknownAtRules": "ignore",
+  "less.lint.unknownAtRules": "ignore"
 }

@@ -59,10 +59,24 @@ const computeSize = (): Omit<SizeState, 'recalc'> => {
 /**
  * 尺寸状态存储
  */
-export const useSizeStore = create<SizeState>(set => ({
+export const useSizeStore = create<SizeState>((set, get) => ({
 	...initState,
 	recalc: () => {
-		set(computeSize())
+		const next = computeSize()
+		const cur = get()
+		// 断点没有真正跨越时不要 set：否则每次 resize 都会让所有订阅者重渲染
+		if (
+			cur.init === next.init &&
+			cur.maxXL === next.maxXL &&
+			cur.maxLG === next.maxLG &&
+			cur.maxMD === next.maxMD &&
+			cur.maxSM === next.maxSM &&
+			cur.maxXS === next.maxXS &&
+			cur.isTablet === next.isTablet
+		) {
+			return
+		}
+		set(next)
 	}
 }))
 
@@ -72,10 +86,24 @@ export const useSizeStore = create<SizeState>(set => ({
  */
 export function useSizeInit() {
 	useEffect(() => {
-		const update = () => useSizeStore.getState().recalc()
-		update()
-		window.addEventListener('resize', update)
-		return () => window.removeEventListener('resize', update)
+		// 首帧同步计算一次，保证布局立刻拿到正确断点
+		useSizeStore.getState().recalc()
+
+		// resize 用 rAF 合并，拖动窗口时每帧最多计算一次
+		let rafId = 0
+		const onResize = () => {
+			if (rafId) return
+			rafId = requestAnimationFrame(() => {
+				rafId = 0
+				useSizeStore.getState().recalc()
+			})
+		}
+
+		window.addEventListener('resize', onResize)
+		return () => {
+			window.removeEventListener('resize', onResize)
+			if (rafId) cancelAnimationFrame(rafId)
+		}
 	}, [])
 }
 

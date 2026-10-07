@@ -31,27 +31,84 @@ export function slugify(text: string): string {
 		.replace(/\s+/g, '-')
 }
 
-// 延迟加载 shiki 以处理不可用的环境（如 Cloudflare Workers）
-let shikiModule: typeof import('shiki') | null = null
-let shikiLoadAttempted = false
+/**
+ * 只注册站点实际会用到的语言。
+ * shiki 全量语言包体积极大，按需注册能显著缩短首次高亮耗时。
+ */
+const SUPPORTED_LANGS = [
+	'text',
+	'bash',
+	'json',
+	'html',
+	'css',
+	'javascript',
+	'typescript',
+	'tsx',
+	'jsx',
+	'markdown',
+	'yaml',
+	'python',
+	'java',
+	'go',
+	'rust',
+	'sql',
+	'c',
+	'cpp',
+	'csharp',
+	'php',
+	'xml',
+	'diff'
+]
+
+/** 常见别名映射到受支持的语言 */
+const LANG_ALIASES: Record<string, string> = {
+	sh: 'bash',
+	shell: 'bash',
+	zsh: 'bash',
+	js: 'javascript',
+	ts: 'typescript',
+	yml: 'yaml',
+	md: 'markdown',
+	py: 'python',
+	'c++': 'cpp',
+	'c#': 'csharp'
+}
+
+type HighlighterLike = { codeToHtml: (code: string, options: { lang: string; theme: string }) => string }
+
+let highlighterPromise: Promise<HighlighterLike | null> | null = null
 
 /**
- * 加载 shiki 模块
- * @returns shiki 模块或 null
+ * 加载并复用 shiki 高亮器（单例，避免每篇文章重新初始化）
  */
-async function loadShiki() {
-	if (shikiLoadAttempted) {
-		return shikiModule
+async function loadHighlighter() {
+	if (!highlighterPromise) {
+		highlighterPromise = (async () => {
+			try {
+				const shiki = await import('shiki')
+				return (await shiki.createHighlighter({
+					themes: ['one-light'],
+					langs: SUPPORTED_LANGS
+				})) as unknown as HighlighterLike
+			} catch (error) {
+				console.warn('Failed to load shiki module:', error)
+				return null
+			}
+		})()
 	}
-	shikiLoadAttempted = true
+	return highlighterPromise
+}
 
-	try {
-		shikiModule = await import('shiki')
-		return shikiModule
-	} catch (error) {
-		console.warn('Failed to load shiki module:', error)
-		return null
-	}
+/** 相同「语言 + 代码」的高亮结果缓存，避免重复高亮 */
+const highlightCache = new Map<string, string>()
+
+/**
+ * 归一化语言标识，未知语言回退到 text
+ */
+function normalizeLang(lang?: string) {
+	const l = (lang || '').trim().toLowerCase()
+	if (SUPPORTED_LANGS.includes(l)) return l
+	return LANG_ALIASES[l] ?? 'text'
 }
 
 // 延迟加载 katex 以处理不可用的环境（如 Cloudflare Workers）
@@ -80,6 +137,92 @@ async function loadKatex() {
 }
 
 /**
+ * 渲染数学公式
+ */
+const renderMath = (content: string, displayMode: boolean) => {
+	if (!katexModule) {
+		// 如果 katex 不可用，保留原始分隔符
+		return displayMode ? `$$${content}$$` : `$${content}$`
+	}
+
+	try {
+		return katexModule.renderToString(content, {
+			displayMode,
+			throwOnError: false,
+			output: 'html',
+			strict: 'ignore'
+		})
+	} catch {
+		return displayMode ? `$$${content}$$` : `$${content}$`
+	}
+}
+
+let mathExtensionsRegistered = false
+
+/**
+ * 注册数学公式扩展（只需注册一次，重复注册会让 marked 的扩展列表不断膨胀）
+ */
+function ensureMathExtensions() {
+	if (mathExtensionsRegistered) return
+	mathExtensionsRegistered = true
+
+	marked.use({
+		extensions: [
+			// 块级数学公式：$$ ... $$
+			{
+				name: 'mathBlock',
+				level: 'block',
+				start(src: string) {
+					return src.indexOf('$$')
+				},
+				tokenizer(src: string) {
+					const match = src.match(/^\$\$([\s\S]+?)\$\$(?:\n+|$)/)
+					if (!match) return
+					return {
+						type: 'mathBlock',
+						raw: match[0],
+						text: match[1].trim()
+					} as any
+				},
+				renderer(token: any) {
+					return `${renderMath(token.text || '', true)}\n`
+				}
+			},
+			// 内联数学公式：$ ... $
+			{
+				name: 'mathInline',
+				level: 'inline',
+				start(src: string) {
+					const idx = src.indexOf('$')
+					return idx === -1 ? undefined : idx
+				},
+				tokenizer(src: string) {
+					// 避免 $$(块级) 和转义的美元符号
+					if (src.startsWith('$$')) return
+					if (src.startsWith('\\$')) return
+
+					const match = src.match(/^\$([^\n$]+?)\$/)
+					if (!match) return
+
+					const inner = match[1]
+					// 启发式：要求一些非空格内容
+					if (!inner || !inner.trim()) return
+
+					return {
+						type: 'mathInline',
+						raw: match[0],
+						text: inner.trim()
+					} as any
+				},
+				renderer(token: any) {
+					return renderMath(token.text || '', false)
+				}
+			}
+		]
+	})
+}
+
+/**
  * 渲染 Markdown 文本
  * @param markdown Markdown 文本
  * @returns 渲染结果，包含 HTML 和目录
@@ -88,7 +231,7 @@ export async function renderMarkdown(markdown: string): Promise<MarkdownRenderRe
 	// 先加载可选的渲染器，以便它们在第一次词法分析/解析时应用
 	// （如果我们在注册扩展之前进行词法分析，在冷刷新时数学标记将永远不会生成）
 	const codeBlockMap = new Map<string, { html: string; original: string }>()
-	const [shiki, katex] = await Promise.all([loadShiki(), loadKatex()])
+	const [highlighter] = await Promise.all([loadHighlighter(), loadKatex()])
 
 	// 渲染带有标题 ID 的 HTML
 	const renderer = new marked.Renderer()
@@ -141,83 +284,11 @@ export async function renderMarkdown(markdown: string): Promise<MarkdownRenderRe
 		return `<li>${inner}</li>\n`
 	}
 
-	/**
-	 * 渲染数学公式
-	 */
-	const renderMath = (content: string, displayMode: boolean) => {
-		if (!katex) {
-			// 如果 katex 不可用，保留原始分隔符
-			return displayMode ? `$$${content}$$` : `$${content}$`
-		}
-
-		try {
-			return katex.renderToString(content, {
-				displayMode,
-				throwOnError: false,
-				output: 'html',
-				strict: 'ignore'
-			})
-		} catch {
-			return displayMode ? `$$${content}$$` : `$${content}$`
-		}
-	}
-
-	// 在词法分析之前注册扩展，以便数学在冷刷新时被标记化
-	marked.use({
-		renderer,
-		extensions: [
-			// 块级数学公式：$$ ... $$
-			{
-				name: 'mathBlock',
-				level: 'block',
-				start(src: string) {
-					return src.indexOf('$$')
-				},
-				tokenizer(src: string) {
-					const match = src.match(/^\$\$([\s\S]+?)\$\$(?:\n+|$)/)
-					if (!match) return
-					return {
-						type: 'mathBlock',
-						raw: match[0],
-						text: match[1].trim()
-					} as any
-				},
-				renderer(token: any) {
-					return `${renderMath(token.text || '', true)}\n`
-				}
-			},
-			// 内联数学公式：$ ... $
-			{
-				name: 'mathInline',
-				level: 'inline',
-				start(src: string) {
-					const idx = src.indexOf('$')
-					return idx === -1 ? undefined : idx
-				},
-				tokenizer(src: string) {
-					// 避免 $$（块级）和转义的美元符号
-					if (src.startsWith('$$')) return
-					if (src.startsWith('\\$')) return
-
-					const match = src.match(/^\$([^\n$]+?)\$/)
-					if (!match) return
-
-					const inner = match[1]
-					// 启发式：要求一些非空格内容
-					if (!inner || !inner.trim()) return
-
-					return {
-						type: 'mathInline',
-						raw: match[0],
-						text: inner.trim()
-					} as any
-				},
-				renderer(token: any) {
-					return renderMath(token.text || '', false)
-				}
-			}
-		]
-	})
+	// 在词法分析之前注册扩展，以便数学在冷刷新时被标记化。
+	// 数学扩展全局只注册一次（ensureMathExtensions），这里每次只替换 renderer，
+	// 让 renderer 闭包能拿到本次调用的代码块映射。
+	ensureMathExtensions()
+	marked.use({ renderer })
 
 	// 使用 marked 词法分析器进行预处理（在注册扩展后）
 	const tokens = marked.lexer(markdown)
@@ -240,33 +311,42 @@ export async function renderMarkdown(markdown: string): Promise<MarkdownRenderRe
 	}
 	extractHeadings(tokens)
 
-	// 使用 Shiki 预处理代码块
+	// 使用 Shiki 预处理代码块（并行处理，原先的串行 await 会让长文渲染阻塞主线程）
+	const codeTokens: Array<{ lang?: string; original: string; key: string }> = []
 	for (const token of tokens) {
 		if (token.type === 'code') {
 			const codeToken = token as Tokens.Code
-			const originalCode = codeToken.text
-			const key = `__SHIKI_CODE_${codeBlockMap.size}__`
-
-			if (shiki) {
-				try {
-					const html = await shiki.codeToHtml(originalCode, {
-						lang: codeToken.lang || 'text',
-						theme: 'one-light'
-					})
-					codeBlockMap.set(key, { html, original: originalCode })
-					codeToken.text = key
-				} catch {
-					// 高亮失败时保留原始代码
-					codeBlockMap.set(key, { html: '', original: originalCode })
-					codeToken.text = key
-				}
-			} else {
-				// shiki 不可用时的回退
-				codeBlockMap.set(key, { html: '', original: originalCode })
-				codeToken.text = key
-			}
+			const key = `__SHIKI_CODE_${codeTokens.length}__`
+			codeTokens.push({ lang: codeToken.lang, original: codeToken.text, key })
+			// 先占位，稍后统一回填高亮结果
+			codeBlockMap.set(key, { html: '', original: codeToken.text })
+			codeToken.text = key
 		}
 	}
+
+	await Promise.all(
+		codeTokens.map(async ({ lang: rawLang, original: originalCode, key }) => {
+			const record = codeBlockMap.get(key)!
+			if (!highlighter) return
+
+			const lang = normalizeLang(rawLang)
+			const cacheKey = `${lang}\u0000${originalCode}`
+			const cached = highlightCache.get(cacheKey)
+			if (cached !== undefined) {
+				record.html = cached
+				return
+			}
+
+			try {
+				const html = highlighter.codeToHtml(originalCode, { lang, theme: 'one-light' })
+				highlightCache.set(cacheKey, html)
+				record.html = html
+			} catch {
+				// 高亮失败时保留原始代码（record.html 保持为空）
+			}
+		})
+	)
+
 	const html = (marked.parser(tokens) as string) || ''
 
 	return { html, toc }

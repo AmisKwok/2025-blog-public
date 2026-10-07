@@ -6,7 +6,8 @@
 
 import { motion } from 'motion/react'
 import { INIT_DELAY } from '@/consts'
-import { useMarkdownRender } from '@/hooks/use-markdown-render'
+import { useMarkdownHtml, useMarkdownRender } from '@/hooks/use-markdown-render'
+import type { TocItem } from '@/lib/markdown-renderer'
 import { useSize } from '@/hooks/use-size'
 import { BlogSidebar } from '@/components/blog-sidebar'
 import { useConfigStore } from '@/app/(home)/stores/config-store'
@@ -16,7 +17,9 @@ import { fadeIn } from '@/lib/animations'
  * 博客预览属性接口
  */
 type BlogPreviewProps = {
-	markdown: string // 博客内容（Markdown格式）
+	markdown?: string // 博客内容（Markdown格式），需要在浏览器实时解析时传入
+	html?: string // 服务端已渲染好的 HTML，优先使用，可避免客户端加载 shiki/katex
+	toc?: TocItem[] // 与 html 配套的服务端目录
 	title: string // 博客标题
 	tags: string[] // 博客标签
 	date: string // 博客日期
@@ -36,11 +39,16 @@ type BlogPreviewProps = {
  * @param slug 博客slug
  * @returns 博客预览组件
  */
-export function BlogPreview({ markdown, title, tags, date, summary, cover, slug }: BlogPreviewProps) {
-	const { maxSM: isMobile } = useSize() // 是否为移动设备
-	const { content, toc, loading } = useMarkdownRender(markdown) // 渲染Markdown内容
+export function BlogPreview({ markdown, html, toc, title, tags, date, summary, cover, slug }: BlogPreviewProps) {
+	const isMobile = useSize(s => s.maxSM) // 是否为移动设备
 	const { siteContent } = useConfigStore() // 站点配置
 	const summaryInContent = siteContent.summaryInContent ?? false // 是否在内容中显示摘要
+
+	// 两个 hook 都必须调用（hooks 规则），但只有一个会产生开销：
+	// 传了服务端 HTML 时 markdown 为空，useMarkdownRender 会直接短路
+	const clientRendered = useMarkdownRender(markdown ?? '')
+	const serverRendered = useMarkdownHtml(html ?? '', toc ?? [])
+	const { content, toc: finalToc, loading } = html ? serverRendered : clientRendered
 
 	if (loading) {
 		return <div className='text-secondary flex h-full items-center justify-center text-sm'>渲染中...</div>
@@ -77,7 +85,7 @@ export function BlogPreview({ markdown, title, tags, date, summary, cover, slug 
 			</motion.article>
 
 			{/* 博客侧边栏（仅在非移动设备显示） */}
-			{!isMobile && <BlogSidebar cover={cover} summary={summary} toc={toc} slug={slug} />}
+			{!isMobile && <BlogSidebar cover={cover} summary={summary} toc={finalToc} slug={slug} />}
 		</div>
 	)
 }

@@ -44,7 +44,7 @@ const computeCenter = () => {
 /**
  * 中心点状态存储
  */
-export const useCenterStore = create<CenterState>(set => ({
+export const useCenterStore = create<CenterState>((set, get) => ({
 	x: 0,
 	y: 0,
 	centerX: 0,
@@ -64,6 +64,11 @@ export const useCenterStore = create<CenterState>(set => ({
 	 */
 	recalc: () => {
 		const c = computeCenter()
+		const cur = get()
+		// 尺寸没有真正变化时跳过 set，避免无意义的整树重渲染
+		if (cur.x === c.x && cur.y === c.y && cur.width === c.width && cur.height === c.height && cur.centerX === c.centerX && cur.centerY === c.centerY) {
+			return
+		}
 		set({ x: c.x, y: c.y, width: c.width, height: c.height, centerX: c.centerX, centerY: c.centerY })
 	}
 }))
@@ -74,11 +79,23 @@ export const useCenterStore = create<CenterState>(set => ({
  */
 export function useCenterInit() {
 	useEffect(() => {
-		const update = () => useCenterStore.getState().recalc()
-		// 初始化时计算一次
-		update()
-		// 监听窗口大小变化
-		window.addEventListener('resize', update)
-		return () => window.removeEventListener('resize', update)
+		// 初始化时同步计算一次
+		useCenterStore.getState().recalc()
+
+		// resize 用 rAF 合并，拖动窗口时每帧最多计算一次
+		let rafId = 0
+		const onResize = () => {
+			if (rafId) return
+			rafId = requestAnimationFrame(() => {
+				rafId = 0
+				useCenterStore.getState().recalc()
+			})
+		}
+
+		window.addEventListener('resize', onResize)
+		return () => {
+			window.removeEventListener('resize', onResize)
+			if (rafId) cancelAnimationFrame(rafId)
+		}
 	}, [])
 }

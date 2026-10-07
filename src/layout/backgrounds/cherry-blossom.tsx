@@ -1,7 +1,6 @@
 'use client'
 import { useEffect, useState, memo } from 'react'
 import { motion } from 'motion/react'
-import Image from 'next/image'
 
 interface Petal {
 	id: number
@@ -16,7 +15,7 @@ interface Petal {
 const PetalItem = memo(function PetalItem({ petal }: { petal: Petal }) {
 	return (
 		<motion.div
-			className='absolute will-change-transform'
+			className='absolute'
 			style={{
 				top: -50,
 				left: `${petal.left}%`,
@@ -52,16 +51,14 @@ const PetalItem = memo(function PetalItem({ petal }: { petal: Petal }) {
 				}
 			}}
 		>
-			<Image
+			{/* 使用原生 img：所有花瓣共用同一个已缓存的 URL，避免 N 个 next/image 实例各自 attach 懒加载观察器 */}
+			<img
 				src='/images/cherryblossom/CherryBlossom.png'
 				alt=''
 				width={petal.size}
 				height={petal.size}
 				className='h-full w-full object-contain'
 				draggable={false}
-				style={{
-					filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))'
-				}}
 			/>
 		</motion.div>
 	)

@@ -12,19 +12,18 @@ import { scaleIn, fadeIn } from '@/lib/animations'
 export default function GlobalAudioPlayer() {
   const pathname = usePathname()
   const { t } = useLanguage()
-  const { maxSM } = useSize()
+  const maxSM = useSize(s => s.maxSM)
   const [isExpanded, setIsExpanded] = useState(true) // 初始值暂时设为 true
   const [showTooltip, setShowTooltip] = useState(false) // 初始值暂时设为 false
-  const {
-    musicFiles,
-    currentIndex,
-    isPlaying,
-    togglePlayPause,
-    playPrevious,
-    playNext,
-    progress,
-    fetchMusicFiles
-  } = useAudioStore()
+
+  // 逐个字段订阅：播放进度每秒会更新约 4 次，整店订阅会让整个播放器反复重渲染
+  const musicFiles = useAudioStore(s => s.musicFiles)
+  const currentIndex = useAudioStore(s => s.currentIndex)
+  const isPlaying = useAudioStore(s => s.isPlaying)
+  const togglePlayPause = useAudioStore(s => s.togglePlayPause)
+  const playPrevious = useAudioStore(s => s.playPrevious)
+  const playNext = useAudioStore(s => s.playNext)
+  const fetchMusicFiles = useAudioStore(s => s.fetchMusicFiles)
 
   // 从API获取音乐文件列表
   useEffect(() => {

@@ -210,3 +210,84 @@
 		animation: heartbeat-frame 0.8s ease-in-out;
 	}
 }
+
+/* 过场动画：用 CSS 动画代替 JS 逐帧驱动，交给合成器，避免占用主线程 */
+@keyframes intro-ring-cw {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes intro-ring-ccw {
+	to {
+		transform: rotate(-360deg);
+	}
+}
+
+@keyframes intro-breathe {
+	0%,
+	100% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.05);
+	}
+}
+
+@keyframes intro-glow {
+	0%,
+	100% {
+		transform: scale(1);
+		opacity: 0.3;
+	}
+	50% {
+		transform: scale(1.2);
+		opacity: 0.6;
+	}
+}
+
+@keyframes intro-title {
+	0%,
+	100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.8;
+	}
+}
+
+@keyframes intro-dot {
+	0%,
+	100% {
+		transform: scale(1);
+		opacity: 0.5;
+	}
+	50% {
+		transform: scale(1.3);
+		opacity: 1;
+	}
+}
+
+.intro-ring-cw {
+	animation: intro-ring-cw 20s linear infinite;
+}
+
+.intro-ring-ccw {
+	animation: intro-ring-ccw 30s linear infinite;
+}
+
+.intro-breathe {
+	animation: intro-breathe 2s ease-in-out infinite;
+}
+
+.intro-glow {
+	animation: intro-glow 2s ease-in-out infinite;
+}
+
+.intro-title {
+	animation: intro-title 2s ease-in-out infinite;
+}
+
+.intro-dot {
+	animation: intro-dot 0.8s ease-in-out infinite;
+}

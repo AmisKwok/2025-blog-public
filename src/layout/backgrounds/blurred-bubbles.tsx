@@ -10,6 +10,12 @@ import { makeNoise2D, rand } from './utils'
  * - Coverage control: low-occupancy attraction prevents big empty holes
  * - Constrained to bottom band (e.g. 55%–100% height)
  */
+/**
+ * 画布渲染缩放比：这些圆本身带 200~400px 的模糊，细节完全不可见，
+ * 因此用 1/8 分辨率绘制再由 CSS 拉伸放大，像素填充量降到原来的 1/64。
+ */
+const RENDER_SCALE = 0.125
+
 export default function BlurredBubblesBackground({
 	count = 6,
 	colors = siteContent.backgroundColors,
@@ -22,7 +28,9 @@ export default function BlurredBubblesBackground({
 	targetFps = 6,
 	debugFps = false,
 	startDelayMs = 1500,
-	regenerateKey = 0
+	regenerateKey = 0,
+	// 默认关闭逐帧动画：整屏重绘会让所有带 backdrop-filter 的卡片反复重算背景模糊
+	animate = false
 }) {
 	const ref = useRef<HTMLCanvasElement>(null)
 	const noise = useRef(makeNoise2D())
@@ -32,13 +40,11 @@ export default function BlurredBubblesBackground({
 		const canvas = ref.current
 		if (!canvas) return
 		const ctx = canvas.getContext('2d')!
-		let width = (canvas.width = canvas.clientWidth)
-		let height = (canvas.height = canvas.clientHeight)
-
-		const DPR = Math.min(2, window.devicePixelRatio || 1)
-		canvas.width = Math.floor(width * DPR)
-		canvas.height = Math.floor(height * DPR)
-		ctx.scale(DPR, DPR)
+		// 逻辑尺寸（CSS 像素），物理尺寸按 RENDER_SCALE 缩小
+		let width = canvas.clientWidth
+		let height = canvas.clientHeight
+		canvas.width = Math.max(1, Math.floor(width * RENDER_SCALE))
+		canvas.height = Math.max(1, Math.floor(height * RENDER_SCALE))
 
 		const effectiveFps = Math.max(1, targetFps)
 
@@ -51,10 +57,9 @@ export default function BlurredBubblesBackground({
 			if (nextWidth === width && nextHeight === height) return
 			width = nextWidth
 			height = nextHeight
-			canvas.width = Math.floor(width * DPR)
-			canvas.height = Math.floor(height * DPR)
+			canvas.width = Math.max(1, Math.floor(width * RENDER_SCALE))
+			canvas.height = Math.max(1, Math.floor(height * RENDER_SCALE))
 			ctx.setTransform(1, 0, 0, 1, 0, 0)
-			ctx.scale(DPR, DPR)
 			// Recompute occupancy grid on resize
 			allocateGrid()
 			draw()
@@ -236,16 +241,17 @@ export default function BlurredBubblesBackground({
 			}
 		}
 		function draw() {
+			// 坐标与模糊半径都换算到低分辨率画布的物理像素空间
+			ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+			ctx.globalAlpha = 0.8
 			for (const b of bubbles) {
-				ctx.save()
-				ctx.filter = `blur(${b.blur}px)`
-				ctx.globalAlpha = 0.8
+				ctx.filter = `blur(${b.blur * RENDER_SCALE}px)`
 				ctx.beginPath()
 				ctx.fillStyle = b.color
-				ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2)
+				ctx.arc(b.x * RENDER_SCALE, b.y * RENDER_SCALE, b.r * RENDER_SCALE, 0, Math.PI * 2)
 				ctx.fill()
-				ctx.restore()
 			}
+			ctx.filter = 'none'
 		}
 
 		function frame(t: number) {
@@ -271,8 +277,6 @@ export default function BlurredBubblesBackground({
 				accumulatedTime = 0
 			}
 
-			ctx.clearRect(0, 0, width, height)
-
 			updatePhysics(t)
 
 			draw()
@@ -293,7 +297,8 @@ export default function BlurredBubblesBackground({
 			animRef.current = requestAnimationFrame(frame)
 		}
 
-		if (window.innerWidth < 640) {
+		// 仅在显式开启 animate 时才跑逐帧动画（默认关闭，只绘制一次静态底图）
+		if (animate) {
 			setTimeout(() => {
 				animRef.current = requestAnimationFrame(frame)
 			}, startDelayMs)
@@ -306,15 +311,15 @@ export default function BlurredBubblesBackground({
 			ro.disconnect()
 			if (resizeTimer !== null) window.clearTimeout(resizeTimer)
 		}
-	}, [colors, regenerateKey])
+	}, [colors, regenerateKey, animate])
 
 	return (
 		<motion.div
 			animate={{ opacity: 1 }}
 			initial={{ opacity: 0 }}
 			transition={{ duration: 1 }}
-			className='fixed inset-0 z-0 overflow-hidden'
-			style={{ filter: 'blur(50px)' }}>
+			className='fixed inset-0 z-0 overflow-hidden'>
+			{/* 画布以 1/8 分辨率绘制后由浏览器平滑放大，无需额外再加一层全屏 CSS 模糊 */}
 			<canvas ref={ref} className='h-full w-full' style={{ display: 'block' }} />
 		</motion.div>
 	)

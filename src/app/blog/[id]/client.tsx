@@ -15,18 +15,22 @@ import { useLanguage } from '@/i18n/context'
 import { useLocalAuthStore } from '@/hooks/use-local-auth'
 import WalineComments from '@/components/WalineComments'
 import { scaleIn } from '@/lib/animations'
+import type { TocItem } from '@/lib/markdown-renderer'
 import type { BlogConfig } from '../types'
 
 type BlogDetailClientProps = {
 	slug: string
 	config: BlogConfig
-	markdown: string
+	/** 服务端渲染好的文章 HTML */
+	html: string
+	/** 服务端生成的目录 */
+	toc: TocItem[]
 	cover?: string
 }
 
 const origin = typeof window !== 'undefined' ? window.location.origin : ''
 
-export default function BlogDetailClient({ slug, config, markdown, cover }: BlogDetailClientProps) {
+export default function BlogDetailClient({ slug, config, html, toc, cover }: BlogDetailClientProps) {
 	const router = useRouter()
 	const { markAsRead } = useReadArticles()
 	const { t } = useLanguage()
@@ -56,7 +60,8 @@ export default function BlogDetailClient({ slug, config, markdown, cover }: Blog
 		<>
 			{/* 博客内容预览 */}
 			<BlogPreview
-				markdown={markdown}
+				html={html}
+				toc={toc}
 				title={title}
 				tags={tags}
 				date={date}

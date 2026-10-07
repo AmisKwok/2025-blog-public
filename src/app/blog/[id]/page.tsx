@@ -6,6 +6,7 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { loadBlogServer, getAllBlogSlugs } from '@/lib/load-blog-server'
 import { getTranslation, detectLanguage } from '@/lib/i18n-server'
+import { renderMarkdown } from '@/lib/markdown-renderer'
 import BlogDetailClient from './client'
 import siteContent from '@/config/site-content.json'
 
@@ -132,6 +133,10 @@ export default async function BlogDetailPage({ params }: Props) {
 		notFound()
 	}
 
+	// 在服务端完成 Markdown / 代码高亮 / 公式渲染
+	// 这样客户端不必再下载并初始化 shiki 与 katex，也不会在渲染时卡住主线程
+	const { html, toc } = await renderMarkdown(blog.markdown)
+
 	// 生成结构化数据
 	const jsonLd = generateArticleJsonLd(blog)
 
@@ -146,7 +151,8 @@ export default async function BlogDetailPage({ params }: Props) {
 			<BlogDetailClient
 				slug={id}
 				config={blog.config}
-				markdown={blog.markdown}
+				html={html}
+				toc={toc}
 				cover={blog.cover}
 			/>
 		</>

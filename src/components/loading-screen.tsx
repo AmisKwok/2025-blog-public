@@ -76,12 +76,11 @@ export function LoadingScreen({ isLoading, onComplete }: LoadingScreenProps) {
 				<motion.div
 					initial={{ opacity: 1 }}
 					exit={{ opacity: 0 }}
-					transition={{ duration: 0.6, ease: 'easeInOut' }}
+					transition={{ duration: 0.35, ease: 'easeInOut' }}
 					className='fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden'
 					style={{ 
-						background: `linear-gradient(135deg, rgba(255, 255, 255, 0.75) 0%, rgba(240, 240, 245, 0.8) 100%)`,
-						backdropFilter: 'blur(24px) saturate(180%)',
-						WebkitBackdropFilter: 'blur(24px) saturate(180%)'
+						// 用不透明渐变代替 backdrop-filter：整屏 24px 背景模糊是首屏最贵的一次绘制
+						background: `linear-gradient(135deg, #ffffff 0%, #f1f1f6 100%)`
 					}}
 				>
 					<motion.div
@@ -91,24 +90,15 @@ export function LoadingScreen({ isLoading, onComplete }: LoadingScreenProps) {
 							duration: 0.8,
 							ease: [0.34, 1.56, 0.64, 1],
 						}}
-						className='relative flex flex-col items-center gap-4 max-sm:gap-3 rounded-3xl border border-white/30 p-12 max-sm:p-6 shadow-2xl max-w-[90vw]'
+						className='relative flex flex-col items-center gap-4 max-sm:gap-3 rounded-3xl border border-white/60 p-12 max-sm:p-6 max-w-[90vw]'
 						style={{
-							background: 'rgba(255, 255, 255, 0.4)',
-							backdropFilter: 'blur(20px) saturate(180%)',
-							WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+							// 背景遮罩已是不透明渐变，这里不需要再叠一层 backdrop-filter
+							background: 'rgba(255, 255, 255, 0.55)',
 							boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.6)'
 						}}
 					>
 						<motion.div
-							animate={{
-								scale: [1, 1.05, 1],
-							}}
-							transition={{
-								duration: 2,
-								repeat: Infinity,
-								ease: 'easeInOut',
-							}}
-							className='relative flex h-24 w-24 max-sm:h-16 max-sm:w-16 items-center justify-center rounded-3xl max-sm:rounded-2xl shadow-2xl overflow-hidden'
+							className='intro-breathe relative flex h-24 w-24 max-sm:h-16 max-sm:w-16 items-center justify-center rounded-3xl max-sm:rounded-2xl shadow-2xl overflow-hidden'
 							style={{ 
 								backgroundColor: brandColor,
 								boxShadow: `0 20px 40px -10px ${brandColor}40`
@@ -117,20 +107,13 @@ export function LoadingScreen({ isLoading, onComplete }: LoadingScreenProps) {
 							<img 
 								src='/loading.jpg' 
 								alt='Loading' 
+								width={96}
+								height={96}
 								className='w-full h-full object-cover'
 							/>
 							
-							<motion.div
-								animate={{
-									scale: [1, 1.2, 1],
-									opacity: [0.3, 0.6, 0.3],
-								}}
-								transition={{
-									duration: 2,
-									repeat: Infinity,
-									ease: 'easeInOut',
-								}}
-								className='absolute inset-0 rounded-3xl max-sm:rounded-2xl'
+							<div
+								className='intro-glow absolute inset-0 rounded-3xl max-sm:rounded-2xl'
 								style={{ 
 									backgroundColor: brandColor,
 									filter: 'blur(8px)',
@@ -149,22 +132,14 @@ export function LoadingScreen({ isLoading, onComplete }: LoadingScreenProps) {
 							}}
 							className='flex flex-col items-center gap-3 max-sm:gap-2'
 						>
-							<motion.h1
-								className='text-3xl max-sm:text-2xl font-bold text-center font-averia text-linear'
+							<h1
+								className='intro-title text-3xl max-sm:text-2xl font-bold text-center font-averia text-linear'
 								style={{ 
 									fontFamily: "'Averia Gruesa Libre', 'ZCOOL QingKe HuangYou', 'ZCOOL KuaiLe', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans TC', 'PingFang TC', sans-serif"
 								}}
-								animate={{
-									opacity: [1, 0.8, 1],
-								}}
-								transition={{
-									duration: 2,
-									repeat: Infinity,
-									ease: 'easeInOut',
-								}}
 							>
 								{meta.title}
-							</motion.h1>
+							</h1>
 							
 							<motion.p
 								initial={{ opacity: 0 }}
@@ -195,34 +170,16 @@ export function LoadingScreen({ isLoading, onComplete }: LoadingScreenProps) {
 							className='mt-4 max-sm:mt-2 flex gap-2'
 						>
 							{[0, 1, 2].map((index) => (
-								<motion.div
+								<div
 									key={index}
-									animate={{
-										scale: [1, 1.3, 1],
-										opacity: [0.5, 1, 0.5],
-									}}
-									transition={{
-										duration: 0.8,
-										repeat: Infinity,
-										delay: index * 0.15,
-										ease: 'easeInOut',
-									}}
-									className='h-2 w-2 max-sm:h-1.5 max-sm:w-1.5 rounded-full'
-									style={{ backgroundColor: brandColor }}
+									className='intro-dot h-2 w-2 max-sm:h-1.5 max-sm:w-1.5 rounded-full'
+									style={{ backgroundColor: brandColor, animationDelay: `${index * 0.15}s` }}
 								/>
 							))}
 						</motion.div>
 
-						<motion.div
-							animate={{
-								rotate: 360,
-							}}
-							transition={{
-								duration: 20,
-								repeat: Infinity,
-								ease: 'linear',
-							}}
-							className='pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-sm:hidden'
+						<div
+							className='intro-ring-cw pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-sm:hidden'
 							style={{
 								width: '400px',
 								height: '400px',
@@ -231,16 +188,8 @@ export function LoadingScreen({ isLoading, onComplete }: LoadingScreenProps) {
 							}}
 						/>
 						
-						<motion.div
-							animate={{
-								rotate: -360,
-							}}
-							transition={{
-								duration: 30,
-								repeat: Infinity,
-								ease: 'linear',
-							}}
-							className='pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-sm:hidden'
+						<div
+							className='intro-ring-ccw pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-sm:hidden'
 							style={{
 								width: '500px',
 								height: '500px',
